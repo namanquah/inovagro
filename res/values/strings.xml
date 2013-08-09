@@ -1,0 +1,134 @@
+<resources>
+
+    <string name="app_name">InovagroFDC1</string>
+    <string name="lbl_Cancel">Cancel</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">Inovagro Field Data</string>
+	<string name="btnlogin_login">Login</string>
+    <string name="btn_Exit">Exit</string>
+    <string name="lbl_UserName">User Name</string>
+    <string name="lbl_Password">Password</string>
+	<string name="hntUsername">UserName</string>
+    <string name="hntPassword">Password</string>
+    
+    <!-- layout for add farmer -->
+    <string name="lblSurname">Surname</string>
+    <string name="lblForenames">Forenames</string>
+    <string name="lblFarmerReferenceNo">Farmer Reference No</string>
+    <string name="lblGender">Gender</string>
+    <string name="lblPhoneNo">PhoneNo</string>
+    <string name="lblDateOfBirth">Date of Birth</string>
+    <string name="lblProvince">Province</string>
+    <string name="lblDistrict">District</string>
+    <string name="lblAdminPost">Admin Post</string>
+    <string name="lblLocality">Locality</string>
+    <string name="lblZone">Zone</string>
+    <string name="lblFarmerGroup">Farmer Group</string>
+    <string name="lblIDType">ID Type</string>
+    <string name="lblFarmerIDNo">Farmer ID No</string>
+    <string name="lblHeadOfHouseholdName">Head of Household Name</string>
+    <string name="lblHeadOfHouseholdGender">Household Head Gender</string>
+    <string name="lblNumberOfDependents">No. Of Dependents</string>
+    <string name="lblIsGroupLeader">Is Group Leader?</string>
+    <string name="lblMale">Male</string>
+    <string name="lblFemale">Female</string>
+    <string name="lblYes">Yes</string>
+    <string name="lblNo">No</string>
+    
+    <!-- layout for add visit -->
+    <string name="lblFarmID">Farm Info</string>
+    <string name="lblVisitDate">Visit Date</string>
+    <string name="lblScheduledDate">Scheduled Date</string>
+    <string name="lblDateStarted">Date Started</string>
+    <string name="lblDateCompleted">Date Completed</string>
+    <string name="lblGPSLong">GPSLong</string>
+    <string name="lblGPSLat">GPS Lat</string>
+    <string name="lblHA_KG_SR_GP">HA</string>
+    <string name="lblCropType">Crop Type</string>
+    <string name="lblSeedVariety">SeedVariety</string>
+    <string name="lblPercentTotalLand">% Total Land</string>
+    <string name="lblPersonMet">Person Met</string>
+    <string name="lblComments">Comments</string>
+    <string name="lblPicture">Picture</string>
+    <string name="lblServiceProviderType">Service Provider Type</string>
+    <string name="lblServiceProvider">Service Provider</string>
+    <string name="lblSubmit">Submit</string>
+    <string name="lblCaptureGPS">Fix GPS Coordinates</string>
+    
+    <!-- for change password form -->
+    <string name="lblOldPassword">Old Password</string>
+    <string name="lblNewPassword">New Password</string>
+    <string name="lblRepatPassword">Repeat Password</string>
+    <string name="lblChangePassword">Change Password</string>
+    
+    <!-- for use on List Results -->
+    <string name="lblFarmerInfo">Farmer Info</string>
+    <string name="lblClearAll">Clear All</string>
+    <string name="lblCheckAll">CheckAll</string>
+    <string name="lblSave">Save</string>
+    <string name="lblAddFarm">Add Farm</string>
+    <string name="lblResetLocalDB">Reset Local DB</string>
+    <string name="lblDelete">Delete</string>
+    
+    <!-- for use on Farm_Season form -->
+    <string name="lblAddFarmSeason">Add Farm to a Season</string>
+    <string name="lblSeason">Season</string>
+    <string name="lblLandOwnership">Land Ownership</string>
+    <string name="lblMechanizationType">Mechanization Type</string>
+    <string name="lblMechanized">Mechanized</string>
+    <string name="lblManual">Manual</string>
+    <string name="lblDemoPlotType">Type of Plot</string>
+    <string name="lblDemoPlot">Demo Plot</string>
+    <string name="lblRegularFarm">Regular Farm</string>
+    <string name="lblFarmSize">Farm Size</string>
+
+    
+    
+    <string name="lblFarmerName">Farmer Name</string>
+    <string name="lblFarmName">Farm Name</string>
+    <string name="lblBasicSearch">Basic Search</string>
+    <string name="lblAdvancedSearch">Advanced Search</string>
+    <string-array name="arryVisitTypes">
+		<item >Ad Hoc</item>
+		<item >Manual Land Prep</item>
+		<item >RIP</item>
+		<item >Plough</item>
+		<item >Disking</item>
+		<item >Seed Distribution</item>
+		<item >Planting</item>
+		<item >Germination</item>
+		<item >Weed1</item>
+		<item >Weed2</item>
+		<item >Weed3</item>
+		<item >Yield Forecast</item>
+		<item >HarvestYield</item>
+		<item >ThreshingInfo</item>
+		<item >Demo Plot Visit</item>
+    </string-array>
+    <color name="lightBlue">#ccccFF</color>
+    <color name="lightRed">#FFCCCC</color>
+     <string-array name="arryOnlineMenu">
+		<item >Add Farmer</item>
+		<item >Add Farm</item>
+		<item >Farm Visit</item>
+		<item >Plan Visit</item>
+		<item >Mange Stored Farmer Data</item>
+		<item >Upload Saved Data</item>
+		<item >Update Configuration Data</item>
+		<item >Go Offline</item>
+		<item >Change Password</item>
+		<item >Exit</item>
+		<item >Add Farmer to season</item>
+		<item >Add Farm to season</item>
+    </string-array>
+    <string-array name="arryOfflineMenu">
+		<item >Add Farmer</item>
+		<item >Add Farm</item>
+		<item >Farm Visit</item>
+		<item >Mange Stored Farmer Data</item>
+		<item >Go Online</item>
+		<item >Exit</item>
+    </string-array>
+   
+</resources>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+  <string name="app_name">InovagroFDC1</string> 
+  <string name="lbl_Cancel">Cancelar</string> 
+  <string name="hello_world">Bem-vindo ao mundo!</string> 
+  <string name="menu_settings">configuracoes</string> 
+  <string name="title_activity_main">Dados de campo da INOVAGRO</string> 
+  <string name="btnlogin_login">Entrar</string> 
+  <string name="btn_Exit">Sair</string> 
+  <string name="lbl_UserName">nome de usuario</string> 
+  <string name="lbl_Password">Palavra-passe</string> 
+  <string name="hntUsername">nome de usuario</string> 
+  <string name="hntPassword">Palavra-passe</string> 
+ <!--  layout for add farmer   --> 
+  <string name="lblSurname">Apelido</string> 
+  <string name="lblForenames">Nome</string> 
+  <string name="lblFarmerReferenceNo">Numero de Referencia do productore</string> 
+  <string name="lblGender">sexo</string> 
+  <string name="lblPhoneNo">Numero de telefone</string> 
+  <string name="lblDateOfBirth">Data de nascimento</string> 
+  <string name="lblProvince">provincia</string> 
+  <string name="lblDistrict">distrito</string> 
+  <string name="lblAdminPost">Posto Admin</string> 
+  <string name="lblLocality">Localidade</string> 
+  <string name="lblZone">Zona</string> 
+  <string name="lblFarmerGroup">Associacao</string> 
+  <string name="lblIDType">Tipo de identificacao</string> 
+  <string name="lblFarmerIDNo">Numero de BI</string> 
+  <string name="lblHeadOfHouseholdName">Nome do chefe de familia</string> 
+  <string name="lblHeadOfHouseholdGender">Sexo do chefe do familia</string> 
+  <string name="lblNumberOfDependents">Numero de dependentes</string> 
+  <string name="lblIsGroupLeader">lider do grupo?</string> 
+  <string name="lblMale">masculino</string> 
+  <string name="lblFemale">Feminino</string> 
+  <string name="lblYes">Sim</string> 
+  <string name="lblNo">Nao</string> 
+  
+ <!--  layout for add visit   --> 
+  <string name="lblFarmID">Informacao da machamba</string> 
+  <string name="lblVisitDate">Data da visita</string> 
+  <string name="lblScheduledDate">Data programada</string> 
+  <string name="lblDateStarted">Data de inÌcio</string> 
+  <string name="lblDateCompleted">Data de Conclusao</string> 
+  <string name="lblGPSLong">GPSLong</string> 
+  <string name="lblGPSLat">GPS Lat</string> 
+  <string name="lblHA_KG_SR_GP">HA</string> 
+  <string name="lblCropType">Tipo de Cultura</string> 
+  <string name="lblSeedVariety">Variedade de semente</string> 
+  <string name="lblPercentTotalLand">% Total Area</string> 
+  <string name="lblPersonMet">Pessoa encontrada</string> 
+  <string name="lblComments">Commentarios</string> 
+  <string name="lblPicture">Foto</string> 
+  <string name="lblServiceProviderType">Tipo de Provedor dos Servicos</string> 
+  <string name="lblServiceProvider">Provedor de servicos</string> 
+  <string name="lblSubmit">submeter</string> 
+  <string name="lblCaptureGPS">Fixar coordenadas de GPS</string> 
+<!--  for change password form 
+  --> 
+  <string name="lblOldPassword">Palavra-passe antigo</string> 
+  <string name="lblNewPassword">Palavra-passe novo</string> 
+  <string name="lblRepatPassword">Repetir a Palavra-passe</string> 
+  <string name="lblChangePassword">Alterar Palavra-passe </string> 
+<!--  for use on List Results 
+  --> 
+  <string name="lblFarmerInfo">Informacao do Productore</string> 
+  <string name="lblClearAll">Limpar tudo</string> 
+  <string name="lblCheckAll">selecionar todos</string> 
+  <string name="lblSave">guardar</string> 
+  <string name="lblAddFarm">Adicionar machamba</string> 
+  <string name="lblResetLocalDB">Redefinir DB local </string> 
+  <string name="lblDelete">Apagar</string> 
+  <string name="lblFarmerName">Nome do Productore</string> 
+  <string name="lblFarmName">Nome da machamba</string> 
+  <string name="lblBasicSearch">Pesquisa Basica</string> 
+  <string name="lblAdvancedSearch">Pesquisa Avancada</string> 
+  
+   <!-- for use on Farm_Season form -->
+    <string name="lblAddFarmSeason">Adicionar machamba a campanha</string>
+    <string name="lblSeason">Epoca</string>
+    <string name="lblLandOwnership">Tipo de propietario da terra</string>
+    <string name="lblMechanizationType">Tipo de Mecanizacao</string>
+    <string name="lblMechanized">Mecanizado</string>
+    <string name="lblManual">Manual</string>
+    <string name="lblDemoPlotType">Tipo de demonstracao</string>
+    <string name="lblDemoPlot">Campo de demonstracao</string>
+    <string name="lblRegularFarm">Machamba regular</string>
+    <string name="lblFarmSize">Area da machamba</string>
+  
+  
+ <string-array name="arryVisitTypes">
+  <item>Visita nao prevista</item> 
+  <item>Preparacao da Terra Manual</item> 
+  <item>Ripper</item> 
+  <item>Lavoura</item> 
+  <item>Gradagem</item> 
+  <item>Distribuicao de sementes</item> 
+  <item>Plantio</item> 
+  <item>Germinacao</item> 
+  <item>Sacha1</item> 
+  <item>Sacha2</item> 
+  <item>Sacha3</item> 
+  <item>Estimativa de rendimento</item> 
+  <item>Rendimento(kg)</item> 
+  <item>Informacao de debulha</item> 
+  <item>Visita de Demo Plot</item> 
+  </string-array>
+  <color name="lightBlue">#ccccFF</color> 
+  <color name="lightRed">#FFCCCC</color> 
+       <string-array name="arryOnlineMenu">
+		<item >Adicionar productore</item>
+		<item >Adicionar machamba</item>
+		<item >Visita da machamba</item>
+		<item >Plano de Visita</item>
+		<item >Gerir informacao armazenada</item>
+		<item >Carregar informacao armazenada</item>
+		<item >Actualisar Configuracoes de dados</item>
+		<item >Trabalhar Offline</item>
+		<item >Alterar Palavra-passe</item>
+		<item >Sair</item>
+		<item >Adicionar productore a campanha</item>
+		<item >Adicionar machamba a campanha</item>
+    </string-array>
+    <string-array name="arryOfflineMenu">
+		<item >Adicionar productore</item>
+		<item >Adicionar machamba</item>
+		<item >Visita da machamba</item>
+		<item >Gerir informacao armazenada</item>
+		<item >Trabalhar Online</item>
+		<item >Sair</item>
+    </string-array>
+  
+</resources>
