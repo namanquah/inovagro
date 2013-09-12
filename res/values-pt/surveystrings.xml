@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+     <!-- For use in the survey -->
+     <string name="lblPrevious">anterior</string>
+     <string name="lblNext">proximo</string>
+     <!--  use to label the forms -->
+     <string name="lblPartI">Parte I</string>
+     <string name="lblPartII">Parte II: bens de propriedade</string>
+     <string name="lblPartIII">Base de dados de producao</string>
+     <string name="lblPartIV">Parte IV:Mercado, Comercio e Credito</string>
+     
+
+
+<string name="Q1a">Nome do produtor</string>
+<string name="Q1a1">Agricultor Apelido</string>
+<string name="Q1a2">Outros nomes</string>
+<string name="Q1b">Genero</string>
+<string-array name="A1b">
+	<item >Homem</item>
+	<item >Mulher</item>
+	</string-array>
+	
+<string name="Q1c">Foto do productor</string>
+<string name="Q1d">Documento de identificacao: (Fazer foto)</string>
+<string-array name="A1d">	
+    <item>A. Nenhuma </item>    
+	<item >Bilhete de Identidade (BI)</item>
+	<item >Certidao de Nascimento</item>
+	<item >Cartao de eleitor</item>
+	<item >NUIT </item>
+</string-array>
+
+<string name="Q1f">1f) localizacao</string>
+<string name="Q1f0">Provnicia</string>
+<string name="Q1f1">Distrito</string>
+<string name="Q1f2">Posto Admin</string>
+<string name="Q1f3">Localidade/Vila</string>
+<string name="Q1f4">Zona</string>
+<string name="Q1f5">Nome de Associacao</string>
+
+<string name="Q1g">1g)Posicao que ocupa na associacao</string>
+<string-array name="A1g"> 
+	<item >Presidente / vice</item>
+	<item >secretario</item>
+	<item >tesoureiro</item>
+	<item >Apenas um membro</item>
+	<item >outros</item>
+    </string-array>
+<string name="Q1h">Estado Civil: </string>
+
+<string-array name="A1h"> 
+	<item >solteiro</item>
+	<item >casado</item>
+	<item >divorciado</item>
+	<item >viuvo/a</item>
+	<item >poligamio</item>
+</string-array>
+
+<string name="Q1i">Quantos membros tem a sua família?</string>
+<string name="Q1i1">Filhos de  0 &#8211; 10 (menino/menina)</string>
+<string name="Q1i2">Filhos 11 &#8211; 19 </string>
+<string name="Q1i3">Filhos 2 0+ </string>
+<string name="Q1i4">Filhos Casados (vivendo consigo) </string>
+<string name="Q1i5">Netos vivendo consigo </string>
+
+<string name="Q1j">Sera que algum de seus familiares ganhar renda alem das plantas cultivadas (exemplo: trabalha na machamba, na loja, vende no mercado, vende credito, vende alcool etc.)?</string>
+<string-array name="A1j">
+    <item >Sim</item>
+	<item >Nao</item>
+	</string-array>
+<string name="Q1k">Se sim, quanto e que eles ganham? NB-Nota-se e mensal, anual etc</string>
+
+<!-- Part II - AssetsOwned  -->
+
+<string name="Q2a">Quantos Hectares tem a sua Machamba?</string>
+<string-array name="A2a">
+    <item> Menos de 1 ha </item>
+	<item> 1 &#8211; 3 ha</item>
+	<item> 3 &#8211; 5 ha</item>
+	<item>Acima de 5 ha</item>
+</string-array>
+<string name="Q2b">Tem DUAT da terra que cultiva?</string>
+<string-array name="A2b">
+    <item >Sim</item>
+	<item >Nao</item>
+	</string-array>
+<string name="Q2c">O DUAT cobre toda área ou parte dela? </string>
+<string-array name="A2c"> 
+	<item >O DUAT cobre toda área?</item> 
+	<item >Ou parte dela?</item> 
+	<item>Nenhuma </item>
+</string-array> 
+<string name="Q2d">Formulario da puntuacao da pobreza </string>
+
+
+<!--  questions part 2d poverty score -->
+<string name="MFIndicatorQ1">1. Quantos componentes tem o agregago familiar?</string>
+<string name="MFIndicatorQ2">2. O pavimento da casa e de (sem contar com a cozinha e casa de banho)?</string>
+<string name="MFIndicatorQ3">3. A casa e construida com paredes de . . . ?</string>
+<string name="MFIndicatorQ4">4. A casa tem . . . ?</string>
+<string name="MFIndicatorQ5">5. Qual é a principal fonte de energía que usam para iluminação desta casa?</string>
+<string name="MFIndicatorQ6">6. Tem o agregago familiar um ferro de engomar (electrico ou a carvao)?</string>
+<string name="MFIndicatorQ7">7. Tem o agregago familiar um relogio (parede, pulso ou bolso)?</string>
+<string name="MFIndicatorQ8">8. Tem o agregago familiar um radio ou aparelhagem?</string>
+<string name="MFIndicatorQ9">9. Tem o agregago familiar uma bicicleta, motorizada, ou carro?</string>
+<string name="MFIndicatorQ10">10.Quantas camas o agregago familiar tem? (de casal, de solteiro, de criancas e beliches)?</string>
+
+<!-- answers part  2d poverty score -->
+
+<string-array name="MFIQ1">
+	<item>A. Oito ou mais</item>
+	<item>B. Sete </item>
+	<item>C. Seis </item>
+	<item>D. Cinco </item>
+	<item>E. Quatro </item>
+	<item>F. Tres </item>
+	<item>G. Dois </item>
+	<item>H. Um </item>
+</string-array>
+
+<string-array name="MFIQ2">
+	<item>A. Sem nada, ou outro </item>
+	<item>B. Adobe (matope), madeira/parquet, mármore/granito, cimento, ou mosaico/tijoleira</item>
+</string-array>
+
+<string-array name="MFIQ3">
+	<item>A. Canico/paus/bambu/palmeira, madiera/zinco, lata/cartao/papel/saco/casca, outro</item>
+	<item>B. Bloco de adobe, paus maticados (pau a pique), bloco de cimento ou tijolo </item>
+</string-array>
+
+<string-array name="MFIQ4">
+	<item>A. Nenhum, ou outro </item>
+	<item>B. Latrina (de qualquer tipo) </item>
+	<item>C. Retrete ligada a fossa septica</item>
+</string-array>
+
+<string-array name="MFIQ5">
+	<item>A. Lenha, ou bateria</item>
+	<item>B. Gas, petroleo/parafina/kerosene, ou vela</item>
+	<item>C. Outro </item>
+	<item>D. Electricidade, ou gerador/painel solar </item>
+</string-array>
+
+<string-array name="MFIQ6">
+	<item>A. Nao </item>
+	<item>B. Sim </item>
+</string-array>
+
+<string-array name="MFIQ7">
+	<item>A. Nao </item>
+	<item>B. Sim </item>
+</string-array>
+
+<string-array name="MFIQ8">
+	<item>A. Nao </item>
+	<item>B. So Radio </item>
+	<item>C. Aparelhagem (independente de radio)</item>
+</string-array>
+
+<string-array name="MFIQ9">
+	<item>A. Nao </item>
+	<item>B. So bicicleta </item>
+	<item>C. Motorizada ou carro (independente de bicicleta) </item>
+</string-array>
+
+<string-array name="MFIQ10">
+	<item>A. Nenhuma </item>
+	<item>B. Uma </item>
+	<item>C. Duas ou mais</item>
+</string-array>
+
+<!-- Part III Production Database -->
+
+
+
+<string name="Q3a">3a) Ja cultivou amendoim antes?</string>
+<string-array name="A3a">
+    <item >Sim</item>
+	<item >Nao</item>
+	</string-array>
+<string name="Q3b">3b) Se ja, por quanto tempo cultivou?</string>
+<string-array name="A3b">
+	<item >1 &#8211;3 anos</item>
+	<item >4 &#8211;6 anos</item>
+	<item >Mais de 6 anos </item>
+	<item>Nenhuma </item>
+</string-array>
+
+<string name="Q3c">3c) Que variedade de Amendoim tem cultivado?</string>
+<string name="Q3c1">1</string>
+<string name="Q3c2">2</string>
+<string name="Q3c3">3</string>
+
+<string name="Q3d">3d) Mencione as outras culturas que cultivam e as suas respectivas areas. </string>
+<string-array name="A3d">
+    <item >i. Milho</item>
+	<item >ii. Soja</item>
+	<item >iii. feijao boer</item>
+	<item >iv. Gergelim</item>
+	<item >v. Mandioca</item>
+	<item >vi. Horticolas</item>
+	<item >vii. Outras</item>
+</string-array>
+
+<string name="Q3e">3e) Area cultivada por amendoim nos ultimos 3 anos?</string>
+<string name="Q3e0">Área cultivada (Ha) “Deve estimar”</string>
+<string name="Q3e1">2010/2011</string>
+<string name="Q3e2">2011/2012</string>
+<string name="Q3e3">2012/2013</string>
+
+<string name="Q3f">3f) Rendimento do Amendoim nos últimos 3 anos</string>
+
+<string name="Q3f1">2010/2011Rendimento(Kg)</string>
+<string name="Q3f2">2011/2012 Rendimento(Kg)</string>
+<string name="Q3f3">2012/2013 Rendimento(Kg)</string>
+<string name="Q3f4">2010/2011 Estava cascado(Sim/Nao)</string>
+<string name="Q3f5">2011/2012 Estava cascado(Sim/Nao)</string>
+<string name="Q3f6">2012/2013 Estava cascado(Sim/Nao)</string>
+
+
+<string name="Q3g">3g) Proposito do cultivo de Amendoim (Deve estimar em kg)</string>
+<string name="Q3g1">Consumo Quantidade </string>
+<string name="Q3g2">Venda Quantidade </string>
+
+<string name="Q3h">3h)Ja recebeu alguma formacao na area agraria? </string>
+<string-array name="A3h">
+    <item >Sim</item>
+	<item >Nao</item>
+	</string-array>
+<string name="Q3i">3i)Se sim, em que area?</string>
+
+
+
+<string name="Q3k">3j) Como voce prepara a sua terra e a sementeira plantio? (Assinalar)</string>
+<string-array name="A3k">
+	<item >Manual</item>
+	<item >Mecanizado</item>
+</string-array>
+<string name="Q3k1">Lavoura</string>
+<string name="Q3k2">Gradagem 1</string>
+<string name="Q3k3">Gradagem 2</string>
+<string name="Q3k4">0 tillage</string>
+<string name="Q3k5">Sementeira</string>
+<string-array name="A3k1">
+    <item >nao aplicavel</item>
+    <item >Manual</item>
+	<item >Mecanizada</item>
+</string-array>
+<string-array name="A3k2">
+    <item >nao aplicavel</item>
+    <item >Manual</item>
+	<item >Mecanizada</item>
+</string-array>
+<string-array name="A3k3">
+    <item >nao aplicavel</item>
+    <item >Manual</item>
+	<item >Mecanizada</item>
+</string-array>
+<string-array name="A3k4">
+    <item >nao aplicavel</item>
+    <item >Manual</item>
+	<item >Mecanizada</item>
+</string-array>
+<string-array name="A3k5">
+    <item >nao aplicavel</item>
+    <item >Manual</item>
+	<item >Mecanizada</item>
+</string-array>
+
+
+<string name="Q3kb">3k)Como controla as Ervas daninhas? (Assinalar)</string>
+<string-array name="A3kb">
+	<item >nao aplicavel</item>
+	<item >Enxada</item>
+	<item >Herbicidas</item>
+	<item >Ambos os métodos</item>
+</string-array>
+
+<string name="Q3l">3l) A sua Debulha é Manual ou Mecanizada?</string>
+<string-array name="A3l">
+    <item >nao aplicavel</item>
+    <item >Manual</item>
+	<item >Mecanizada</item>
+</string-array>
+
+<string name="Q3m">3m)Quanto tempo levou para fazer a debulha na época passada?  _ dias</string>
+
+
+<!-- second part of Q3 wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww  -->
+
+<string name="Q3n">3n) Dispõe de algum destes serviços?  (Assinalar) </string>
+
+<string name="Q3n1">Preparacao do solo</string>
+<string name="Q3n2">Fertilizacao</string>
+<string name="Q3n3">Sachas</string>
+<string name="Q3n4">Colheita</string>
+<string name="Q3n5">Transporte</string>
+
+<string-array name="A3n1a">
+	<item >Sim</item>
+	<item >Nao</item>
+	</string-array>
+<string-array name="A3n1b">	
+	<item >pagou</item>
+	<item >Nao pagou</item>
+</string-array>
+<string name="A3n1c">Montante</string>
+
+<string-array name="A3n2a">
+	<item >Sim</item>
+	<item >Nao</item>
+	</string-array>
+<string-array name="A3n2b">	
+	<item >pagou</item>
+	<item >Nao pagou</item>
+</string-array>
+<string name="A3n2c">Montante</string>
+
+
+<string-array name="A3n3a">
+	<item >Sim</item>
+	<item >Nao</item>
+	</string-array>
+<string-array name="A3n3b">	
+	<item >pagou</item>
+	<item >Nao pagou</item>
+</string-array>
+<string name="A3n3c">Montante</string>
+
+
+<string-array name="A3n4a">
+	<item >Sim</item>
+	<item >Nao</item>
+	</string-array>
+<string-array name="A3n4b">	
+	<item >pagou</item>
+	<item >Nao pagou</item>
+</string-array>
+<string name="A3n4c">Montante</string>
+
+
+<string-array name="A3n5a">
+	<item >Sim</item>
+	<item >Nao</item>
+	</string-array>
+<string-array name="A3n5b">	
+	<item >pagou</item>
+	<item >Nao pagou</item>
+</string-array>
+<string name="A3n5c">Montante</string>
+
+
+
+<string name="Q3o">3o) Se pagou, como pagou por eles? </string>
+
+<string name="Q3p">3p)Como Seca seu amendoim?</string>
+<string-array name="A3p">	
+	<item >nao aplicavel</item>
+	<item >Ao Sol</item>
+	<item >Nos Secadores</item>
+	<item >Ambos os métodos </item>
+</string-array>
+
+<string name="Q3q">3q)Qual a fonte de Semente (Assinalar)</string>
+
+<string name="Q3q1">Semente propria</string>
+<string name="Q3q2">Semente comprada </string>
+<string name="Q3q3">Semente oferecida</string>
+
+<string-array name="A3q1">
+	<item>Nao aplicavel</item>
+	<item>Formal</item>
+	<item>Informal</item>	
+</string-array>
+
+
+<string-array name="A3q2">
+	<item>Nao aplicavel</item>
+	<item>Formal</item>
+	<item>Informal</item>	
+</string-array>
+
+
+<string-array name="A3q3">
+	<item>Nao aplicavel</item>
+	<item>Formal</item>
+	<item>Informal</item>	
+</string-array>
+
+<string name="Q3qi">i. Se for comprada, que fornece a semente? ___</string>
+<string name="Q3qii">ii. Quantos Kg de semente comprou? ___</string>
+<string name="Q3r">3r)Recebeu algum servico de extensão?</string>
+<string-array name="A3r">
+	<item>Sim</item>
+	<item>Nao</item>
+</string-array>
+
+<string name="Q3ri"> i. Si Sim, quem providencio? __</string>
+<string name="Q3rii">ii. Quantas vezes por mes foram visitadas pelo extensionista?__</string>
+<string name="Q3riii">iii.Pagaste pelos services de extensao?</string>
+<string-array name="A3riii">
+	<item>Sim</item>
+	<item>Nao</item>
+</string-array>
+<string name="Q3riv">iv.Se nao pagas pelos services de extensao, gostaria de pagar por eles?</string>
+<string-array name="A3riv">
+	<item>Sim</item>
+	<item>Nao</item>
+</string-array>
+<string name="Q3rv">v. Se sim, como devia ser os pagamentos? ___</string>
+
+<string name="Q3s">3s)Ja cultivou alguma vez gergelim? </string>
+<string-array name="A3s">
+	<item>Sim</item>
+	<item>Nao</item>
+</string-array>
+<!-- 
+<string name="Q3si">i. Are you still growing sesame?</string>
+<string-array name="A3si">
+	<item>Sim</item>
+	<item>Nao</item>
+</string-array>
+
+-->
+<string name="Q3sii">Se sim, porque parou?</string>
+ 
+ 
+
+<!-- for part IV- Market Trade Credit ###################### -->
+
+
+<string name="Q4a">4a)Voce tem conta bancaria ou regime de poupanca informal? </string>
+<string-array name="A4a">
+	<item>Sim</item>
+	<item>Nao</item>
+</string-array>
+<string name="Q4i">i. Se sim, como isso funciona_______</string>
+<string name="Q4b">4b)Receebeu algum credio no ano passado?</string>
+<string-array name="A4b">
+	<item>Sim</item>
+	<item>Nao</item>
+</string-array>
+
+<string name="Q4bi">i. Se sim, O credito foi?</string>
+<string-array name="A4bi">
+    <item>Nao aplicavel</item>
+	<item>Formal</item>
+	<item>Informal</item>	
+</string-array>
+
+<string name="Q4bii">ii. Quem providencio o credito? ___</string>
+<string name="Q4biii">iii. O credito teve alguma taxa de juro?</string>
+<string-array name="A4biii">
+	<item>Sim</item>
+	<item>Nao</item>
+</string-array>
+
+<string name="Q4biv">iv. Se sim, quanto foi?___</string>
+<string name="Q4c">4c)Qual foi o tipo de credito</string>
+
+<string-array name="A4c">
+	<item>Dinheiro</item>
+	<item>Semente</item>
+	<item>Mecanizacao</item>
+	<item>Fertilizantes</item>
+	<item>Sacha</item>
+	<item>Colheita</item>
+</string-array>
+
+<string name="Q4d">4d) Se foi dinheiro, qual foi o valor de credito? ___</string>
+<string name="Q4e">4e) Quanto dinheiro delvoveste?__</string>
+<string name="Q4f">4f) Comercializacao de amendoim nas ultimas 3 campanhas agriculas</string>
+
+<string name="Q4f1">campanha agricula 2010/2011 </string>
+<string name="Q4f2">campanha agricula 2011/2012 </string>
+<string name="Q4f3">campanha agricula 2012/2013 </string>
+
+<string name="Q4f1a">Volume</string>
+<string name="Q4f1b">Lugar vendido</string>
+<string name="Q4f1c">Comprador</string>
+<string name="Q4f1d">Preco/Kg</string>
+
+<string name="Q4f2a">Volume</string>
+<string name="Q4f2b">Lugar vendido</string>
+<string name="Q4f2c">Comprador</string>
+<string name="Q4f2d">Preco/Kg</string>
+
+<string name="Q4f3a">Volume</string>
+<string name="Q4f3b">Lugar vendido</string>
+<string name="Q4f3c">Comprador</string>
+<string name="Q4f3d">Preco/Kg</string>
+
+<string name="Q4g">4g). Tem algum contrato de producao de amendoim com alguma empresa/companhia ou ONG? </string>
+<string-array name="A4g">
+	<item>Sim</item>
+	<item>Nao</item>
+</string-array>
+<string name="Q4g2">Se sim, Qual? ___</string>
+
+ 
+
+</resources>
+

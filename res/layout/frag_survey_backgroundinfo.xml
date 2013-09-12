@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/txtSurname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lblSurname"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/edtQ1a1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName" >
+
+        
+    </EditText>
+
+    <TextView
+        android:id="@+id/txtForeNames"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lblForenames"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/edtQ1a2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/txtQ1b"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"        
+        android:text="@string/Q1b"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+	<Spinner
+        android:id="@+id/spnQ1b"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content" >
+
+	    <Button
+	        android:id="@+id/btnQ1c"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/Q1c" />
+
+	    <TextView
+	        android:id="@+id/txtQ1c"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/Q1c" />
+
+	</LinearLayout>
+  
+<TextView
+        android:id="@+id/txtQ1d"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Q1d"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+    <Spinner
+        android:id="@+id/spnQ1d"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+	    
+         <Button
+        android:id="@+id/btnQ1d"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Q1d" />
+
+         <TextView
+             android:id="@+id/txtQ1d1"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="@string/Q1d" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+	    
+         <Button
+        android:id="@+id/btnQ1d2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Q1d2" />
+
+         <TextView
+             android:id="@+id/txtQ1d12"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="@string/Q1d2" />
+
+    </LinearLayout>
+   <!--    
+    <EditText
+        android:id="@+id/edtQ1d"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:editable="false"
+        android:ems="10"
+        android:enabled="false"
+        android:inputType="text" />
+-->
+    <!-- location stuff: consider using shorter label names eg Q1f0 from survey strings  -->
+    
+    
+    <TextView
+        android:id="@+id/txtProvince"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lblProvince"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Spinner
+        android:id="@+id/spnProvince"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/txtDistrict"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lblDistrict"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+    <Spinner
+        android:id="@+id/spnDistrict"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lblAdminPost"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Spinner
+        android:id="@+id/spnAdminPost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lblLocality"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Spinner
+        android:id="@+id/spnLocality"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lblZone"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Spinner
+        android:id="@+id/spnZone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lblFarmerGroup"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Spinner
+        android:id="@+id/spnFarmerGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    
+    <!--  end of location stuff, -->
+    
+    <TextView
+        android:id="@+id/txtQ1g"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Q1g"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+    <Spinner
+        android:id="@+id/spnQ1g"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Q1h"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Spinner
+        android:id="@+id/spnQ1h"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Q1i"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Q1i1"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <EditText
+            android:id="@+id/edtQ1i1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="@string/lblMale"
+            android:inputType="number" >
+
+        </EditText>
+
+        <EditText
+            android:id="@+id/edtQ1i1b"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="@string/lblFemale"
+            android:inputType="number" >
+
+        </EditText>
+    </LinearLayout>
+   
+   <TextView
+        android:id="@+id/textView90"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Q1i2"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content" >
+
+       <EditText
+           android:id="@+id/edtQ1i2"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_weight="1"
+           android:ems="10"
+           android:hint="@string/lblMale"
+           android:inputType="number" >
+       </EditText>
+
+      <EditText
+    android:id="@+id/edtQ1i2b"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:ems="10"
+    android:hint="@string/lblFemale"
+    android:inputType="number" />
+      
+   </LinearLayout>
+
+
+
+    <TextView
+        android:id="@+id/textView100"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Q1i3"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+   <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+
+<EditText
+    android:id="@+id/edtQ1i3"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:ems="10"
+    android:hint="@string/lblMale"
+    android:inputType="number" />
+
+ <EditText
+    android:id="@+id/edtQ1i3b"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:ems="10"
+    android:hint="@string/lblFemale"
+    android:inputType="number" />
+ 
+</LinearLayout>
+   <TextView
+        android:id="@+id/textView110"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Q1i4"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+   <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+<EditText
+    android:id="@+id/edtQ1i4"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:ems="10"
+    android:hint="@string/lblMale"
+    android:inputType="number" />
+
+<EditText
+    android:id="@+id/edtQ1i4b"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:ems="10"
+    android:hint="@string/lblFemale"
+    android:inputType="number" />
+</LinearLayout>   
+
+ <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Q1i5"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+ <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+<EditText
+    android:id="@+id/edtQ1i5"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:ems="10"
+    android:hint="@string/lblMale"
+    android:inputType="number" />
+
+<EditText
+    android:id="@+id/edtQ1i5b"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:ems="10"
+    android:hint="@string/lblFemale"
+    android:inputType="number" />
+
+</LinearLayout>      
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Q1j"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+   <Spinner
+        android:id="@+id/spnQ1j"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+  
+   <TextView
+        android:id="@+id/textView131"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Q1k"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+<EditText
+        android:id="@+id/edtQ1k"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10" />
+    
+    
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/btnPrevious"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lblPrevious" />
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lblNext" />
+
+        
+
+    </LinearLayout>
+            
+        </LinearLayout>
+    </ScrollView>
