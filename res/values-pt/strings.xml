@@ -117,6 +117,8 @@
 		<item >Actualisar Configuracoes de dados</item>
 		<item >Trabalhar Offline</item>
 		<item >Alterar Palavra-passe</item>
+		<item >Inquerito Agosto 2013</item>
+		<item >Carregar Inquerito informacao armazenada</item>
 		<item >Sair</item>
 		<item >Adicionar productore a campanha</item>
 		<item >Adicionar machamba a campanha</item>
@@ -125,9 +127,11 @@
 		<item >Adicionar productore</item>
 		<item >Adicionar machamba</item>
 		<item >Visita da machamba</item>
+		<item >Inquerito Agosto 2013</item>
 		<item >Gerir informacao armazenada</item>
 		<item >Trabalhar Online</item>
 		<item >Sair</item>
     </string-array>
   
+   
 </resources>

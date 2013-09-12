@@ -2,8 +2,10 @@ package com.inovagro.inovagrofdc1;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,6 +18,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -29,7 +33,9 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -42,9 +48,14 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 	private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 5; // in Meters  -1
     private static final long MINIMUM_TIME_BETWEEN_UPDATES = 2000; // in Milliseconds, 1000
     protected LocationManager locationManager;
+    
 
 	//intent result no for taking picture
 	private final int RES_IMAGE_CAPTURE=2020;
+	private final int RESIZE_IMAGE_CAPTURED=2021;
+	private final int RESIZE_IMAGE_CAPTUREDorig=2022;
+	private String captured_image; //use this to store path of the captured image for use in both TextView/button and onActivityResult fxns
+	
 	
 	static int OfflineState=0; //can be online or offline - used accros the entire application
 	static int PurposeOfSearch;    //this is CLOSELY ALLIED TO THE MENU CHOICE in main Menu List. unlike actionType 
@@ -52,6 +63,14 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 	static String CurrentFarmerName;
 	private int glbActionType; //action type to be used in results ie after post
 	
+	static HashMap<String, String> gblPartIValues;
+	static HashMap<String, String> gblPartIIValues;
+	static HashMap<String, String> gblPartIIIaValues;
+	static HashMap<String, String> gblPartIIIbValues;
+	static HashMap<String, String> gblPartIVValues;
+	static HashMap<String, String> gblAllSurveyValues; //new and different from that in confirm form
+	
+	//HashMap<String, String> values = new HashMap<String, String>();
 	
 	////////////--------v definitions for menu
 	public static  String mnuAddFarmer;
@@ -61,11 +80,14 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
     public static  String mnuExit;
     public static  String mnuAddFarm;
     
+    public static  String mnuSurvey2013;
+    
     public static  String mnuPlanVisits;
     public static  String mnuViewPlan;
     public static  String mnuGoOnline ;
     public static  String mnuGoOffline;
     public static  String mnuUploadSavedData;
+    public static String mnuUploadSavedSurvey2013Data;
     ////---^
 	   
 	@Override
@@ -110,15 +132,27 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 		 mnuFarmVisit=OnlineMenu[2];
 		 mnuPlanVisits=OnlineMenu[3];
 		 mnuViewPlan=OnlineMenu[4];
+		 
 		 mnuUploadSavedData=OnlineMenu[5];
 		 mnuSynchronize=OnlineMenu[6];
 		 mnuGoOffline=OnlineMenu[7];
 	     mnuChangePassword=OnlineMenu[8];
-	     mnuExit=OnlineMenu[9];
-	      
-	     mnuGoOnline=OfflineMenu[4] ;
 	     
+	      
 	    
+	     mnuSurvey2013=OnlineMenu[9];
+	     mnuUploadSavedSurvey2013Data=OnlineMenu[10];
+	    mnuExit=OnlineMenu[11];
+	    
+	    mnuGoOnline=OfflineMenu[5] ;
+	    
+	    //create arrays to hold survey results:
+	     gblPartIValues= new HashMap<String, String>();
+	     gblPartIIValues= new HashMap<String, String>();
+	     gblPartIIIaValues= new HashMap<String, String>();
+	     gblPartIIIbValues= new HashMap<String, String>();
+		 gblPartIVValues= new HashMap<String, String>();
+		 gblAllSurveyValues= new HashMap<String, String>();
 		
 	}
 //this is a call back function from menulist
@@ -198,6 +232,7 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
             	OfflineState=OnLineMode;
             	MainMenuList mml=(MainMenuList)frag;
             	mml.changeMenu(mnuGoOffline, position);
+            	//Toast.makeText(getApplicationContext(), "Position is "+position, Toast.LENGTH_LONG).show();
             	//change the text in the menu to Online
             	//change the background from Red to Blue
             }
@@ -213,7 +248,18 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
             	postData( actionUPLOAD_SAVED_VISIT_DATA, data); //fetch the data in the postData or PostThread
             
             }
+            //mnuUploadSavedData
+            if (id.equals(mnuUploadSavedSurvey2013Data)){
+            	HashMap<String,String> data= new HashMap<String, String>();
+            	String strData;
+            	DBAdapter db = new DBAdapter(getApplicationContext());
+ 				db.open();
+ 				strData =db.uploadSavedSurvey2013Data_getInsertValuesPart();
+ 				db.close();
+            	data.put("valuesPart", strData);
+            	postData( actionUPLOAD_SAVED_SURVEY2013_DATA, data); //fetch the data in the postData or PostThread
             
+            }
             if(id.equals(mnuChangePassword)){
             	//short circuit, not passing to fragment and back:
             	glbActionType =actionCHANGE_PASSWORD;
@@ -229,6 +275,27 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
             	   fragmentTransaction.replace(TargetPane, fragment); //as .add
                    fragmentTransaction.addToBackStack(null);
                    fragmentTransaction.commit(); 
+            }
+            if(id.equals(mnuSurvey2013)){
+            	showSuveyAug2013Fragment();
+            	/*
+            	//short circuit, not passing to fragment and back:
+            	glbActionType =actionSURVEY2013;
+            	//initialize the values array to hold new data (make it empty). 
+            	gblPartIValues.clear();
+            	gblPartIIValues.clear();
+            	gblPartIIIaValues.clear();
+            	gblPartIIIbValues.clear();
+            	gblPartIVValues.clear();
+            	  
+           	   Calendar cal= Calendar.getInstance();
+           	   	long timeStamp=cal.getTimeInMillis();
+           	   	String uniqueID=""+timeStamp+"_"+Login.UserID;
+           	   	gblPartIValues.put("SurveyDataID", uniqueID);  //will not be overwritten inspite of back and forth while collecting data. will be lost if new data collected again.
+            	fragment=new SurveyBackgroundFragment();
+            	   fragmentTransaction.replace(TargetPane, fragment); //as .add
+                   fragmentTransaction.addToBackStack(null);
+                   fragmentTransaction.commit(); */
             }
           
 	}//on item selected
@@ -505,8 +572,17 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 			 addr=BaseURL+"?action=ADD_FARMS_YEARLY_DATA";
 			 action=actionType;
 			 glbActionType=action;
+			 break;			 
+		 case actionPOST_AUGUST2013_SURVEY:
+			 addr=BaseURL+"?action=POST_AUGUST2013_SURVEY";
+			 action=actionType;
+			 glbActionType=action;
+			 break;	
+		 case actionUPLOAD_SAVED_SURVEY2013_DATA:
+			 addr=BaseURL+"?action=UPLOAD_SAVED_SURVEY2013_DATA";
+			 action=actionType;
+			 glbActionType=action;
 			 break;
-			 
 		}
 		Log.v("postData msg","OfflineState="+OfflineState);
 		if (MainActivity.OfflineState ==OnLineMode){
@@ -514,6 +590,7 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 			new PostDataTask(action,addr,MainActivity.this, values).execute();
 		}
 		if (MainActivity.OfflineState ==OffLineMode){  //is offline. Currently saves only visit data
+			DBAdapter db;
 			//pending: update to save other types of data too eg farmer, farm etc
 			Log.v("postData msg","OFFline_processing");
 			switch ( actionType){
@@ -532,7 +609,8 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 			 case     visitHARVESTYIELD:
 			 case     visitTHRESHINGINFO:
 			 case     visitDEMO_PLOT_VISIT:
-				 DBAdapter db = new DBAdapter(getApplicationContext());
+			 
+				  db = new DBAdapter(getApplicationContext());
 				db.open();
 				String res=db.saveVisitDataOffline(values);
 				if (res.endsWith("successOK")){
@@ -546,7 +624,22 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 				db.close();
 				
 				 break;
-			
+			 case actionPOST_AUGUST2013_SURVEY:
+				  db = new DBAdapter(getApplicationContext());
+					db.open();
+					String res1=db.saveSurvey2013DataOffline(values);
+					if (res1.endsWith("successOK")){
+						Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
+						//close the dialog box, or reset the values.
+						//getSupportFragmentManager().popBackStack();
+						showSuveyAug2013Fragment();
+					}
+					else {//
+						Toast.makeText(getApplicationContext(), "Sorry, Local Save failed", Toast.LENGTH_LONG).show();
+					}
+					db.close();
+
+				 break;
 			default:
 				Toast.makeText(getApplicationContext(), "Sorry, You can do this online only", Toast.LENGTH_LONG).show();
 					 
@@ -567,6 +660,7 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 		Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
 		//close the dialog box, or reset the values.
 		getSupportFragmentManager().popBackStack();
+		
 		}
 		
 		/*
@@ -623,6 +717,53 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 				
 			}
 		}
+		//actionPOST_AUGUST2013_SURVEY
+		if (glbActionType==actionPOST_AUGUST2013_SURVEY){ //pop all forms
+			
+			if (result.endsWith("successOK")){
+				getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                
+				
+			//	-->showSuveyAug2013Fragment();
+				//pop all forms and show blank new form
+				//getSupportFragmentManager().popBackStack();
+				//getSupportFragmentManager().popBackStack(arg0, arg1)
+				//perhaps pop enought and wipe the old values.
+				
+				/*
+				glbActionType =actionSURVEY2013;
+            	//initialize the values array to hold new data (make it empty). 
+            	gblPartIValues.clear();
+            	gblPartIIValues.clear();
+            	gblPartIIIaValues.clear();
+            	gblPartIIIbValues.clear();
+            	gblPartIVValues.clear();
+            	  
+           	   Calendar cal= Calendar.getInstance();
+           	   	long timeStamp=cal.getTimeInMillis();
+           	   	String uniqueID=""+timeStamp+"_"+Login.UserID;
+           	   	gblPartIValues.put("SurveyDataID", uniqueID);  //will not be overwritten inspite of back and forth while collecting data. will be lost if new data collected again.
+           	   	  fragment=new SurveyBackgroundFragment();
+            	   fragmentTransaction.replace(TargetPane, fragment); //as .add
+                   fragmentTransaction.addToBackStack(null);
+                   fragmentTransaction.commit(); 
+				*/
+				
+			}//if successOK
+		}
+		
+		if (glbActionType==actionUPLOAD_SAVED_SURVEY2013_DATA){ //clear local table bc was successful.
+			if (result.endsWith("successOK")){
+			 DBAdapter db = new DBAdapter(getApplicationContext());
+				db.open();
+				db.wipeOfflineSurvey2013Data();
+				db.initOfflineSurvey2013Tables();
+				db.close();
+			}
+			if (result.endsWith("failedOK")){
+				Toast.makeText(getApplicationContext(), "No data or bad data to upload", Toast.LENGTH_LONG).show();
+			}
+		}
 		/*
 		 *  //will need to pass actionTypes to doAfterPostData to specialize the result handling.
 
@@ -670,14 +811,31 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
             startActivityForResult(intent, TAKE_PHOTO_CODE);
             */
 	}
+	public void takePhoto(Fragment srcFragment, View v, String prefix){//take picture
+		
+		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+		  String thePath=prefix+"_"+System.currentTimeMillis() + ".jpg";
+		  //File f = new File(Environment.getExternalStorageDirectory(),  thePath);
+	       // intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f)); //take this out if i intend to use onactivityResult 2 save file	        
+	        //Uri mUri = Uri.fromFile(f);
+	        //System.out.println("filepath="+mUri.toString()); 
+	        intent.putExtra("thePath", thePath);
+	        captured_image=thePath;  //this is a class variable!
+	        startActivityForResult(intent, RESIZE_IMAGE_CAPTURED);
+	        
+	        ((TextView)v).setText(thePath);
+	        
+		   
+	}
 	public void takePhoto1(){//take picture
 		  Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE); 
-		   String captured_image = System.currentTimeMillis() + ".jpg";
+		  /*
+		  String captured_image = System.currentTimeMillis() + ".jpg";
 		    File file = new File(Environment.getExternalStorageDirectory(), captured_image); 
 		    captured_image = file.getAbsolutePath();
 		    Uri outputFileUri = Uri.fromFile(file); 
 		    intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri); 
-		    intent.putExtra("return-data", true);  
+		    intent.putExtra("return-data", true);  */  
 		    startActivityForResult(intent, RES_IMAGE_CAPTURE);
 		    /*
 		     *  //this is stock camera code.
@@ -746,6 +904,49 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 				//Toast.makeText(getApplicationContext(), "Local Deleted FAILED", Toast.LENGTH_LONG).show();
 			//}
 	}
+	
+	public void showNextSurveyForm(int FormPart){ //show partI, IIa, IIb etc
+int TargetPane;
+		
+		if (mTwoPane) {
+	          TargetPane=R.id.rightFrame;
+		}
+		else
+		{
+		      TargetPane=R.id.leftFrame;			
+		}
+		FragmentManager fragmentManager = getSupportFragmentManager();	
+		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+		android.support.v4.app.Fragment fragment=null;
+		//
+		switch  (FormPart){
+		/*
+		case surveyPartI: 
+			fragment = new SurveyProductionDB1();
+			break;*/
+		case surveyPartII: 
+			//Toast.makeText(getApplicationContext(), "show assets-2", Toast.LENGTH_LONG).show();
+			fragment = new SurveyAssetsOwnedFragment();
+			break;
+		case surveyPartIIIa: 
+			//Toast.makeText(getApplicationContext(), "show prod db-3a", Toast.LENGTH_LONG).show();
+			fragment = new SurveyProductionDB1();
+			break;
+		case surveyPartIIIb: 
+			//Toast.makeText(getApplicationContext(), "show prod db-3b", Toast.LENGTH_LONG).show();
+			fragment = new SurveyProductionDB2();
+			break;
+		case surveyPartIV: 
+			fragment = new SurveyMarketTradeCreditFragment();
+			break;
+		case surveyConfirmData:
+			fragment = new SurveyConfirmData();
+			break;
+		}
+		fragmentTransaction.replace(TargetPane , fragment);
+		fragmentTransaction.addToBackStack(null);
+		fragmentTransaction.commit();
+	}
 	//**************---^---general call backs***************************/
 	
 	public void showAddFarmSeasonDetailFragment(int FarmID){
@@ -764,15 +965,304 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 			FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 			android.support.v4.app.Fragment fragment=null;
 			//show the new fragment -add farm_season data form
-			fragment = new AddFarmSeasonDetailFragment(FarmID, null);//update query 
-						//on pphp backend to return farm nanme so i can pass it
-			fragmentTransaction.replace(TargetPane , fragment);
-			fragmentTransaction.addToBackStack(null);
-			fragmentTransaction.commit();
+			glbActionType =actionSURVEY2013;
+        	//initialize the values array to hold new data (make it empty). 
+        	gblPartIValues.clear();
+        	gblPartIIValues.clear();
+        	gblPartIIIaValues.clear();
+        	gblPartIIIbValues.clear();
+        	gblPartIVValues.clear();
+        	  
+       	   Calendar cal= Calendar.getInstance();
+       	   	long timeStamp=cal.getTimeInMillis();
+       	   	String uniqueID=""+timeStamp+"_"+Login.UserID;
+       	   	gblPartIValues.put("SurveyDataID", uniqueID);  //will not be overwritten inspite of back and forth while collecting data. will be lost if new data collected again.
+       	   	  fragment=new SurveyBackgroundFragment();
+        	   fragmentTransaction.replace(TargetPane, fragment); //as .add
+               fragmentTransaction.addToBackStack(null);
+               fragmentTransaction.commit(); 
 			
 	}
 	
+	public void showSuveyAug2013Fragment(){
+		int TargetPane;
+		
+		if (mTwoPane) {
+	          TargetPane=R.id.rightFrame;
+		}
+		else
+		{
+		      TargetPane=R.id.leftFrame;			
+		}
+			
+			FragmentManager fragmentManager = getSupportFragmentManager();	
+			FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+			android.support.v4.app.Fragment fragment=null;
+			//short circuit, not passing to fragment and back:
+        	glbActionType =actionSURVEY2013;
+        	//initialize the values array to hold new data (make it empty). 
+        	gblPartIValues.clear();
+        	gblPartIIValues.clear();
+        	gblPartIIIaValues.clear();
+        	gblPartIIIbValues.clear();
+        	gblPartIVValues.clear();
+        	intializeSurveyData();  
+        	/*  //now collecting this timestamp info only at saving time. 
+       	   Calendar cal= Calendar.getInstance();
+       	   	long timeStamp=cal.getTimeInMillis();
+       	   	String uniqueID=""+timeStamp+"_"+Login.UserID;
+       	   	gblPartIValues.put("SurveyDataID", uniqueID);  //will not be overwritten inspite of back and forth while collecting data. will be lost if new data collected again.
+        	*/
+       	   	fragment=new SurveyBackgroundFragment();
+        	   fragmentTransaction.replace(TargetPane, fragment); //as .add
+               fragmentTransaction.addToBackStack(null);
+               fragmentTransaction.commit();
+			
+	}
 	
+	public void intializeSurveyData(){
+		gblPartIValues.clear();
+    	gblPartIIValues.clear();
+    	gblPartIIIaValues.clear();
+    	gblPartIIIbValues.clear();
+    	gblPartIVValues.clear();
+    	/*
+    	gblAllSurveyValues.put("UserID","");
+    	gblAllSurveyValues.put("SurveyDataID","");
+    	gblAllSurveyValues.put("Q1a1","");
+    	gblAllSurveyValues.put("Q1a2","");
+    	gblAllSurveyValues.put("Q1b","");
+    	gblAllSurveyValues.put("Q1c","");
+    	gblAllSurveyValues.put("Q1d","");
+    	gblAllSurveyValues.put("Q1d1","");
+    	gblAllSurveyValues.put("Q1f0","");
+    	gblAllSurveyValues.put("Q1f1","");
+    	gblAllSurveyValues.put("Q1f2","");
+    	gblAllSurveyValues.put("Q1f3","");
+    	gblAllSurveyValues.put("Q1f4","");
+    	gblAllSurveyValues.put("Q1f5","");
+    	gblAllSurveyValues.put("Q1g","");
+    	gblAllSurveyValues.put("Q1h","");
+    	gblAllSurveyValues.put("Q1i1","");
+    	gblAllSurveyValues.put("Q1i2","");
+    	gblAllSurveyValues.put("Q1i3","");
+    	gblAllSurveyValues.put("Q1i4","");
+    	gblAllSurveyValues.put("Q1i5","");
+    	gblAllSurveyValues.put("Q1j","");
+    	gblAllSurveyValues.put("Q1k","");
+    	gblAllSurveyValues.put("Q2a","");
+    	gblAllSurveyValues.put("Q2b","");
+    	gblAllSurveyValues.put("Q2c","");
+    	gblAllSurveyValues.put("Q2dMFIQ1","");
+    	gblAllSurveyValues.put("Q2dMFIQ2","");
+    	gblAllSurveyValues.put("Q2dMFIQ3","");
+    	gblAllSurveyValues.put("Q2dMFIQ4","");
+    	gblAllSurveyValues.put("Q2dMFIQ5","");
+    	gblAllSurveyValues.put("Q2dMFIQ6","");
+    	gblAllSurveyValues.put("Q2dMFIQ7","");
+    	gblAllSurveyValues.put("Q2dMFIQ8","");
+    	gblAllSurveyValues.put("Q2dMFIQ9","");
+    	gblAllSurveyValues.put("Q2dMFIQ10","");
+    	gblAllSurveyValues.put("Q3a","");
+    	gblAllSurveyValues.put("Q3b","");
+    	gblAllSurveyValues.put("Q3c1","");
+    	gblAllSurveyValues.put("Q3c2","");
+    	gblAllSurveyValues.put("Q3c3","");
+    	gblAllSurveyValues.put("Q3d","");
+    	gblAllSurveyValues.put("Q3e1","");
+    	gblAllSurveyValues.put("Q3e2","");
+    	gblAllSurveyValues.put("Q3e3","");
+    	gblAllSurveyValues.put("Q3f1","");
+    	gblAllSurveyValues.put("Q3f2","");
+    	gblAllSurveyValues.put("Q3f3","");
+    	gblAllSurveyValues.put("Q3f4","");
+    	gblAllSurveyValues.put("Q3f5","");
+    	gblAllSurveyValues.put("Q3f6","");
+    	gblAllSurveyValues.put("Q3g1","");
+    	gblAllSurveyValues.put("Q3g2","");
+    	gblAllSurveyValues.put("Q3h","");
+    	gblAllSurveyValues.put("Q3i","");
+    	gblAllSurveyValues.put("Q3k1","");
+    	gblAllSurveyValues.put("Q3k2","");
+    	gblAllSurveyValues.put("Q3k3","");
+    	gblAllSurveyValues.put("Q3k4","");
+    	gblAllSurveyValues.put("Q3k5","");
+    	gblAllSurveyValues.put("Q3kb","");
+    	gblAllSurveyValues.put("Q3l","");
+    	gblAllSurveyValues.put("Q3m","");
+    	gblAllSurveyValues.put("Q3n1a","");
+    	gblAllSurveyValues.put("Q3n1b","");
+    	gblAllSurveyValues.put("Q3n1c","");
+    	gblAllSurveyValues.put("Q3n2a","");
+    	gblAllSurveyValues.put("Q3n2b","");
+    	gblAllSurveyValues.put("Q3n2c","");
+    	gblAllSurveyValues.put("Q3n3a","");
+    	gblAllSurveyValues.put("Q3n3b","");
+    	gblAllSurveyValues.put("Q3n3c","");
+    	gblAllSurveyValues.put("Q3n4a","");
+    	gblAllSurveyValues.put("Q3n4b","");
+    	gblAllSurveyValues.put("Q3n4c","");
+    	gblAllSurveyValues.put("Q3n5a","");
+    	gblAllSurveyValues.put("Q3n5b","");
+    	gblAllSurveyValues.put("Q3n5c","");
+    	gblAllSurveyValues.put("Q3o","");
+    	gblAllSurveyValues.put("Q3p","");
+    	gblAllSurveyValues.put("Q3q1","");
+    	gblAllSurveyValues.put("Q3q2","");
+    	gblAllSurveyValues.put("Q3q3","");
+    	gblAllSurveyValues.put("Q3qi","");
+    	gblAllSurveyValues.put("Q3qii","");
+    	gblAllSurveyValues.put("Q3r","");
+    	gblAllSurveyValues.put("Q3ri","");
+    	gblAllSurveyValues.put("Q3rii","");
+    	gblAllSurveyValues.put("Q3riii","");
+    	gblAllSurveyValues.put("Q3riv","");
+    	gblAllSurveyValues.put("Q3rv","");
+    	gblAllSurveyValues.put("Q3s","");
+    	gblAllSurveyValues.put("Q3sii","");
+    	gblAllSurveyValues.put("Q4a","");
+    	gblAllSurveyValues.put("Q4ai","");
+    	gblAllSurveyValues.put("Q4b","");
+    	gblAllSurveyValues.put("Q4bi","");
+    	gblAllSurveyValues.put("Q4bii","");
+    	gblAllSurveyValues.put("Q4biii","");
+    	gblAllSurveyValues.put("Q4biv","");
+    	gblAllSurveyValues.put("Q4c","");
+    	gblAllSurveyValues.put("Q4d","");
+    	gblAllSurveyValues.put("Q4e","");
+    	gblAllSurveyValues.put("Q4f1a","");
+    	gblAllSurveyValues.put("Q4f1b","");
+    	gblAllSurveyValues.put("Q4f1c","");
+    	gblAllSurveyValues.put("Q4f1d","");
+    	gblAllSurveyValues.put("Q4f2a","");
+    	gblAllSurveyValues.put("Q4f2b","");
+    	gblAllSurveyValues.put("Q4f2c","");
+    	gblAllSurveyValues.put("Q4f2d","");
+    	gblAllSurveyValues.put("Q4f3a","");
+    	gblAllSurveyValues.put("Q4f3b","");
+    	gblAllSurveyValues.put("Q4f3c","");
+    	gblAllSurveyValues.put("Q4f3d","");
+    	gblAllSurveyValues.put("Q4g","");
+    	gblAllSurveyValues.put("Q4g2","");    	
+*/
+    	//gblAllSurveyValues.put("UserID","");
+    	gblAllSurveyValues.put("SurveyDataID","");
+    	gblAllSurveyValues.put("Q1a1","");
+    	gblAllSurveyValues.put("Q1a2","");
+    	gblAllSurveyValues.put("Q1b","-1");
+    	gblAllSurveyValues.put("Q1c","");
+    	gblAllSurveyValues.put("Q1d","-1");
+    	gblAllSurveyValues.put("Q1d1","");
+    	gblAllSurveyValues.put("Q1f0","-1");
+    	gblAllSurveyValues.put("Q1f1","-1");
+    	gblAllSurveyValues.put("Q1f2","-1");
+    	gblAllSurveyValues.put("Q1f3","-1");
+    	gblAllSurveyValues.put("Q1f4","-1");
+    	gblAllSurveyValues.put("Q1f5","-1");
+    	gblAllSurveyValues.put("Q1g","-1");
+    	gblAllSurveyValues.put("Q1h","-1");
+    	gblAllSurveyValues.put("Q1i1","0");
+    	gblAllSurveyValues.put("Q1i2","0");
+    	gblAllSurveyValues.put("Q1i3","0");
+    	gblAllSurveyValues.put("Q1i4","0");
+    	gblAllSurveyValues.put("Q1i5","0");
+    	gblAllSurveyValues.put("Q1j","-1");
+    	gblAllSurveyValues.put("Q1k","");
+    	gblAllSurveyValues.put("Q2a","-1");
+    	gblAllSurveyValues.put("Q2b","-1");
+    	gblAllSurveyValues.put("Q2c","-1");
+    	gblAllSurveyValues.put("Q2dMFIQ1","-1");
+    	gblAllSurveyValues.put("Q2dMFIQ2","-1");
+    	gblAllSurveyValues.put("Q2dMFIQ3","-1");
+    	gblAllSurveyValues.put("Q2dMFIQ4","-1");
+    	gblAllSurveyValues.put("Q2dMFIQ5","-1");
+    	gblAllSurveyValues.put("Q2dMFIQ6","-1");
+    	gblAllSurveyValues.put("Q2dMFIQ7","-1");
+    	gblAllSurveyValues.put("Q2dMFIQ8","-1");
+    	gblAllSurveyValues.put("Q2dMFIQ9","-1");
+    	gblAllSurveyValues.put("Q2dMFIQ10","-1");
+    	gblAllSurveyValues.put("Q3a","-1");
+    	gblAllSurveyValues.put("Q3b","-1");
+    	gblAllSurveyValues.put("Q3c1","");
+    	gblAllSurveyValues.put("Q3c2","");
+    	gblAllSurveyValues.put("Q3c3","");
+    	gblAllSurveyValues.put("Q3d","");
+    	gblAllSurveyValues.put("Q3e1","");
+    	gblAllSurveyValues.put("Q3e2","");
+    	gblAllSurveyValues.put("Q3e3","");
+    	gblAllSurveyValues.put("Q3f1","");
+    	gblAllSurveyValues.put("Q3f2","");
+    	gblAllSurveyValues.put("Q3f3","");
+    	gblAllSurveyValues.put("Q3f4","");
+    	gblAllSurveyValues.put("Q3f5","");
+    	gblAllSurveyValues.put("Q3f6","");
+    	gblAllSurveyValues.put("Q3g1","");
+    	gblAllSurveyValues.put("Q3g2","");
+    	gblAllSurveyValues.put("Q3h","-1");
+    	gblAllSurveyValues.put("Q3i","");
+    	gblAllSurveyValues.put("Q3k1","-1");
+    	gblAllSurveyValues.put("Q3k2","-1");
+    	gblAllSurveyValues.put("Q3k3","-1");
+    	gblAllSurveyValues.put("Q3k4","-1");
+    	gblAllSurveyValues.put("Q3k5","-1");
+    	gblAllSurveyValues.put("Q3kb","-1");
+    	gblAllSurveyValues.put("Q3l","-1");
+    	gblAllSurveyValues.put("Q3m","0");
+    	gblAllSurveyValues.put("Q3n1a","-1");
+    	gblAllSurveyValues.put("Q3n1b","-1");
+    	gblAllSurveyValues.put("Q3n1c","");
+    	gblAllSurveyValues.put("Q3n2a","-1");
+    	gblAllSurveyValues.put("Q3n2b","-1");
+    	gblAllSurveyValues.put("Q3n2c","");
+    	gblAllSurveyValues.put("Q3n3a","-1");
+    	gblAllSurveyValues.put("Q3n3b","-1");
+    	gblAllSurveyValues.put("Q3n3c","");
+    	gblAllSurveyValues.put("Q3n4a","-1");
+    	gblAllSurveyValues.put("Q3n4b","-1");
+    	gblAllSurveyValues.put("Q3n4c","");
+    	gblAllSurveyValues.put("Q3n5a","-1");
+    	gblAllSurveyValues.put("Q3n5b","-1");
+    	gblAllSurveyValues.put("Q3n5c","");
+    	gblAllSurveyValues.put("Q3o","0");
+    	gblAllSurveyValues.put("Q3p","-1");
+    	gblAllSurveyValues.put("Q3q1","-1");
+    	gblAllSurveyValues.put("Q3q2","-1");
+    	gblAllSurveyValues.put("Q3q3","-1");
+    	gblAllSurveyValues.put("Q3qi","");
+    	gblAllSurveyValues.put("Q3qii","0");
+    	gblAllSurveyValues.put("Q3r","-1");
+    	gblAllSurveyValues.put("Q3ri","");
+    	gblAllSurveyValues.put("Q3rii","");
+    	gblAllSurveyValues.put("Q3riii","-1");
+    	gblAllSurveyValues.put("Q3riv","-1");
+    	gblAllSurveyValues.put("Q3rv","");
+    	gblAllSurveyValues.put("Q3s","-1");
+    	gblAllSurveyValues.put("Q3sii","-1");
+    	gblAllSurveyValues.put("Q4a","-1");
+    	gblAllSurveyValues.put("Q4ai","");
+    	gblAllSurveyValues.put("Q4b","-1");
+    	gblAllSurveyValues.put("Q4bi","-1");
+    	gblAllSurveyValues.put("Q4bii","");
+    	gblAllSurveyValues.put("Q4biii","-1");
+    	gblAllSurveyValues.put("Q4biv","");
+    	gblAllSurveyValues.put("Q4c","");
+    	gblAllSurveyValues.put("Q4d","0");
+    	gblAllSurveyValues.put("Q4e","0");
+    	gblAllSurveyValues.put("Q4f1a","0");
+    	gblAllSurveyValues.put("Q4f1b","");
+    	gblAllSurveyValues.put("Q4f1c","");
+    	gblAllSurveyValues.put("Q4f1d","0");
+    	gblAllSurveyValues.put("Q4f2a","0");
+    	gblAllSurveyValues.put("Q4f2b","");
+    	gblAllSurveyValues.put("Q4f2c","");
+    	gblAllSurveyValues.put("Q4f2d","0");
+    	gblAllSurveyValues.put("Q4f3a","0");
+    	gblAllSurveyValues.put("Q4f3b","");
+    	gblAllSurveyValues.put("Q4f3c","");
+    	gblAllSurveyValues.put("Q4f3d","0");
+    	gblAllSurveyValues.put("Q4g","-1");
+    	gblAllSurveyValues.put("Q4g2","");
+	}
 	//use this to fetch sync data
 	class SyncTask extends AsyncTask<String, String, String> {
 		private ProgressDialog pd;
@@ -802,8 +1292,7 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 				//not part of http;
 				publishProgress("Connected...");
 				
-				BufferedReader buffer = new BufferedReader(
-						new InputStreamReader(content));
+				BufferedReader buffer = new BufferedReader(	new InputStreamReader(content), 8192); //was getting a dalvik msg so used this buffer size
 				String s = "";
 				while ((s = buffer.readLine()) != null) {
 					response += s;
@@ -839,7 +1328,12 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 		protected void onPostExecute(String result) {
 			
 			if (actionType==actionSYNC){
+				try{
 			doSYNC(result);
+				}
+				catch(Exception e){
+					e.printStackTrace();
+				}
 			}
 
 			if ((actionType==actionSEARCH_FARMERNAME) || (actionType==actionSEARCH_ADVANCED)){
@@ -936,7 +1430,7 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 				}
 				//String listData[][]=null;
 				if (result.endsWith("successOK")){
-					Toast.makeText(activity, "Successful!", Toast.LENGTH_SHORT) .show();
+					Toast.makeText(activity, "Successful!", Toast.LENGTH_LONG) .show();
 					UtilityFunctions fxn= new UtilityFunctions();
 					result=result.replace("successOK","");
 					//listData=fxn.create2DArray(result, "</br>", ":");
@@ -1048,7 +1542,7 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 				}
 				String supportData[][]=null;
 				if (result.endsWith("successOK")){
-					Toast.makeText(activity, "Successful!", Toast.LENGTH_SHORT) .show();
+					Toast.makeText(activity, "Successful!", Toast.LENGTH_LONG) .show();
 					//now write to db.
 					DBAdapter db = new DBAdapter(getApplicationContext());
 					db.open();
@@ -1104,12 +1598,58 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
                       Toast.makeText(this, "Camera action Cancelled", Toast.LENGTH_LONG).show();
                       break;
                   case Activity.RESULT_OK:
-                      //image storead, now load it in the web
-                	  //[[Uri imagePath = getImageUri(); ]]//ca be fxn w ff 2 lines
-                	  //File file = new File(Environment.getExternalStorageDirectory() + "/DCIM", CAPTURE_TITLE);
-                	  //Uri imgUri = Uri.fromFile(file);
-                      //doSomething();
+                     
                 	  Toast.makeText(this, "Picture Saved-check", Toast.LENGTH_LONG).show();
+                      break;
+                  }
+              break;
+          case RESIZE_IMAGE_CAPTURED: 
+              
+              switch( resultCode )
+              {
+                  case Activity.RESULT_CANCELED:
+                      Toast.makeText(this, "Camera action Cancelled", Toast.LENGTH_LONG).show();
+                      break;
+                  case Activity.RESULT_OK:
+                	  try
+                      {
+                		  
+                	/*    //works OK..
+                		  
+                		  String captured_image = System.currentTimeMillis() + ".jpg";
+                		  */
+                		  File folder = new File(Environment.getExternalStorageDirectory() , "IFDC");
+                		  boolean success = true;
+                		  if (!folder.exists()) {
+                		      success = folder.mkdir();
+                		  }
+                		  if (success) {
+                		      // Do something on success
+                			  Toast.makeText(getApplicationContext(), "DIR created", Toast.LENGTH_LONG ).show();
+                			  
+                		  } else {
+                		      // Do something else on failure 
+                			  Toast.makeText(getApplicationContext(), "NOT created", Toast.LENGTH_LONG ).show();
+                		  }
+                		  
+                		  
+          		    File file = new File(Environment.getExternalStorageDirectory(), "IFDC"+File.separator+captured_image);           		              		  
+          		    captured_image = file.getAbsolutePath();   //note: this will also change the global var
+          		      Bitmap bitmap = Bitmap.createScaledBitmap((Bitmap)data.getExtras().get("data"), 800, 600, true);//w,h
+                      //try{
+                          FileOutputStream out = new FileOutputStream(captured_image);//destinationFile, captured_image is global var
+                          bitmap.compress(Bitmap.CompressFormat.JPEG, 50, out);
+                          out.flush();
+                          out.close();
+                      } 
+                      catch (Exception e) 
+                      {
+                    	  Toast.makeText(getApplicationContext(), "Error saving photo"+e.toString(), Toast.LENGTH_LONG ).show();
+                          Log.e("PhotoResize", "ERROR:" + e.toString());
+                          return;
+                      }
+                      
+                      Toast.makeText(this, "Picture Saved-check", Toast.LENGTH_LONG).show();
                       break;
                   }
               break;
@@ -1117,7 +1657,7 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
       }   
 	}
 	
-	  
+	
 	  
 	  //offline function equivalents:
 	  public void doSearchOffline(int searchType, String searchString){

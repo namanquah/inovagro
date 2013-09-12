@@ -118,17 +118,21 @@
 		<item >Update Configuration Data</item>
 		<item >Go Offline</item>
 		<item >Change Password</item>
-		<item >Exit</item>
-		<item >Add Farmer to season</item>
-		<item >Add Farm to season</item>
+		<item >August 2013 Survey</item>
+		<item >Upload Saved Survey Data</item>		
+		<item >Exit</item>		
     </string-array>
+    <!-- menu items removed from menu:
+    	<item >Add Farmer to season</item>
+		<item >Add Farm to season</item> -->
     <string-array name="arryOfflineMenu">
 		<item >Add Farmer</item>
 		<item >Add Farm</item>
 		<item >Farm Visit</item>
+		<item >August 2013 Survey</item>
 		<item >Mange Stored Farmer Data</item>
 		<item >Go Online</item>
 		<item >Exit</item>
     </string-array>
-   
+   <string name="lblComfirmData">Confirm Data before Submission</string>
 </resources>

@@ -49,13 +49,13 @@ public class Login extends Activity implements InovagroConstants {
 		}
 		if (v==btnLogin){
 		//begin login process
-			//next 3 lines for testing purposes only
+			//next 3 lines for testing purposes only. comment during actual use and use next 4 code lines
 		/*
 			Intent i= new Intent(this,MainActivity.class);
 			startActivity(i);
 			UserID=2;  //for testing purposes only
-		
-			*/
+		*/
+			
 	//uncomment below for actual
 			
 			//connect and verify

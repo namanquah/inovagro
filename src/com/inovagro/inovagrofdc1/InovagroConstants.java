@@ -64,6 +64,7 @@ public interface InovagroConstants {
     public static final int actionSHOW_VISIT_TYPES=5;
     public static final int actionSHOW_VISIT_FORM=6;
     public static final int actionSEARCH_ADVANCED=112;//109
+    public static final int actionSURVEY2013=213;
     
     //post actions (will be used alongside visit types in POST data, so must not be in same range)
     public static final int actionPOST_ADD_FARMER=107;
@@ -72,6 +73,8 @@ public interface InovagroConstants {
     public static final int actionFETCH_FARMER_FARM_DATA4_OFFLINE=110;
     public static final int actionUPLOAD_SAVED_VISIT_DATA=111;
     public static final int actionPOST_ADD_FARMS_YEARLY_DATA=112;
+    public static final int actionPOST_AUGUST2013_SURVEY=113;
+    public static final int actionUPLOAD_SAVED_SURVEY2013_DATA=114;
     
     
    // public static final int actionSAVE_ADD_FARMER=9;
@@ -109,7 +112,8 @@ public interface InovagroConstants {
     //menu items, perhaps add mnu to the constatns
     
     
-
+//these here are likely not used anylonger!
+    /*
 	public static final String mnuAddFarmer="Add Farmer";
     public static final String mnuFarmVisit="Farm Visit";
     public static final String mnuSynchronize="Update Configuration Data";
@@ -123,6 +127,13 @@ public interface InovagroConstants {
     public static final String mnuGoOffline="Go Offline";
     public static final String mnuUploadSavedData="Upload Saved Data";
     
+    */
     
+    public static final int surveyPartI=1;
+    public static final int surveyPartII=2;
+    public static final int surveyPartIIIa=31;
+    public static final int surveyPartIIIb=32;
+    public static final int surveyPartIV=4;
+    public static final int surveyConfirmData=5;
     
 }

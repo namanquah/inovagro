@@ -9,6 +9,67 @@ package com.inovagro.inovagrofdc1;
 
 public final class R {
     public static final class array {
+        public static final int A1b=0x7f060003;
+        public static final int A1d=0x7f060004;
+        public static final int A1g=0x7f060005;
+        public static final int A1h=0x7f060006;
+        public static final int A1j=0x7f060007;
+        public static final int A2a=0x7f060008;
+        public static final int A2b=0x7f060009;
+        public static final int A2c=0x7f06000a;
+        public static final int A3a=0x7f060015;
+        public static final int A3b=0x7f060016;
+        public static final int A3d=0x7f060017;
+        public static final int A3h=0x7f060018;
+        public static final int A3k=0x7f060019;
+        public static final int A3k1=0x7f06001a;
+        public static final int A3k2=0x7f06001b;
+        public static final int A3k3=0x7f06001c;
+        public static final int A3k4=0x7f06001d;
+        public static final int A3k5=0x7f06001e;
+        public static final int A3kb=0x7f06001f;
+        public static final int A3l=0x7f060020;
+        public static final int A3n1a=0x7f060021;
+        public static final int A3n1b=0x7f060022;
+        public static final int A3n2a=0x7f060023;
+        public static final int A3n2b=0x7f060024;
+        public static final int A3n3a=0x7f060025;
+        public static final int A3n3b=0x7f060026;
+        public static final int A3n4a=0x7f060027;
+        public static final int A3n4b=0x7f060028;
+        public static final int A3n5a=0x7f060029;
+        public static final int A3n5b=0x7f06002a;
+        public static final int A3p=0x7f06002b;
+        public static final int A3q1=0x7f06002c;
+        public static final int A3q2=0x7f06002d;
+        public static final int A3q3=0x7f06002e;
+        public static final int A3r=0x7f06002f;
+        public static final int A3riii=0x7f060030;
+        public static final int A3riv=0x7f060031;
+        public static final int A3s=0x7f060032;
+        public static final int A4a=0x7f060033;
+        public static final int A4b=0x7f060034;
+        public static final int A4bi=0x7f060035;
+        public static final int A4biii=0x7f060036;
+        public static final int A4c=0x7f060037;
+        public static final int A4g=0x7f060038;
+        /**  answers part  2d poverty score 
+ answers part  2d poverty score 
+         */
+        public static final int MFIQ1=0x7f06000b;
+        public static final int MFIQ10=0x7f060014;
+        public static final int MFIQ2=0x7f06000c;
+        public static final int MFIQ3=0x7f06000d;
+        public static final int MFIQ4=0x7f06000e;
+        public static final int MFIQ5=0x7f06000f;
+        public static final int MFIQ6=0x7f060010;
+        public static final int MFIQ7=0x7f060011;
+        public static final int MFIQ8=0x7f060012;
+        public static final int MFIQ9=0x7f060013;
+        /**  menu items removed from menu:
+    	<item >Add Farmer to season</item>
+		<item >Add Farm to season</item> 
+         */
         public static final int arryOfflineMenu=0x7f060002;
         public static final int arryOnlineMenu=0x7f060001;
         public static final int arryVisitTypes=0x7f060000;
@@ -41,8 +102,13 @@ public final class R {
         public static final int btnClearAll=0x7f0a007a;
         public static final int btnDelete=0x7f0a007c;
         public static final int btnFarmerInfo=0x7f0a0076;
-        public static final int btnLogin=0x7f0a0081;
+        public static final int btnLogin=0x7f0a0125;
+        public static final int btnNext=0x7f0a009a;
         public static final int btnPicture=0x7f0a006e;
+        public static final int btnPrevious=0x7f0a0099;
+        public static final int btnQ1c=0x7f0a009f;
+        public static final int btnQ1d=0x7f0a00a3;
+        public static final int btnQ1d2=0x7f0a00a5;
         public static final int btnResetLocalDB=0x7f0a0078;
         public static final int btnSave=0x7f0a007b;
         public static final int btnSubmit=0x7f0a0018;
@@ -61,15 +127,74 @@ public final class R {
         public static final int edtNewPassword=0x7f0a0053;
         public static final int edtNumberOfDependents=0x7f0a0045;
         public static final int edtOldPassword=0x7f0a0051;
-        public static final int edtPassword=0x7f0a0080;
+        public static final int edtPassword=0x7f0a0124;
         public static final int edtPercentTotalLand=0x7f0a0068;
         public static final int edtPersonMet=0x7f0a006a;
         public static final int edtPhoneNo=0x7f0a0039;
+        public static final int edtQ1a1=0x7f0a009b;
+        public static final int edtQ1a2=0x7f0a009c;
+        public static final int edtQ1i1=0x7f0a00aa;
+        public static final int edtQ1i1b=0x7f0a00ab;
+        public static final int edtQ1i2=0x7f0a00ad;
+        public static final int edtQ1i2b=0x7f0a00ae;
+        public static final int edtQ1i3=0x7f0a00b0;
+        public static final int edtQ1i3b=0x7f0a00b1;
+        public static final int edtQ1i4=0x7f0a00b3;
+        public static final int edtQ1i4b=0x7f0a00b4;
+        public static final int edtQ1i5=0x7f0a00b6;
+        public static final int edtQ1i5b=0x7f0a00b7;
+        public static final int edtQ1k=0x7f0a00bb;
+        public static final int edtQ3c1=0x7f0a00e5;
+        public static final int edtQ3c2=0x7f0a00e6;
+        public static final int edtQ3c3=0x7f0a00e7;
+        public static final int edtQ3e1=0x7f0a00e9;
+        public static final int edtQ3e2=0x7f0a00ea;
+        public static final int edtQ3e3=0x7f0a00eb;
+        public static final int edtQ3f1=0x7f0a00ec;
+        public static final int edtQ3f2=0x7f0a00ee;
+        public static final int edtQ3f3=0x7f0a00f0;
+        public static final int edtQ3f4=0x7f0a00ed;
+        public static final int edtQ3f5=0x7f0a00ef;
+        public static final int edtQ3f6=0x7f0a00f1;
+        public static final int edtQ3g1=0x7f0a00f2;
+        public static final int edtQ3g2=0x7f0a00f3;
+        public static final int edtQ3i=0x7f0a00f5;
+        public static final int edtQ3m=0x7f0a0102;
+        public static final int edtQ3n1c=0x7f0a0105;
+        public static final int edtQ3n2c=0x7f0a0108;
+        public static final int edtQ3n3c=0x7f0a010b;
+        public static final int edtQ3n4c=0x7f0a010e;
+        public static final int edtQ3n5c=0x7f0a0111;
+        public static final int edtQ3o=0x7f0a0112;
+        public static final int edtQ3qi=0x7f0a0117;
+        public static final int edtQ3qii=0x7f0a0118;
+        public static final int edtQ3ri=0x7f0a011a;
+        public static final int edtQ3rii=0x7f0a011b;
+        public static final int edtQ3rv=0x7f0a011e;
+        public static final int edtQ3sii=0x7f0a0120;
+        public static final int edtQ4ai=0x7f0a00bf;
+        public static final int edtQ4bii=0x7f0a00c2;
+        public static final int edtQ4biv=0x7f0a00c5;
+        public static final int edtQ4d=0x7f0a00c7;
+        public static final int edtQ4e=0x7f0a00c8;
+        public static final int edtQ4f1a=0x7f0a00c9;
+        public static final int edtQ4f1b=0x7f0a00ca;
+        public static final int edtQ4f1c=0x7f0a00cb;
+        public static final int edtQ4f1d=0x7f0a00cd;
+        public static final int edtQ4f2a=0x7f0a00d0;
+        public static final int edtQ4f2b=0x7f0a00d2;
+        public static final int edtQ4f2c=0x7f0a00d4;
+        public static final int edtQ4f2d=0x7f0a00d6;
+        public static final int edtQ4f3a=0x7f0a00d8;
+        public static final int edtQ4f3b=0x7f0a00da;
+        public static final int edtQ4f3c=0x7f0a00dc;
+        public static final int edtQ4f3d=0x7f0a00de;
+        public static final int edtQ4g2=0x7f0a00e1;
         public static final int edtRepeatPassword=0x7f0a0055;
         public static final int edtScheduledDate=0x7f0a005c;
         public static final int edtSearchString=0x7f0a004f;
         public static final int edtSurname=0x7f0a002f;
-        public static final int edtUserName=0x7f0a007e;
+        public static final int edtUserName=0x7f0a0122;
         public static final int edtVisitDate=0x7f0a005a;
         public static final int general_results_list=0x7f0a0075;
         public static final int lblComments=0x7f0a006b;
@@ -95,7 +220,10 @@ public final class R {
         public static final int lblVisitDate=0x7f0a0059;
         public static final int lblVisitType=0x7f0a0057;
         public static final int leftFrame=0x7f0a0001;
-        public static final int menu_settings=0x7f0a0082;
+        public static final int lstQ3d=0x7f0a00e8;
+        public static final int lstQ3kb=0x7f0a00fe;
+        public static final int lstQ4c=0x7f0a00c6;
+        public static final int menu_settings=0x7f0a0126;
         public static final int multACTVComments=0x7f0a006c;
         public static final int rdDemoPlot=0x7f0a002b;
         public static final int rdFarmerName=0x7f0a004d;
@@ -124,7 +252,57 @@ public final class R {
         public static final int spnIDTYpe=0x7f0a003c;
         public static final int spnLandOwnership=0x7f0a0023;
         public static final int spnLocality=0x7f0a000e;
+        public static final int spnMFIQ1=0x7f0a0086;
+        public static final int spnMFIQ10=0x7f0a0098;
+        public static final int spnMFIQ2=0x7f0a0088;
+        public static final int spnMFIQ3=0x7f0a008a;
+        public static final int spnMFIQ4=0x7f0a008c;
+        public static final int spnMFIQ5=0x7f0a008e;
+        public static final int spnMFIQ6=0x7f0a0090;
+        public static final int spnMFIQ7=0x7f0a0092;
+        public static final int spnMFIQ8=0x7f0a0094;
+        public static final int spnMFIQ9=0x7f0a0096;
         public static final int spnProvince=0x7f0a0008;
+        public static final int spnQ1b=0x7f0a009e;
+        public static final int spnQ1d=0x7f0a00a2;
+        public static final int spnQ1g=0x7f0a00a8;
+        public static final int spnQ1h=0x7f0a00a9;
+        public static final int spnQ1j=0x7f0a00b9;
+        public static final int spnQ2a=0x7f0a007f;
+        public static final int spnQ2b=0x7f0a0081;
+        public static final int spnQ2c=0x7f0a0083;
+        public static final int spnQ3a=0x7f0a00e3;
+        public static final int spnQ3b=0x7f0a00e4;
+        public static final int spnQ3h=0x7f0a00f4;
+        public static final int spnQ3k1=0x7f0a00f6;
+        public static final int spnQ3k2=0x7f0a00f7;
+        public static final int spnQ3k3=0x7f0a00f8;
+        public static final int spnQ3k4=0x7f0a00fa;
+        public static final int spnQ3k5=0x7f0a00fc;
+        public static final int spnQ3l=0x7f0a0100;
+        public static final int spnQ3n1a=0x7f0a0103;
+        public static final int spnQ3n1b=0x7f0a0104;
+        public static final int spnQ3n2a=0x7f0a0106;
+        public static final int spnQ3n2b=0x7f0a0107;
+        public static final int spnQ3n3a=0x7f0a0109;
+        public static final int spnQ3n3b=0x7f0a010a;
+        public static final int spnQ3n4a=0x7f0a010c;
+        public static final int spnQ3n4b=0x7f0a010d;
+        public static final int spnQ3n5a=0x7f0a010f;
+        public static final int spnQ3n5b=0x7f0a0110;
+        public static final int spnQ3p=0x7f0a0113;
+        public static final int spnQ3q1=0x7f0a0114;
+        public static final int spnQ3q2=0x7f0a0115;
+        public static final int spnQ3q3=0x7f0a0116;
+        public static final int spnQ3r=0x7f0a0119;
+        public static final int spnQ3riii=0x7f0a011c;
+        public static final int spnQ3riv=0x7f0a011d;
+        public static final int spnQ3s=0x7f0a011f;
+        public static final int spnQ4a=0x7f0a00be;
+        public static final int spnQ4b=0x7f0a00c0;
+        public static final int spnQ4bi=0x7f0a00c1;
+        public static final int spnQ4biii=0x7f0a00c3;
+        public static final int spnQ4g=0x7f0a00df;
         public static final int spnSeason=0x7f0a001f;
         public static final int spnSeedVariety=0x7f0a0021;
         public static final int spnServiceProvider=0x7f0a0072;
@@ -132,7 +310,12 @@ public final class R {
         public static final int spnZone=0x7f0a0010;
         public static final int textView1=0x7f0a0011;
         public static final int textView10=0x7f0a000d;
+        public static final int textView100=0x7f0a00af;
         public static final int textView11=0x7f0a000f;
+        public static final int textView110=0x7f0a00b2;
+        public static final int textView12=0x7f0a00b5;
+        public static final int textView13=0x7f0a00b8;
+        public static final int textView131=0x7f0a00ba;
         public static final int textView2=0x7f0a0014;
         public static final int textView3=0x7f0a003d;
         public static final int textView4=0x7f0a0016;
@@ -141,6 +324,38 @@ public final class R {
         public static final int textView7=0x7f0a0044;
         public static final int textView8=0x7f0a0040;
         public static final int textView9=0x7f0a000b;
+        public static final int textView90=0x7f0a00ac;
+        public static final int txt1=0x7f0a007e;
+        public static final int txt10=0x7f0a008d;
+        public static final int txt11=0x7f0a008f;
+        public static final int txt12=0x7f0a0091;
+        public static final int txt13=0x7f0a0093;
+        public static final int txt14=0x7f0a0095;
+        public static final int txt15=0x7f0a0097;
+        public static final int txt16=0x7f0a00cc;
+        public static final int txt17=0x7f0a00ce;
+        public static final int txt18=0x7f0a00cf;
+        public static final int txt19=0x7f0a00d1;
+        public static final int txt2=0x7f0a0080;
+        public static final int txt20=0x7f0a00d3;
+        public static final int txt21=0x7f0a00d5;
+        public static final int txt22=0x7f0a00d7;
+        public static final int txt23=0x7f0a00d9;
+        public static final int txt24=0x7f0a00db;
+        public static final int txt25=0x7f0a00dd;
+        public static final int txt26=0x7f0a00e0;
+        public static final int txt27=0x7f0a00f9;
+        public static final int txt28=0x7f0a00fb;
+        public static final int txt29=0x7f0a00fd;
+        public static final int txt3=0x7f0a0082;
+        public static final int txt30=0x7f0a00ff;
+        public static final int txt31=0x7f0a0101;
+        public static final int txt4=0x7f0a0084;
+        public static final int txt5=0x7f0a0085;
+        public static final int txt6=0x7f0a0087;
+        public static final int txt7=0x7f0a00c4;
+        public static final int txt8=0x7f0a0089;
+        public static final int txt9=0x7f0a008b;
         public static final int txtAddFarmSeason=0x7f0a001b;
         public static final int txtCropType=0x7f0a001c;
         public static final int txtDemoPlot=0x7f0a0028;
@@ -153,13 +368,23 @@ public final class R {
         public static final int txtGender=0x7f0a0034;
         public static final int txtLandOwnership=0x7f0a0022;
         public static final int txtMechanized=0x7f0a0024;
-        public static final int txtPassword=0x7f0a007f;
+        public static final int txtPartII=0x7f0a007d;
+        public static final int txtPartIII=0x7f0a00e2;
+        public static final int txtPartIV=0x7f0a00bd;
+        public static final int txtPassword=0x7f0a0123;
         public static final int txtPhoneNo=0x7f0a0038;
         public static final int txtProvince=0x7f0a0007;
+        public static final int txtQ1b=0x7f0a009d;
+        public static final int txtQ1c=0x7f0a00a0;
+        public static final int txtQ1d=0x7f0a00a1;
+        public static final int txtQ1d1=0x7f0a00a4;
+        public static final int txtQ1d12=0x7f0a00a6;
+        public static final int txtQ1g=0x7f0a00a7;
         public static final int txtSeason=0x7f0a001e;
         public static final int txtSeedVariety=0x7f0a0020;
+        public static final int txtSummary=0x7f0a00bc;
         public static final int txtSurname=0x7f0a002e;
-        public static final int txtUserName=0x7f0a007d;
+        public static final int txtUserName=0x7f0a0121;
     }
     public static final class layout {
         public static final int activity_main_2=0x7f030000;
@@ -173,12 +398,178 @@ public final class R {
         public static final int frag_farm_visit=0x7f030008;
         public static final int frag_main_menu=0x7f030009;
         public static final int frag_results_list=0x7f03000a;
-        public static final int login=0x7f03000b;
+        public static final int frag_survey_assetsowned=0x7f03000b;
+        public static final int frag_survey_backgroundinfo=0x7f03000c;
+        public static final int frag_survey_confirm_data=0x7f03000d;
+        public static final int frag_survey_markettradecredit=0x7f03000e;
+        public static final int frag_survey_productiondb1=0x7f03000f;
+        public static final int frag_survey_productiondb2=0x7f030010;
+        public static final int login=0x7f030011;
     }
     public static final class menu {
         public static final int activity_main=0x7f090000;
     }
     public static final class string {
+        public static final int A3n1c=0x7f0500a1;
+        public static final int A3n2c=0x7f0500a2;
+        public static final int A3n3c=0x7f0500a3;
+        public static final int A3n4c=0x7f0500a4;
+        public static final int A3n5c=0x7f0500a5;
+        /**   questions part 2d poverty score 
+  questions part 2d poverty score 
+         */
+        public static final int MFIndicatorQ1=0x7f050070;
+        public static final int MFIndicatorQ10=0x7f050079;
+        public static final int MFIndicatorQ2=0x7f050071;
+        public static final int MFIndicatorQ3=0x7f050072;
+        public static final int MFIndicatorQ4=0x7f050073;
+        public static final int MFIndicatorQ5=0x7f050074;
+        public static final int MFIndicatorQ6=0x7f050075;
+        public static final int MFIndicatorQ7=0x7f050076;
+        public static final int MFIndicatorQ8=0x7f050077;
+        public static final int MFIndicatorQ9=0x7f050078;
+        public static final int Q1a=0x7f050054;
+        /**   drop this, use next two 
+         */
+        public static final int Q1a1=0x7f050055;
+        public static final int Q1a2=0x7f050056;
+        public static final int Q1b=0x7f050057;
+        public static final int Q1c=0x7f050058;
+        public static final int Q1d=0x7f050059;
+        public static final int Q1d2=0x7f05005a;
+        public static final int Q1f=0x7f05005b;
+        public static final int Q1f0=0x7f05005c;
+        public static final int Q1f1=0x7f05005d;
+        public static final int Q1f2=0x7f05005e;
+        public static final int Q1f3=0x7f05005f;
+        public static final int Q1f4=0x7f050060;
+        public static final int Q1f5=0x7f050061;
+        public static final int Q1g=0x7f050062;
+        public static final int Q1h=0x7f050063;
+        public static final int Q1i=0x7f050064;
+        public static final int Q1i1=0x7f050065;
+        public static final int Q1i2=0x7f050066;
+        public static final int Q1i3=0x7f050067;
+        public static final int Q1i4=0x7f050068;
+        public static final int Q1i5=0x7f050069;
+        public static final int Q1j=0x7f05006a;
+        public static final int Q1k=0x7f05006b;
+        /**  Part II - AssetsOwned  
+ Part II - AssetsOwned  
+         */
+        public static final int Q2a=0x7f05006c;
+        public static final int Q2b=0x7f05006d;
+        public static final int Q2c=0x7f05006e;
+        public static final int Q2d=0x7f05006f;
+        /**  Part III Production Database 
+ Part III Production Database 
+         */
+        public static final int Q3a=0x7f05007a;
+        public static final int Q3b=0x7f05007b;
+        public static final int Q3c=0x7f05007c;
+        public static final int Q3c1=0x7f05007d;
+        public static final int Q3c2=0x7f05007e;
+        public static final int Q3c3=0x7f05007f;
+        public static final int Q3d=0x7f050080;
+        public static final int Q3e=0x7f050081;
+        public static final int Q3e0=0x7f050082;
+        public static final int Q3e1=0x7f050083;
+        public static final int Q3e2=0x7f050084;
+        public static final int Q3e3=0x7f050085;
+        public static final int Q3f=0x7f050086;
+        public static final int Q3f1=0x7f050087;
+        public static final int Q3f2=0x7f050088;
+        public static final int Q3f3=0x7f050089;
+        public static final int Q3f4=0x7f05008a;
+        public static final int Q3f5=0x7f05008b;
+        public static final int Q3f6=0x7f05008c;
+        public static final int Q3g=0x7f05008d;
+        public static final int Q3g1=0x7f05008e;
+        public static final int Q3g2=0x7f05008f;
+        public static final int Q3h=0x7f050090;
+        public static final int Q3i=0x7f050091;
+        public static final int Q3k=0x7f050092;
+        public static final int Q3k1=0x7f050093;
+        public static final int Q3k2=0x7f050094;
+        public static final int Q3k3=0x7f050095;
+        public static final int Q3k4=0x7f050096;
+        public static final int Q3k5=0x7f050097;
+        public static final int Q3kb=0x7f050098;
+        public static final int Q3l=0x7f050099;
+        public static final int Q3m=0x7f05009a;
+        /**  second part of Q3 wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww  
+ second part of Q3 wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww  
+         */
+        public static final int Q3n=0x7f05009b;
+        public static final int Q3n1=0x7f05009c;
+        public static final int Q3n2=0x7f05009d;
+        public static final int Q3n3=0x7f05009e;
+        public static final int Q3n4=0x7f05009f;
+        public static final int Q3n5=0x7f0500a0;
+        public static final int Q3o=0x7f0500a6;
+        public static final int Q3p=0x7f0500a7;
+        public static final int Q3q=0x7f0500a8;
+        public static final int Q3q1=0x7f0500a9;
+        public static final int Q3q2=0x7f0500aa;
+        public static final int Q3q3=0x7f0500ab;
+        public static final int Q3qi=0x7f0500ac;
+        public static final int Q3qii=0x7f0500ad;
+        public static final int Q3r=0x7f0500ae;
+        public static final int Q3ri=0x7f0500af;
+        public static final int Q3rii=0x7f0500b0;
+        public static final int Q3riii=0x7f0500b1;
+        public static final int Q3riv=0x7f0500b2;
+        public static final int Q3rv=0x7f0500b3;
+        public static final int Q3s=0x7f0500b4;
+        /**  
+<string name="Q3si">i. Are you still growing sesame?</string>
+<string-array name="A3si">
+	<item>Yes</item>
+	<item>No</item>	
+</string-array>
+ 
+ 
+<string name="Q3si">i. Are you still growing sesame?</string>
+<string-array name="A3si">
+	<item>Sim</item>
+	<item>Nao</item>
+</string-array>
+
+
+         */
+        public static final int Q3sii=0x7f0500b5;
+        /**  for part IV- Market Trade Credit ###################### 
+ for part IV- Market Trade Credit ###################### 
+         */
+        public static final int Q4a=0x7f0500b6;
+        public static final int Q4ai=0x7f0500b7;
+        public static final int Q4b=0x7f0500b8;
+        public static final int Q4bi=0x7f0500b9;
+        public static final int Q4bii=0x7f0500ba;
+        public static final int Q4biii=0x7f0500bb;
+        public static final int Q4biv=0x7f0500bc;
+        public static final int Q4c=0x7f0500bd;
+        public static final int Q4d=0x7f0500be;
+        public static final int Q4e=0x7f0500bf;
+        public static final int Q4f=0x7f0500c0;
+        public static final int Q4f1=0x7f0500c1;
+        public static final int Q4f1a=0x7f0500c4;
+        public static final int Q4f1b=0x7f0500c5;
+        public static final int Q4f1c=0x7f0500c6;
+        public static final int Q4f1d=0x7f0500c7;
+        public static final int Q4f2=0x7f0500c2;
+        public static final int Q4f2a=0x7f0500c8;
+        public static final int Q4f2b=0x7f0500c9;
+        public static final int Q4f2c=0x7f0500ca;
+        public static final int Q4f2d=0x7f0500cb;
+        public static final int Q4f3=0x7f0500c3;
+        public static final int Q4f3a=0x7f0500cc;
+        public static final int Q4f3b=0x7f0500cd;
+        public static final int Q4f3c=0x7f0500ce;
+        public static final int Q4f3d=0x7f0500cf;
+        public static final int Q4g=0x7f0500d0;
+        public static final int Q4g2=0x7f0500d1;
+        public static final int Q4i=0x7f0500d2;
         public static final int app_name=0x7f050000;
         public static final int btn_Exit=0x7f050006;
         public static final int btnlogin_login=0x7f050005;
@@ -192,11 +583,13 @@ public final class R {
         public static final int lblAddFarmSeason=0x7f05003e;
         public static final int lblAdminPost=0x7f050013;
         public static final int lblAdvancedSearch=0x7f05004b;
+        public static final int lblAmountPaid=0x7f050053;
         public static final int lblBasicSearch=0x7f05004a;
         public static final int lblCaptureGPS=0x7f050032;
         public static final int lblChangePassword=0x7f050036;
         public static final int lblCheckAll=0x7f050039;
         public static final int lblClearAll=0x7f050038;
+        public static final int lblComfirmData=0x7f05004c;
         public static final int lblComments=0x7f05002d;
         public static final int lblCropType=0x7f050029;
         public static final int lblDateCompleted=0x7f050025;
@@ -238,6 +631,7 @@ public final class R {
         public static final int lblMechanizationType=0x7f050041;
         public static final int lblMechanized=0x7f050042;
         public static final int lblNewPassword=0x7f050034;
+        public static final int lblNext=0x7f05004e;
         public static final int lblNo=0x7f050020;
         public static final int lblNumberOfDependents=0x7f05001b;
         /**  for change password form 
@@ -245,10 +639,21 @@ public final class R {
   
          */
         public static final int lblOldPassword=0x7f050033;
+        /**   use to label the forms 
+  use to label the forms 
+         */
+        public static final int lblPartI=0x7f05004f;
+        public static final int lblPartII=0x7f050050;
+        public static final int lblPartIII=0x7f050051;
+        public static final int lblPartIV=0x7f050052;
         public static final int lblPercentTotalLand=0x7f05002b;
         public static final int lblPersonMet=0x7f05002c;
         public static final int lblPhoneNo=0x7f05000f;
         public static final int lblPicture=0x7f05002e;
+        /**  For use in the survey 
+ For use in the survey 
+         */
+        public static final int lblPrevious=0x7f05004d;
         public static final int lblProvince=0x7f050011;
         public static final int lblRegularFarm=0x7f050046;
         public static final int lblRepatPassword=0x7f050035;

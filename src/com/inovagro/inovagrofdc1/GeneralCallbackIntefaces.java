@@ -3,6 +3,7 @@ package com.inovagro.inovagrofdc1;
 import java.util.HashMap;
 
 import android.support.v4.app.Fragment;
+import android.view.View;
 import android.widget.EditText;
 
 public interface GeneralCallbackIntefaces {
@@ -20,4 +21,6 @@ public interface GeneralCallbackIntefaces {
 	//public void fetchDataForSelectedFarmers(String ids);//post a list of IDs, fetch the corresponding farmer + farm data
 	public void deleteLocalFarmerData(String ids); //delete local farmer data previously saved on device
 	public void resetLocalFarmersDB(); //delete  and recreate local farms's db, in case it has been corrupted.
+	public void showNextSurveyForm(int FormPart); //show partI, IIa, IIb etc
+	public void takePhoto(Fragment srcFragment, View v, String prefix);//take picture
 }

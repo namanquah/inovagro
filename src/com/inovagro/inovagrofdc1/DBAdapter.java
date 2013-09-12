@@ -92,7 +92,7 @@ public class DBAdapter implements InovagroConstants {
 	        		db.execSQL(DATABASE_CREATE11);
 	        		db.execSQL(DATABASE_CREATE12);
 	        		db.execSQL(DATABASE_CREATE13);
-	        		
+	        		//add functions to create the survey data table etc. Call their respective functions
 	        		
 	        		//fetch and write all the data to db.
 	        		
@@ -792,4 +792,233 @@ public class DBAdapter implements InovagroConstants {
 			 */
         }//fixInsertQuery
   
-	}//main class
+        public void initOfflineSurvey2013Tables(){
+        	String createSurveyTbl="CREATE TABLE IF NOT EXISTS survey_data ("+
+				"  `UserID` integer,"
+				+"  `SurveyDataID` text NOT NULL,"
+				+"  `Q1a1` text,"
+				+"  `Q1a2` text,"
+				+"  `Q1b` integer DEFAULT -1,"
+				+"  `Q1c` text,"
+				+"  `Q1d` integer DEFAULT -1,"
+				+"  `Q1d1` text,"
+				+"  `Q1f0` integer DEFAULT -1,"
+				+"  `Q1f1` integer DEFAULT -1,"
+				+"  `Q1f2` integer DEFAULT -1,"
+				+"  `Q1f3` integer DEFAULT -1,"
+				+"  `Q1f4` integer DEFAULT -1,"
+				+"  `Q1f5` integer DEFAULT -1,"
+				+"  `Q1g` integer DEFAULT -1,"
+				+"  `Q1h` integer DEFAULT -1,"
+				+"  `Q1i1` integer DEFAULT '0',"
+				+"  `Q1i2` integer DEFAULT '0',"
+				+"  `Q1i3` integer DEFAULT '0',"
+				+"  `Q1i4` integer DEFAULT '0',"
+				+"  `Q1i5` integer DEFAULT '0',"
+				+"  `Q1j` integer DEFAULT -1,"
+				+"  `Q1k` text,"
+				+"  `Q2a` integer DEFAULT -1,"
+				+"  `Q2b` integer DEFAULT -1,"
+				+"  `Q2c` integer DEFAULT -1,"
+				+"  `Q2dMFIQ1` integer DEFAULT -1,"
+				+"  `Q2dMFIQ2` integer DEFAULT -1,"
+				+"  `Q2dMFIQ3` integer DEFAULT -1,"
+				+"  `Q2dMFIQ4` integer DEFAULT -1,"
+				+"  `Q2dMFIQ5` integer DEFAULT -1,"
+				+"  `Q2dMFIQ6` integer DEFAULT -1,"
+				+"  `Q2dMFIQ7` integer DEFAULT -1,"
+				+"  `Q2dMFIQ8` integer DEFAULT -1,"
+				+"  `Q2dMFIQ9` integer DEFAULT -1,"
+				+"  `Q2dMFIQ10` integer DEFAULT -1,"
+				+"  `Q3a` integer DEFAULT -1,"
+				+"  `Q3b` integer DEFAULT -1,"
+				+"  `Q3c1` text,"
+				+"  `Q3c2` text,"
+				+"  `Q3c3` text,"
+				+"  `Q3d` text,"
+				+"  `Q3e1` text,"
+				+"  `Q3e2` text,"
+				+"  `Q3e3` text,"
+				+"  `Q3f1` text,"
+				+"  `Q3f2` text,"
+				+"  `Q3f3` text,"
+				+"  `Q3f4` text,"
+				+"  `Q3f5` text,"
+				+"  `Q3f6` text,"
+				+"  `Q3g1` text,"
+				+"  `Q3g2` text,"
+				+"  `Q3h` integer DEFAULT -1,"
+				+"  `Q3i` text,"
+				+"  `Q3k1` integer DEFAULT -1,"
+				+"  `Q3k2` integer DEFAULT -1,"
+				+"  `Q3k3` integer DEFAULT -1,"
+				+"  `Q3k4` integer DEFAULT -1,"
+				+"  `Q3k5` integer DEFAULT -1,"
+				+"  `Q3kb` integer DEFAULT -1,"
+				+"  `Q3l` integer DEFAULT -1,"
+				+"  `Q3m` integer DEFAULT '0',"
+				+"  `Q3n1a` integer DEFAULT -1,"
+				+"  `Q3n1b` integer DEFAULT -1,"
+				+"  `Q3n1c` text,"
+				+"  `Q3n2a` integer DEFAULT -1,"
+				+"  `Q3n2b` integer DEFAULT -1,"
+				+"  `Q3n2c` text,"
+				+"  `Q3n3a` integer DEFAULT -1,"
+				+"  `Q3n3b` integer DEFAULT -1,"
+				+"  `Q3n3c` text,"
+				+"  `Q3n4a` integer DEFAULT -1,"
+				+"  `Q3n4b` integer DEFAULT -1,"
+				+"  `Q3n4c` text,"
+				+"  `Q3n5a` integer DEFAULT -1,"
+				+"  `Q3n5b` integer DEFAULT -1,"
+				+"  `Q3n5c` text,"
+				+"  `Q3o` real,"
+				+"  `Q3p` integer DEFAULT -1,"
+				+"  `Q3q1` integer DEFAULT -1,"
+				+"  `Q3q2` integer DEFAULT -1,"
+				+"  `Q3q3` integer DEFAULT -1,"
+				+"  `Q3qi` text,"
+				+"  `Q3qii` real,"
+				+"  `Q3r` integer DEFAULT -1,"
+				+"  `Q3ri` text,"
+				+"  `Q3rii` text,"
+				+"  `Q3riii` integer DEFAULT -1,"
+				+"  `Q3riv` integer DEFAULT -1,"
+				+"  `Q3rv` text,"
+				+"  `Q3s` integer DEFAULT -1,"
+				+"  `Q3sii` integer DEFAULT -1,"
+				+"  `Q4a` integer DEFAULT -1,"
+				+"  `Q4ai` text,"
+				+"  `Q4b` integer DEFAULT -1,"
+				+"  `Q4bi` integer DEFAULT -1,"
+				+"  `Q4bii` text,"
+				+"  `Q4biii` integer DEFAULT -1,"
+				+"  `Q4biv` text,"
+				+"  `Q4c` text,"
+				+"  `Q4d` real,"
+				+"  `Q4e` real,"
+				+"  `Q4f1a` real,"
+				+"  `Q4f1b` text,"
+				+"  `Q4f1c` text,"
+				+"  `Q4f1d` real,"
+				+"  `Q4f2a` real,"
+				+"  `Q4f2b` text,"
+				+"  `Q4f2c` text,"
+				+"  `Q4f2d` real,"
+				+"  `Q4f3a` real,"
+				+"  `Q4f3b` text,"
+				+"  `Q4f3c` text,"
+				+"  `Q4f3d` real,"
+				+"  `Q4g` integer DEFAULT -1,"
+				+"  `Q4g2` text"
+				+")" ;
+				     
+        	db.execSQL(createSurveyTbl);
+        }
+        
+        public void wipeOfflineSurvey2013Data(){
+          	 db.execSQL("DROP TABLE IF EXISTS survey_data");
+          	 initOfflineVisitTables();
+          }
+        
+        public String saveSurvey2013DataOffline(HashMap<String, String>values){
+        	//wipeOfflineSurvey2013Data();  // keep this for testing purposes only
+        	initOfflineSurvey2013Tables();//only create the table if it does not exist
+        	/*
+        	String sql=values.get("theSQL");
+        	try{
+        	db.execSQL(sql);
+        	}catch (Exception e){  //SQLException
+        		System.out.println("Local Save Error-saveSurveyDataOffline"+e.toString());
+        		return e.toString()+"SaveLocalfailedOK";
+        	}
+        	*/
+        	
+        	//verify if null inserted into db
+        	
+        	String theEntryDate=null; //for now. update when uploading to server.
+        	
+        	Calendar cal= Calendar.getInstance();
+        	long timeStamp=cal.getTimeInMillis();
+        	String uniqueID=""+timeStamp+"_"+Login.UserID;
+        	
+        	//theEntryDate=""+cal.YEAR+"-"+(cal.MONTH+1)+"-"+cal.DAY_OF_MONTH;
+        	UtilityFunctions fxn= new UtilityFunctions();
+        	//theEntryDate=fxn.dateToString(timeStamp);
+        	theEntryDate=fxn.dateToStringTimeStamp(timeStamp);
+
+        	
+        	String sql="INSERT INTO survey_data "+
+        			"(UserID ,SurveyDataID ,Q1a1 ,Q1a2 ,Q1b ,Q1c ,Q1d ,Q1d1 ,Q1f0 ,Q1f1 ,Q1f2 ,Q1f3 ,Q1f4 ,Q1f5 ,Q1g ,Q1h ,Q1i1 ,Q1i2 ,Q1i3 ,Q1i4 ,Q1i5 ,Q1j ,Q1k ,Q2a ,Q2b ,Q2c ,Q2dMFIQ1 ,Q2dMFIQ2 ,Q2dMFIQ3 ,Q2dMFIQ4 ,Q2dMFIQ5 ,Q2dMFIQ6 ,Q2dMFIQ7 ,Q2dMFIQ8 ,Q2dMFIQ9 ,Q2dMFIQ10 ,Q3a ,Q3b ,Q3c1 ,Q3c2 ,Q3c3 ,Q3d ,Q3e1 ,Q3e2 ,Q3e3 ,Q3f1 ,Q3f2 ,Q3f3 ,Q3f4 ,Q3f5 ,Q3f6 ,Q3g1 ,Q3g2 ,Q3h ,Q3i ,Q3k1 ,Q3k2 ,Q3k3 ,Q3k4 ,Q3k5 ,Q3kb ,Q3l ,Q3m ,Q3n1a ,Q3n1b ,Q3n1c ,Q3n2a ,Q3n2b ,Q3n2c ,Q3n3a ,Q3n3b ,Q3n3c ,Q3n4a ,Q3n4b ,Q3n4c ,Q3n5a ,Q3n5b ,Q3n5c ,Q3o ,Q3p ,Q3q1 ,Q3q2 ,Q3q3 ,Q3qi ,Q3qii ,Q3r ,Q3ri ,Q3rii ,Q3riii ,Q3riv ,Q3rv ,Q3s ,Q3sii ,Q4a ,Q4ai ,Q4b ,Q4bi ,Q4bii ,Q4biii ,Q4biv ,Q4c ,Q4d ,Q4e ,Q4f1a ,Q4f1b ,Q4f1c ,Q4f1d ,Q4f2a ,Q4f2b ,Q4f2c ,Q4f2d ,Q4f3a ,Q4f3b ,Q4f3c ,Q4f3d ,Q4g ,Q4g2 ) "+
+        			"VALUES "+
+        	"('"+values.get("UserID")+"', '"+values.get("SurveyDataID")+"', '"+values.get("Q1a1")+"', '"+values.get("Q1a2")+"', '"+values.get("Q1b")+"', '"+values.get("Q1c")+"', '"+values.get("Q1d")+"', '"+values.get("Q1d1")+"', '"+values.get("Q1f0")+"', '"+values.get("Q1f1")+"', '"+values.get("Q1f2")+"', '"+values.get("Q1f3")+"', '"+values.get("Q1f4")+"', '"+values.get("Q1f5")+"', '"+values.get("Q1g")+"', '"+values.get("Q1h")+"', '"+values.get("Q1i1")+"', '"+values.get("Q1i2")+"', '"+values.get("Q1i3")+"', '"+values.get("Q1i4")+"', '"+values.get("Q1i5")+"', '"+values.get("Q1j")+"', '"+values.get("Q1k")+"', '"+values.get("Q2a")+"', '"+values.get("Q2b")+"', '"+values.get("Q2c")+"', '"+values.get("Q2dMFIQ1")+"', '"+values.get("Q2dMFIQ2")+"', '"+values.get("Q2dMFIQ3")+"', '"+values.get("Q2dMFIQ4")+"', '"+values.get("Q2dMFIQ5")+"', '"+values.get("Q2dMFIQ6")+"', '"+values.get("Q2dMFIQ7")+"', '"+values.get("Q2dMFIQ8")+"', '"+values.get("Q2dMFIQ9")+"', '"+values.get("Q2dMFIQ10")+"', '"+values.get("Q3a")+"', '"+values.get("Q3b")+"', '"+values.get("Q3c1")+"', '"+values.get("Q3c2")+"', '"+values.get("Q3c3")+"', '"+values.get("Q3d")+"', '"+values.get("Q3e1")+"', '"+values.get("Q3e2")+"', '"+values.get("Q3e3")+"', '"+values.get("Q3f1")+"', '"+values.get("Q3f2")+"', '"+values.get("Q3f3")+"', '"+values.get("Q3f4")+"', '"+values.get("Q3f5")+"', '"+values.get("Q3f6")+"', '"+values.get("Q3g1")+"', '"+values.get("Q3g2")+"', '"+values.get("Q3h")+"', '"+values.get("Q3i")+"', '"+values.get("Q3k1")+"', '"+values.get("Q3k2")+"', '"+values.get("Q3k3")+"', '"+values.get("Q3k4")+"', '"+values.get("Q3k5")+"', '"+values.get("Q3kb")+"', '"+values.get("Q3l")+"', '"+values.get("Q3m")+"', '"+values.get("Q3n1a")+"', '"+values.get("Q3n1b")+"', '"+values.get("Q3n1c")+"', '"+values.get("Q3n2a")+"', '"+values.get("Q3n2b")+"', '"+values.get("Q3n2c")+"', '"+values.get("Q3n3a")+"', '"+values.get("Q3n3b")+"', '"+values.get("Q3n3c")+"', '"+values.get("Q3n4a")+"', '"+values.get("Q3n4b")+"', '"+values.get("Q3n4c")+"', '"+values.get("Q3n5a")+"', '"+values.get("Q3n5b")+"', '"+values.get("Q3n5c")+"', '"+values.get("Q3o")+"', '"+values.get("Q3p")+"', '"+values.get("Q3q1")+"', '"+values.get("Q3q2")+"', '"+values.get("Q3q3")+"', '"+values.get("Q3qi")+"', '"+values.get("Q3qii")+"', '"+values.get("Q3r")+"', '"+values.get("Q3ri")+"', '"+values.get("Q3rii")+"', '"+values.get("Q3riii")+"', '"+values.get("Q3riv")+"', '"+values.get("Q3rv")+"', '"+values.get("Q3s")+"', '"+values.get("Q3sii")+"', '"+values.get("Q4a")+"', '"+values.get("Q4ai")+"', '"+values.get("Q4b")+"', '"+values.get("Q4bi")+"', '"+values.get("Q4bii")+"', '"+values.get("Q4biii")+"', '"+values.get("Q4biv")+"', '"+values.get("Q4c")+"', '"+values.get("Q4d")+"', '"+values.get("Q4e")+"', '"+values.get("Q4f1a")+"', '"+values.get("Q4f1b")+"', '"+values.get("Q4f1c")+"', '"+values.get("Q4f1d")+"', '"+values.get("Q4f2a")+"', '"+values.get("Q4f2b")+"', '"+values.get("Q4f2c")+"', '"+values.get("Q4f2d")+"', '"+values.get("Q4f3a")+"', '"+values.get("Q4f3b")+"', '"+values.get("Q4f3c")+"', '"+values.get("Q4f3d")+"', '"+values.get("Q4g")+"', '"+values.get("Q4g2")+"')";
+        	
+        	//sql=sql.replace("null", "0");
+        	//System.out.println(sql);
+        	//note: above get will return null if key is not found. Monitor effect on db entries if null rather than "" is returned. May fail.
+        	//perhaps do a replacement of null with "" before executing.
+        	try{
+        	db.execSQL(sql);
+        	}catch (Exception e){  //SQLException
+        		System.out.println("Local Save Error-saveVisitDataOffline"+e.toString());
+        		return e.toString()+"SaveLocalfailedOK";
+        	}
+        	
+        	
+        	return "successOK";
+        	
+        }
+
+        public String uploadSavedSurvey2013Data_getInsertValuesPart(){
+        	//this function will read saved data and write it directly to the web server.
+        	/*
+        	 * it will sync with onilne db using insert or update, and make use of a unique
+        	 * key on the millisecs+userid code. shd be reasonably unique.
+        	 * will deal with the case where response from server is not received, and prevent duplicated data.
+        	 *
+        	 */
+        	Log.v("in upload sved survey data","1c is null");
+        	String sql="SELECT UserID ,SurveyDataID ,Q1a1 ,Q1a2 ,Q1b ,Q1c ,Q1d ,Q1d1 ,Q1f0 ,Q1f1 ,Q1f2 ,Q1f3 ,Q1f4 ,Q1f5 ,Q1g ,Q1h ,Q1i1 ,Q1i2 ,Q1i3 ,Q1i4 ,Q1i5 ,Q1j ,Q1k ,Q2a ,Q2b ,Q2c ,Q2dMFIQ1 ,Q2dMFIQ2 ,Q2dMFIQ3 ,Q2dMFIQ4 ,Q2dMFIQ5 ,Q2dMFIQ6 ,Q2dMFIQ7 ,Q2dMFIQ8 ,Q2dMFIQ9 ,Q2dMFIQ10 ,Q3a ,Q3b ,Q3c1 ,Q3c2 ,Q3c3 ,Q3d ,Q3e1 ,Q3e2 ,Q3e3 ,Q3f1 ,Q3f2 ,Q3f3 ,Q3f4 ,Q3f5 ,Q3f6 ,Q3g1 ,Q3g2 ,Q3h ,Q3i ,Q3k1 ,Q3k2 ,Q3k3 ,Q3k4 ,Q3k5 ,Q3kb ,Q3l ,Q3m ,Q3n1a ,Q3n1b ,Q3n1c ,Q3n2a ,Q3n2b ,Q3n2c ,Q3n3a ,Q3n3b ,Q3n3c ,Q3n4a ,Q3n4b ,Q3n4c ,Q3n5a ,Q3n5b ,Q3n5c ,Q3o ,Q3p ,Q3q1 ,Q3q2 ,Q3q3 ,Q3qi ,Q3qii ,Q3r ,Q3ri ,Q3rii ,Q3riii ,Q3riv ,Q3rv ,Q3s ,Q3sii ,Q4a ,Q4ai ,Q4b ,Q4bi ,Q4bii ,Q4biii ,Q4biv ,Q4c ,Q4d ,Q4e ,Q4f1a ,Q4f1b ,Q4f1c ,Q4f1d ,Q4f2a ,Q4f2b ,Q4f2c ,Q4f2d ,Q4f3a ,Q4f3b ,Q4f3c ,Q4f3d ,Q4g ,Q4g2 from survey_data"; //is this in correct sequence?
+        	//if not use
+        	//sql="SELECT `UserID`, `SurveyDataID`, `Q1a1`, `Q1a2`, `Q1b`, `Q1c`, `Q1d`, `Q1f0`, `Q1f1`, `Q1f2`, `Q1f3`, `Q1f4`, `Q1f5`, `Q1g`, `Q1h`, `Q1i1`, `Q1i2`, `Q1i3`, `Q1i4`, `Q1i5`, `Q1j`, `Q1k`, `Q2a`, `Q2b`, `Q2c`, `Q2dMFIQ1`, `Q2dMFIQ2`, `Q2dMFIQ3`, `Q2dMFIQ4`, `Q2dMFIQ5`, `Q2dMFIQ6`, `Q2dMFIQ7`, `Q2dMFIQ8`, `Q2dMFIQ9`, `Q2dMFIQ10`, `Q3a`, `Q3b`, `Q3c1`, `Q3c2`, `Q3c3`, `Q3d`, `Q3e1`, `Q3e2`, `Q3e3`, `Q3f1`, `Q3f2`, `Q3f3`, `Q3f4`, `Q3f5`, `Q3f6`, `Q3g1`, `Q3g2`, `Q3h`, `Q3i`, `Q3k1`, `Q3k2`, `Q3k3`, `Q3k4`, `Q3k5`, `Q3kb`, `Q3l`, `Q3m`, `Q3n1a`, `Q3n1b`, `Q3n1c`, `Q3n2a`, `Q3n2b`, `Q3n2c`, `Q3n3a`, `Q3n3b`, `Q3n3c`, `Q3n4a`, `Q3n4b`, `Q3n4c`, `Q3n5a`, `Q3n5b`, `Q3n5c`, `Q3o`, `Q3p`, `Q3q1`, `Q3q2`, `Q3q3`, `Q3qi`, `Q3qii`, `Q3r`, `Q3ri`, `Q3rii`, `Q3riii`, `Q3riv`, `Q3rv`, `Q3s`, `Q3sii`, `Q4a`, `Q4ai`, `Q4b`, `Q4bi`, `Q4bii`, `Q4biii`, `Q4biv`, `Q4c`, `Q4d`, `Q4e`, `Q4f1a`, `Q4f1b`, `Q4f1c`, `Q4f1d`, `Q4f2a`, `Q4f2b`, `Q4f2c`, `Q4f2d`, `Q4f3a`, `Q4f3b`, `Q4f3c`, `Q4f3d`, `Q4g`, `Q4g2` FROM `survey_data` "
+        	Cursor c=null;
+           	try{
+           		c=   db.rawQuery(sql, null);
+           	}catch(Exception e){
+           		
+           	}
+           	
+	       	 if (c != null) {
+		            c.moveToFirst();
+		    
+		        }
+	      
+	       	 //convert cursor into a long string to be uploaded/posted to php
+		        // mCursor;
+	       	StringBuffer ValuesPart=new StringBuffer();
+	       	
+	       	if (c.moveToFirst())
+	        {
+	            do {  
+	            	ValuesPart.append("(");
+	            	//prepare the values part of an insert or replace statement
+	            	for (int i=0; i<c.getColumnCount(); i++){
+	            		if (i==c.getColumnCount()-1){
+	            			ValuesPart.append("'"+c.getString(i)+"')");  
+	            		}else{
+	            			ValuesPart.append("'"+c.getString(i)+"'");//
+	            		}
+	            		if (!(c.isLast() && i==c.getColumnCount()-1)) { //last column of last row has no  comma but bracket 
+	            			
+	            			ValuesPart.append(","); 
+	            		
+	            		}
+	            	}
+	                
+	            } while (c.moveToNext());
+	        }
+	        c.close();
+        	 
+        	return ValuesPart.toString();
+        }
+}//main class
