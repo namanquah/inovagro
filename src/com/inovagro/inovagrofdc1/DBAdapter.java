@@ -792,6 +792,8 @@ public class DBAdapter implements InovagroConstants {
 			 */
         }//fixInsertQuery
   
+        
+        
         public void initOfflineSurvey2013Tables(){
         	String createSurveyTbl="CREATE TABLE IF NOT EXISTS survey_data ("+
 				"  `UserID` integer,"
@@ -1021,4 +1023,164 @@ public class DBAdapter implements InovagroConstants {
         	 
         	return ValuesPart.toString();
         }
+
+        
+        
+        //offline saving code for PigeionPea Harvest (2013)
+
+        public void initOfflinePigeionPeaHarvestTables(){  //+"//  `PigeonPeaHarvestID` int(11) NOT NULL AUTO_INCREMENT,"+
+        	String createPigeionPeaTbl="CREATE TABLE IF NOT EXISTS `pigeonpea_harvest` ("	+        			
+        			"  `SalesContract` integer DEFAULT -1,"+
+        			"  `Planted2011` real,"+
+        			"  `Planted2012` real,"+
+        			"  `SeedVarietyPlanted` text,"+
+        			"  `QuantitySeedReceived` real,"+
+        			"  `SeedRateUsed` real,"+
+        			"  `Q7Kg` real,"+
+        			"  `Q7NoBags` real,"+
+        			"  `Q7WtOfOneBag` real,"+
+        			"  `Q7NoBuckets` real,"+
+        			"  `Q7WtOfOneBucket` real,"+
+        			"  `Q8Kg` real,"+
+        			"  `Q8NoBags` real,"+
+        			"  `Q8WtOfOneBag` real,"+
+        			"  `Q8NoBuckets` integer,"+
+        			"  `Q8WtOfOneBucket` real,"+
+        			"  `Q9Kg` real,"+
+        			"  `Q9NoBags` real,"+
+        			"  `Q9WtOfOneBag` real,"+
+        			"  `Q9NoBuckets` real,"+
+        			"  `Q9WtOfOneBucket` real,"+
+        			"  `BuyersGreen` text,"+
+        			"  `PriceSoldGreen` real,"+
+        			"  `Q12Kg` real,"+
+        			"  `Q12NoBags` real,"+
+        			"  `Q12WtOfOneBag` real,"+
+        			"  `Q12NoBuckets` real,"+
+        			"  `Q12WtOfOneBucket` real,"+
+        			"  `BuyersOutsideContractDry` text,"+
+        			"  `PriceSoldOutsideContractDry` real,"+
+        			"  `Q15Kg` real,"+
+        			"  `Q15NoBags` real,"+
+        			"  `Q15WtOfOneBag` real,"+
+        			"  `Q15NoBuckets` real,"+
+        			"  `Q15WtOfOneBucket` real,"+
+        			"  `BuyersWithinContract` text,"+
+        			"  `PriceSoldWithinContract` real,"+
+        			"  `FarmerID` integer,"+
+        			"  `UserID` integer"+
+        			") ";
+
+        		
+				     
+        	db.execSQL(createPigeionPeaTbl);
+        }
+        
+        public void wipeOfflinePigeionPeaHarvestData(){
+          	 db.execSQL("DROP TABLE IF EXISTS pigeonpea_harvest");
+          	initOfflinePigeionPeaHarvestTables();
+          }
+        
+        public String savePigeionPeaHarvestDataOffline(HashMap<String, String>values){
+        	//wipeOfflineSurvey2013Data();  // keep this for testing purposes only
+        	initOfflinePigeionPeaHarvestTables();//only create the table if it does not exist
+        	/*
+        	String sql=values.get("theSQL");
+        	try{
+        	db.execSQL(sql);
+        	}catch (Exception e){  //SQLException
+        		System.out.println("Local Save Error-saveSurveyDataOffline"+e.toString());
+        		return e.toString()+"SaveLocalfailedOK";
+        	}
+        	*/
+        	
+        	//verify if null inserted into db
+        	
+        	String theEntryDate=null; //for now. update when uploading to server.
+        	
+        	Calendar cal= Calendar.getInstance();
+        	long timeStamp=cal.getTimeInMillis();
+        	String uniqueID=""+timeStamp+"_"+Login.UserID;
+        	
+        	//theEntryDate=""+cal.YEAR+"-"+(cal.MONTH+1)+"-"+cal.DAY_OF_MONTH;
+        	UtilityFunctions fxn= new UtilityFunctions();
+        	//theEntryDate=fxn.dateToString(timeStamp);
+        	theEntryDate=fxn.dateToStringTimeStamp(timeStamp);
+
+        	String sql="INSERT INTO `pigeonpea_harvest` (  `SalesContract`,  `Planted2011`,  `Planted2012`,  `SeedVarietyPlanted`,  `QuantitySeedReceived`,  `SeedRateUsed`,   `Q7Kg`,  `Q7NoBags`,  `Q7WtOfOneBag`,  `Q7NoBuckets`,  `Q7WtOfOneBucket`,   `Q8Kg`,  `Q8NoBags`,  `Q8WtOfOneBag`,  `Q8NoBuckets`,  `Q8WtOfOneBucket`,    `Q9Kg`,  `Q9NoBags`,  `Q9WtOfOneBag`,  `Q9NoBuckets`,  `Q9WtOfOneBucket`,  `BuyersGreen`,  `PriceSoldGreen`,   `Q12Kg`,  `Q12NoBags`,  `Q12WtOfOneBag`,  `Q12NoBuckets`,  `Q12WtOfOneBucket`,  `BuyersOutsideContractDry`,  `PriceSoldOutsideContractDry`,   `Q15Kg`,  `Q15NoBags`,  `Q15WtOfOneBag`,  `Q15NoBuckets`,  `Q15WtOfOneBucket`,  `BuyersWithinContract`,  `PriceSoldWithinContract`,  `FarmerID`, `UserID`) "+ 
+        			"Values( "+ 
+        			"		'"+values.get("SalesContract")+"', '"+values.get("Planted2011")+"', '"+values.get("Planted2012")+"', '"+values.get("SeedVarietyPlanted")+"', '"+values.get("QuantitySeedReceived")+"', '"+values.get("SeedRateUsed")+"', '"+values.get("Q7Kg")+"', '"+values.get("Q7NoBags")+"', '"+values.get("Q7WtOfOneBag")+"', '"+values.get("Q7NoBuckets")+"', '"+values.get("Q7WtOfOneBucket")+"', '"+values.get("Q8Kg")+"', '"+values.get("Q8NoBags")+"', '"+values.get("Q8WtOfOneBag")+"', '"+values.get("Q8NoBuckets")+"', '"+values.get("Q8WtOfOneBucket")+"', '"+values.get("Q9Kg")+"', '"+values.get("Q9NoBags")+"', '"+values.get("Q9WtOfOneBag")+"', '"+values.get("Q9NoBuckets")+"', '"+values.get("Q9WtOfOneBucket")+"', '"+values.get("BuyersGreen")+"', '"+values.get("PriceSoldGreen")+"', '"+values.get("Q12Kg")+"', '"+values.get("Q12NoBags")+"', '"+values.get("Q12WtOfOneBag")+"', '"+values.get("Q12NoBuckets")+"', '"+values.get("Q12WtOfOneBucket")+"', '"+values.get("BuyersOutsideContractDry")+"', '"+values.get("PriceSoldOutsideContractDry")+"', '"+values.get("Q15Kg")+"', '"+values.get("Q15NoBags")+"', '"+values.get("Q15WtOfOneBag")+"', '"+values.get("Q15NoBuckets")+"', '"+values.get("Q15WtOfOneBucket")+"', '"+values.get("BuyersWithinContract")+"', '"+values.get("PriceSoldWithinContract")+"', '"+values.get("FarmerID")+"', '"+values.get("UserID")+"'    "+ 
+        			"		)";
+        	
+        	
+        	//sql=sql.replace("null", "0");
+        	//System.out.println(sql);
+        	//note: above get will return null if key is not found. Monitor effect on db entries if null rather than "" is returned. May fail.
+        	//perhaps do a replacement of null with "" before executing.
+        	try{
+        	db.execSQL(sql);
+        	}catch (Exception e){  //SQLException
+        		System.out.println("Local Save Error-savePigeonPeaHarvestDataOffline"+e.toString());
+        		return e.toString()+"SaveLocalfailedOK";
+        	}
+        	
+        	
+        	return "successOK";
+        	
+        }
+
+        public String uploadSavedPigeionPeaHarvestData_getInsertValuesPart(){
+        	//this function will read saved data and write it directly to the web server.
+        	/*
+        	 * it will sync with onilne db using insert or update, and make use of a unique
+        	 * key on the millisecs+userid code. shd be reasonably unique.
+        	 * will deal with the case where response from server is not received, and prevent duplicated data.
+        	 *
+        	 */
+        	//Log.v("in upload sved pigeionPea harvest data","---");
+        	String sql="select null, `SalesContract`, `Planted2011`, `Planted2012`, `SeedVarietyPlanted`, `QuantitySeedReceived`, `SeedRateUsed`, `Q7Kg`, `Q7NoBags`, `Q7WtOfOneBag`, `Q7NoBuckets`, `Q7WtOfOneBucket`, `Q8Kg`, `Q8NoBags`, `Q8WtOfOneBag`, `Q8NoBuckets`, `Q8WtOfOneBucket`, `Q9Kg`, `Q9NoBags`, `Q9WtOfOneBag`, `Q9NoBuckets`, `Q9WtOfOneBucket`, `BuyersGreen`, `PriceSoldGreen`, `Q12Kg`, `Q12NoBags`, `Q12WtOfOneBag`, `Q12NoBuckets`, `Q12WtOfOneBucket`, `BuyersOutsideContractDry`, `PriceSoldOutsideContractDry`, `Q15Kg`, `Q15NoBags`, `Q15WtOfOneBag`, `Q15NoBuckets`, `Q15WtOfOneBucket`, `BuyersWithinContract`, `PriceSoldWithinContract`, `FarmerID`, `UserID` from pigeonpea_harvest ";
+        	
+        	Cursor c=null;
+           	try{
+           		c=   db.rawQuery(sql, null);
+           	}catch(Exception e){
+           		
+           	}
+           	
+	       	 if (c != null) {
+		            c.moveToFirst();
+		    
+		        }
+	      
+	       	 //convert cursor into a long string to be uploaded/posted to php
+		        // mCursor;
+	       	StringBuffer ValuesPart=new StringBuffer();
+	       	if (c != null) {  //placed in here in case no data exists locally.
+	       	if (c.moveToFirst())
+	        {
+	            do {  
+	            	ValuesPart.append("(");
+	            	//prepare the values part of an insert or replace statement
+	            	for (int i=0; i<c.getColumnCount(); i++){
+	            		if (i==c.getColumnCount()-1){
+	            			ValuesPart.append("'"+c.getString(i)+"')");  
+	            		}else{
+	            			ValuesPart.append("'"+c.getString(i)+"'");//
+	            		}
+	            		if (!(c.isLast() && i==c.getColumnCount()-1)) { //last column of last row has no  comma but bracket 
+	            			
+	            			ValuesPart.append(","); 
+	            		
+	            		}
+	            	}
+	                
+	            } while (c.moveToNext());
+	        }
+	        c.close();
+        	 
+        	return ValuesPart.toString();
+	       	}
+	       	return null;
+        }
+
 }//main class

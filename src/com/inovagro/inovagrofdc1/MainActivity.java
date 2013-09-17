@@ -90,6 +90,7 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
     public static String mnuUploadSavedSurvey2013Data;
     
     public static String mnuPigeonPeaHarvestSurvey;
+    public static String mnuUploadAllData;
     ////---^
 	   
 	@Override
@@ -139,15 +140,15 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 		 mnuSynchronize=OnlineMenu[6];
 		 mnuGoOffline=OnlineMenu[7];
 	     mnuChangePassword=OnlineMenu[8];
-	     mnuPigeonPeaHarvestSurvey=OnlineMenu[11];
-	     
 	      
 	    
 	     mnuSurvey2013=OnlineMenu[9];
 	     mnuUploadSavedSurvey2013Data=OnlineMenu[10];
-	    mnuExit=OnlineMenu[12];
+	     mnuPigeonPeaHarvestSurvey=OnlineMenu[11];
+	     mnuUploadAllData=OnlineMenu[12];
+	    mnuExit=OnlineMenu[13];
 	    
-	    mnuGoOnline=OfflineMenu[5] ;
+	    mnuGoOnline=OfflineMenu[6] ;
 	    
 	    //create arrays to hold survey results:
 	     gblPartIValues= new HashMap<String, String>();
@@ -316,6 +317,19 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
             	   fragmentTransaction.replace(TargetPane, fragment); //as .add
                    fragmentTransaction.addToBackStack(null);
                    fragmentTransaction.commit(); 
+            }
+            
+            //mnuUploadAllData
+            if (id.equals(mnuUploadAllData)){
+            	HashMap<String,String> data= new HashMap<String, String>();
+            	String strData;
+            	DBAdapter db = new DBAdapter(getApplicationContext());
+ 				db.open();
+ 				strData =db.uploadSavedPigeionPeaHarvestData_getInsertValuesPart();
+ 				db.close();
+            	data.put("valuesPart", strData);
+            	postData( actionUPLOAD_SAVED_PIGEONPEA_HARVEST_DATA, data); //fetch the data in the postData or PostThread
+            
             }
           
 	}//on item selected
@@ -613,6 +627,11 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 			 action=actionType;
 			 glbActionType=action;
 			 break;
+		 case actionUPLOAD_SAVED_PIGEONPEA_HARVEST_DATA:
+			 addr=BaseURL+"?action=UPLOAD_SAVED_PIGEONPEA_HARVEST_DATA";
+			 action=actionType;
+			 glbActionType=action;
+			 break;
 		}
 		Log.v("postData msg","OfflineState="+OfflineState);
 		if (MainActivity.OfflineState ==OnLineMode){
@@ -663,6 +682,22 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 						//close the dialog box, or reset the values.
 						//getSupportFragmentManager().popBackStack();
 						showSuveyAug2013Fragment();
+					}
+					else {//
+						Toast.makeText(getApplicationContext(), "Sorry, Local Save failed", Toast.LENGTH_LONG).show();
+					}
+					db.close();
+
+				 break;
+			 case actionPIGEONPEA_HARVEST_SURVEY:
+				 db = new DBAdapter(getApplicationContext());
+					db.open();
+					String res2=db.savePigeionPeaHarvestDataOffline(values);
+					if (res2.endsWith("successOK")){
+						Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
+						//close the dialog box, or reset the values.
+						getSupportFragmentManager().popBackStack();
+						//showSuveyAug2013Fragment();
 					}
 					else {//
 						Toast.makeText(getApplicationContext(), "Sorry, Local Save failed", Toast.LENGTH_LONG).show();

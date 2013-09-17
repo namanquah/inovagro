@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="my_app_version">InovagroFDC v1.83</string>  <!-- saved userID in Pigeon Pea Harvest(1.81), translated to protugues (1.82) -->
+    <string name="my_app_version">InovagroFDC v1.9</string>  <!-- v1.9 -does local save and upload-->
     <string name="app_name">InovagroFDC1</string>
     <string name="lbl_Cancel">Cancel</string>
     <string name="hello_world">Hello world!</string>
@@ -121,7 +121,8 @@
 		<item >Change Password</item>
 		<item >August 2013 Survey</item>
 		<item >Upload Saved Survey Data</item>	
-		<item >Pigeon Pea Harvest Survey</item>		
+		<item >Pigeon Pea Harvest Survey</item>
+		<item >Upload Offline Pigeon Pea Data</item>		
 		<item >Exit</item>		
     </string-array>
     <!-- menu items removed from menu:
@@ -133,6 +134,7 @@
 		<item >Farm Visit</item>
 		<item >August 2013 Survey</item>
 		<item >Mange Stored Farmer Data</item>
+		<item >Pigeon Pea Harvest Survey</item>
 		<item >Go Online</item>
 		<item >Exit</item>
     </string-array>
