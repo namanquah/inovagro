@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="lblPigeonPeaHarvest">Yield from Pegion Pea Harvest</string>
+   <string name="lblSalesContract">Sales Contract with Inputs</string>
+<string name="lblPlanted2011">2011/12 Size of land planted</string>
+<string name="lblPlanted2012">2012/13 Size of land planted</string>
+<string name="lblSeedVarietyPlanted">Seed variety planted</string>
+<string name="lblQuantitySeedReceived">Quantity of seed Received(kg)</string>
+<string name="lblSeedRateUsed">Seed rate used (kg/Ha)</string>
+<string name="lblTotalPigeionPeaHarvested">Total Kgs of pigeon pea harvested</string>
+<string name="lblQ7Kg">Kg</string>
+<string name="lblQ7NoBags">No of Bags</string>
+<string name="lblQ7WtOfOneBag">Weight of one bag</string>
+<string name="lblQ7NoBuckets">Number of buckets</string>
+<string name="lblQ7WtOfOneBucket">Weight of one Bucket</string>
+<string name="lblQuantityHarvestedGreen">Quantity of pigeon peas harvested green</string>
+<string name="lblQ8Kg">Kg</string>
+<string name="lblQ8NoBags">No of Bags</string>
+<string name="lblQ8WtOfOneBag">Weight of one bag</string>
+<string name="lblQ8NoBuckets">Number of buckets</string>
+<string name="lblQ8WtOfOneBucket">Weight of one Bucket</string>
+<string name="lblQuantitySoldOutsideContractGreen">Quantity/ amount of fresh/green pigeon pea sold (outside of contract)</string>
+<string name="lblQ9Kg">Kg</string>
+<string name="lblQ9NoBags">No of Bags</string>
+<string name="lblQ9WtOfOneBag">Weight of one bag</string>
+<string name="lblQ9NoBuckets">Number of buckets</string>
+<string name="lblQ9WtOfOneBucket">Weight of one Bucket</string>
+<string name="lblBuyersGreen">Buyers</string>
+<string name="lblPriceSoldGreen">Price sold per kg</string>
+<string name="lblQuantitySoldOutsideContractDry">Quantity/ amount of dry pigeon pea sold (outside of contract)</string>
+<string name="lblQ12Kg">Kg</string>
+<string name="lblQ12NoBags">No of Bags</string>
+<string name="lblQ12WtOfOneBag">Weight of one bag</string>
+<string name="lblQ12NoBuckets">Number of buckets</string>
+<string name="lblQ12WtOfOneBucket">Weight of one Bucket</string>
+<string name="lblBuyersOutsideContractDry">Buyer</string>
+<string name="lblPriceSoldOutsideContractDry">Price sold per kg</string>
+<string name="lblQuantitySoldOutsideContract">Quantity/ amount of dry pigeon pea sold (within contract)</string>
+<string name="lblQ15Kg">Kg</string>
+<string name="lblQ15NoBags">No of Bags</string>
+<string name="lblQ15WtOfOneBag">Weight of one bag</string>
+<string name="lblQ15NoBuckets">Number of buckets</string>
+<string name="lblQ15WtOfOneBucket">Weight of one Bucket</string>
+<string name="lblBuyersWithinContract">Buyer</string>
+<string name="lblPriceSoldWithinContract">Price sold per kg</string> 
+
+<string-array name="arrySalesContract">
+	<item >Yes</item>
+	<item >No</item>
+	</string-array>
+
+
+	
+
+</resources>

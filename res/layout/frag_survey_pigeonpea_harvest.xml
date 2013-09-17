@@ -1,0 +1,640 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/txtFarmerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+                android:id="@+id/lblPigeonPeaHarvest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblPigeonPeaHarvest"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        
+          <TextView
+                android:id="@+id/lblSalesContract"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblSalesContract"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+          <Spinner
+              android:id="@+id/spnSalesContract"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+
+         
+<TextView
+                android:id="@+id/lblPlanted2011"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblPlanted2011"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtPlanted2011"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" /> 
+<TextView
+                android:id="@+id/lblPlanted2012"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblPlanted2012"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtPlanted2012"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" /> 
+<TextView
+                android:id="@+id/lblSeedVarietyPlanted"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblSeedVarietyPlanted"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+<!-- 
+<Spinner
+    android:id="@+id/spnSeedVarietyPlanted"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+-->
+<EditText
+                android:id="@+id/edtSeedVarietyPlanted"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="text" /> 
+
+<TextView
+                android:id="@+id/lblQuantitySeedReceived"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblQuantitySeedReceived"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtQuantitySeedReceived"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" /> 
+<TextView
+                android:id="@+id/lblSeedRateUsed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblSeedRateUsed"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtSeedRateUsed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" /> 
+<TextView
+                android:id="@+id/lblTotalPigeionPeaHarvested"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblTotalPigeionPeaHarvested"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+<!--
+            <EditText
+                android:id="@+id/edtTotalPigeionPeaHarvested"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" /> -->
+<TextView
+                android:id="@+id/lblQ7Kg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblQ7Kg"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtQ7Kg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" /> 
+<TextView
+                android:id="@+id/lblQ7NoBags"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblQ7NoBags"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtQ7NoBags"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" /> 
+<TextView
+                android:id="@+id/lblQ7WtOfOneBag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblQ7WtOfOneBag"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtQ7WtOfOneBag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" /> 
+<TextView
+                android:id="@+id/lblQ7NoBuckets"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblQ7NoBuckets"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtQ7NoBuckets"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" /> 
+<TextView
+                android:id="@+id/lblQ7WtOfOneBucket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblQ7WtOfOneBucket"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtQ7WtOfOneBucket"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" /> 
+<TextView
+                android:id="@+id/lblQuantityHarvestedGreen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblQuantityHarvestedGreen"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+<!-- 
+            <EditText
+                android:id="@+id/edtQuantityHarvestedGreen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" />    -->
+<TextView
+                android:id="@+id/lblQ8Kg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblQ8Kg"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtQ8Kg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" /> 
+<TextView
+                android:id="@+id/lblQ8NoBags"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblQ8NoBags"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtQ8NoBags"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" /> 
+<TextView
+                android:id="@+id/lblQ8WtOfOneBag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblQ8WtOfOneBag"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtQ8WtOfOneBag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" /> 
+<TextView
+                android:id="@+id/lblQ8NoBuckets"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblQ8NoBuckets"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtQ8NoBuckets"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" /> 
+<TextView
+                android:id="@+id/lblQ8WtOfOneBucket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblQ8WtOfOneBucket"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtQ8WtOfOneBucket"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" /> 
+<TextView
+                android:id="@+id/lblQuantitySoldOutsideContractGreen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblQuantitySoldOutsideContractGreen"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+<!-- 
+            <EditText
+                android:id="@+id/edtQuantitySoldOutsideContractGreen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" />    -->
+<TextView
+                android:id="@+id/lblQ9Kg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblQ9Kg"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtQ9Kg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" /> 
+<TextView
+                android:id="@+id/lblQ9NoBags"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblQ9NoBags"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtQ9NoBags"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" /> 
+<TextView
+                android:id="@+id/lblQ9WtOfOneBag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblQ9WtOfOneBag"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtQ9WtOfOneBag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" /> 
+<TextView
+                android:id="@+id/lblQ9NoBuckets"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblQ9NoBuckets"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtQ9NoBuckets"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" /> 
+<TextView
+                android:id="@+id/lblQ9WtOfOneBucket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblQ9WtOfOneBucket"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtQ9WtOfOneBucket"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" /> 
+<TextView
+                android:id="@+id/lblBuyersGreen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblBuyersGreen"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtBuyersGreen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text" />
+ 
+<TextView
+                android:id="@+id/lblPriceSoldGreen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblPriceSoldGreen"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtPriceSoldGreen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" /> 
+<TextView
+                android:id="@+id/lblQuantitySoldOutsideContractDry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblQuantitySoldOutsideContractDry"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+<!-- 
+            <EditText
+                android:id="@+id/edtQuantitySoldOutsideContractDry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" />   -->
+<TextView
+                android:id="@+id/lblQ12Kg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblQ12Kg"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtQ12Kg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" /> 
+<TextView
+                android:id="@+id/lblQ12NoBags"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblQ12NoBags"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtQ12NoBags"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" /> 
+<TextView
+                android:id="@+id/lblQ12WtOfOneBag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblQ12WtOfOneBag"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtQ12WtOfOneBag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" /> 
+<TextView
+                android:id="@+id/lblQ12NoBuckets"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblQ12NoBuckets"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtQ12NoBuckets"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" /> 
+<TextView
+                android:id="@+id/lblQ12WtOfOneBucket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblQ12WtOfOneBucket"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtQ12WtOfOneBucket"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" /> 
+<TextView
+                android:id="@+id/lblBuyersOutsideContractDry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblBuyersOutsideContractDry"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtBuyersOutsideContractDry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text" />
+ 
+<TextView
+                android:id="@+id/lblPriceSoldOutsideContractDry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblPriceSoldOutsideContractDry"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtPriceSoldOutsideContractDry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" /> 
+<TextView
+                android:id="@+id/lblQuantitySoldOutsideContract"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblQuantitySoldOutsideContract"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+<!-- 
+            <EditText
+                android:id="@+id/edtQuantitySoldOutsideContract"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" />  --> 
+<TextView
+                android:id="@+id/lblQ15Kg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblQ15Kg"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtQ15Kg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" /> 
+<TextView
+                android:id="@+id/lblQ15NoBags"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblQ15NoBags"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtQ15NoBags"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" /> 
+<TextView
+                android:id="@+id/lblQ15WtOfOneBag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblQ15WtOfOneBag"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtQ15WtOfOneBag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" /> 
+<TextView
+                android:id="@+id/lblQ15NoBuckets"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblQ15NoBuckets"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtQ15NoBuckets"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" /> 
+<TextView
+                android:id="@+id/lblQ15WtOfOneBucket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblQ15WtOfOneBucket"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtQ15WtOfOneBucket"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" /> 
+<TextView
+                android:id="@+id/lblBuyersWithinContract"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblBuyersWithinContract"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtBuyersWithinContract"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text" />
+ 
+<TextView
+                android:id="@+id/lblPriceSoldWithinContract"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblPriceSoldWithinContract"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtPriceSoldWithinContract"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="numberDecimal" /> 
+        
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lblSubmit" />
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_Cancel" />
+
+    </LinearLayout>
+        
+    </LinearLayout>
+
+</ScrollView>

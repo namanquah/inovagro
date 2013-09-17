@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lblPigeonPeaHarvest">Redimento de Feijao boer</string>
+    <string name="lblSalesContract">Contrato de venda com isumos</string>
+<string name="lblPlanted2011">2011/12 Area plantada</string>
+<string name="lblPlanted2012">2012/13 Area plantada</string>
+<string name="lblSeedVarietyPlanted">Variadade de Semente plantada</string>
+<string name="lblQuantitySeedReceived">Quantidade de Semente Recibida (kg)</string>
+<string name="lblSeedRateUsed">Quantidade de semente por ha (kg/Ha)</string>
+<string name="lblTotalPigeionPeaHarvested">Total feijao boer Colhida (kg)</string>
+<string name="lblQ7Kg">Kg</string>
+<string name="lblQ7NoBags">Numero do sacos</string>
+<string name="lblQ7WtOfOneBag">Peso dum saco</string>
+<string name="lblQ7NoBuckets">Numero de baldes/ bacia</string>
+<string name="lblQ7WtOfOneBucket">Peso dum balde / bacia</string>
+<string name="lblQuantityHarvestedGreen">Quantidade de feijao boer fresco Colhida</string>
+<string name="lblQ8Kg">Kg</string>
+<string name="lblQ8NoBags">Numero do sacos</string>
+<string name="lblQ8WtOfOneBag">Peso dum saco</string>
+<string name="lblQ8NoBuckets">Numero de baldes/ bacia</string>
+<string name="lblQ8WtOfOneBucket">Peso dum balde / bacia</string>
+<string name="lblQuantitySoldOutsideContractGreen">Quantidade de feijao boer fresco vendida (fora do contrato)</string>
+<string name="lblQ9Kg">Kg</string>
+<string name="lblQ9NoBags">Numero do sacos</string>
+<string name="lblQ9WtOfOneBag">Peso dum saco</string>
+<string name="lblQ9NoBuckets">Numero de baldes/ bacia</string>
+<string name="lblQ9WtOfOneBucket">Peso dum balde / bacia</string>
+<string name="lblBuyersGreen">Comprador</string>
+<string name="lblPriceSoldGreen">Preco por kg</string>
+<string name="lblQuantitySoldOutsideContractDry">Quantidade de feijao boer seco vendida (fora do contrato)</string>
+<string name="lblQ12Kg">Kg</string>
+<string name="lblQ12NoBags">Numero do sacos</string>
+<string name="lblQ12WtOfOneBag">Peso dum saco</string>
+<string name="lblQ12NoBuckets">Numero de baldes/ bacia</string>
+<string name="lblQ12WtOfOneBucket">Peso dum balde / bacia</string>
+<string name="lblBuyersOutsideContractDry">Comprador</string>
+<string name="lblPriceSoldOutsideContractDry">Preco por kg</string>
+<string name="lblQuantitySoldOutsideContract">Quantidade de feijao boer seco vendida (dentro do contrato)</string>
+<string name="lblQ15Kg">Kg</string>
+<string name="lblQ15NoBags">Numero do sacos</string>
+<string name="lblQ15WtOfOneBag">Peso dum saco</string>
+<string name="lblQ15NoBuckets">Numero de baldes/ bacia</string>
+<string name="lblQ15WtOfOneBucket">Peso dum balde / bacia</string>
+<string name="lblBuyersWithinContract">Comprador</string>
+<string name="lblPriceSoldWithinContract">Preco por kg</string>
+
+<string-array name="arrySalesContract">
+	<item >Sim</item>
+	<item >Nao</item>
+	</string-array>
+
+
+	
+
+</resources>
