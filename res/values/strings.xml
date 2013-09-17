@@ -1,5 +1,6 @@
 <resources>
 
+    <string name="my_app_version">InovagroFDC v1.83</string>  <!-- saved userID in Pigeon Pea Harvest(1.81), translated to protugues (1.82) -->
     <string name="app_name">InovagroFDC1</string>
     <string name="lbl_Cancel">Cancel</string>
     <string name="hello_world">Hello world!</string>
@@ -119,7 +120,8 @@
 		<item >Go Offline</item>
 		<item >Change Password</item>
 		<item >August 2013 Survey</item>
-		<item >Upload Saved Survey Data</item>		
+		<item >Upload Saved Survey Data</item>	
+		<item >Pigeon Pea Harvest Survey</item>		
 		<item >Exit</item>		
     </string-array>
     <!-- menu items removed from menu:
@@ -135,4 +137,6 @@
 		<item >Exit</item>
     </string-array>
    <string name="lblComfirmData">Confirm Data before Submission</string>
+   <string name="lblPigeonPeaHarvestSurvey">Colheita De Feijao Boer</string>
+   
 </resources>

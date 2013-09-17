@@ -119,9 +119,8 @@
 		<item >Alterar Palavra-passe</item>
 		<item >Inquerito Agosto 2013</item>
 		<item >Carregar Inquerito informacao armazenada</item>
+		<item >Colheita De Feijao Boer</item> 
 		<item >Sair</item>
-		<item >Adicionar productore a campanha</item>
-		<item >Adicionar machamba a campanha</item>
     </string-array>
     <string-array name="arryOfflineMenu">
 		<item >Adicionar productore</item>
@@ -133,5 +132,6 @@
 		<item >Sair</item>
     </string-array>
   
-   
+   <string name="lblPigeonPeaHarvestSurvey">PigeonPea harvest</string>
+    
 </resources>

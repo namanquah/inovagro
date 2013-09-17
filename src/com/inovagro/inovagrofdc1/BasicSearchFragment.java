@@ -25,6 +25,7 @@ public class BasicSearchFragment extends Fragment implements OnClickListener, In
 	public BasicSearchFragment(int PurposeOfSearch){
 		this.PurposeOfSearch=PurposeOfSearch;
 	}
+	//Purpose of Search was not used further. Seems its passed globally
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

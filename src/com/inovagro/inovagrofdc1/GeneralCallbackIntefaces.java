@@ -23,4 +23,5 @@ public interface GeneralCallbackIntefaces {
 	public void resetLocalFarmersDB(); //delete  and recreate local farms's db, in case it has been corrupted.
 	public void showNextSurveyForm(int FormPart); //show partI, IIa, IIb etc
 	public void takePhoto(Fragment srcFragment, View v, String prefix);//take picture
+	public void showPigeonPeaHarvestForm(int FarmerID, String FarmerName);//show the PigeonPeaHarvest Form
 }

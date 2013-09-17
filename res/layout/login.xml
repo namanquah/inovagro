@@ -63,4 +63,11 @@
 
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/my_app_version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/my_app_version" />
+
 </LinearLayout>

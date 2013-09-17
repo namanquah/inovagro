@@ -28,6 +28,7 @@ public class ListResultFragment extends ListFragment implements InovagroConstant
 	GeneralCallbackIntefaces callBack=null;
 	Button btnCancel,btnAddFarm, btnSave,btnClearAll, btnCheckAll, btnFarmerInfo;
 	Button btnDelete, btnResetLocalDB;
+	//btnPigeonPeaHarvestSurvey
 	
 	ArrayAdapter<String> adapter ;
 	String[] values;
@@ -69,6 +70,7 @@ public class ListResultFragment extends ListFragment implements InovagroConstant
         btnFarmerInfo=(Button)rootView.findViewById(R.id.btnFarmerInfo);
         btnDelete=(Button)rootView.findViewById(R.id.btnDelete);
         btnResetLocalDB=(Button)rootView.findViewById(R.id.btnResetLocalDB);
+     //   btnPigeonPeaHarvestSurvey=(Button)rootView.findViewById(R.id.btnPigeonPeaHarvestSurvey);
         
         btnCancel.setOnClickListener(this);
         btnAddFarm.setOnClickListener(this);
@@ -78,10 +80,11 @@ public class ListResultFragment extends ListFragment implements InovagroConstant
         btnFarmerInfo.setOnClickListener(this);
         btnDelete.setOnClickListener(this);
         btnResetLocalDB.setOnClickListener(this);
-        
+        //btnPigeonPeaHarvestSurvey.setOnClickListener(this);
         
         btnFarmerInfo.setVisibility(View.GONE);  //***********enable this in version2 *********?
         btnAddFarm.setVisibility(View.GONE); //show this only after selecting a particular farmer.
+        //btnPigeonPeaHarvestSurvey.setVisibility(View.GONE);
         
         
         Log.v("in ListResFrag","onCreateView actionType="+actionType+"purposeOfSearch="+PurposeOfSearch);
@@ -120,6 +123,17 @@ public class ListResultFragment extends ListFragment implements InovagroConstant
         	btnClearAll.setVisibility(View.GONE);
         	btnDelete.setVisibility(View.GONE);
         	btnResetLocalDB.setVisibility(View.GONE);
+        }
+
+        //pegion pea harvest survey
+        if (MainActivity.PurposeOfSearch==searchPIGEONPEA_HARVEST_SURVEY){
+        	btnCheckAll.setVisibility(View.GONE);
+        	btnClearAll.setVisibility(View.GONE);
+        	btnDelete.setVisibility(View.GONE);
+        	btnResetLocalDB.setVisibility(View.GONE);
+        	btnCheckAll.setVisibility(View.GONE);
+        	btnClearAll.setVisibility(View.GONE);
+        //	btnPigeonPeaHarvestSurvey.setVisibility(View.VISIBLE);
         }
 
 
@@ -171,8 +185,14 @@ public class ListResultFragment extends ListFragment implements InovagroConstant
 				  //Toast.makeText(getActivity(), " "+position+" farmer id  "+FarmerID +values[position], Toast.LENGTH_LONG).show();
 				  //***************************NOTE  NOTE  NOTE  NOTE  NOTE  NOTE  ****************************/
 				  //in future, may need to pass the purpose of search to the called fxns! Currently using global in MainActivity
+				  if (MainActivity.PurposeOfSearch==searchPIGEONPEA_HARVEST_SURVEY){
+					  callBack.showPigeonPeaHarvestForm(FarmerID, values[position]);
+					  return;
+				  }
+				  //wont get here if its pigeionPea
 				  callBack.fetchListOfFarms(actionSEARCH_CURRENT_FARMS, FarmerID);
 				  return;
+				  
 			  }
 	  //}
 	  //do another purposeOfSearch="add farm"
@@ -269,7 +289,13 @@ public class ListResultFragment extends ListFragment implements InovagroConstant
 	   
 	   if (v==btnResetLocalDB){
 		   callBack.resetLocalFarmersDB();
+		   return;
 	   }
+/*	   if (v==btnPigeonPeaHarvestSurvey){
+		   
+		   callBack.showPigeonPeaHarvestForm(MainActivity.CurrentFarmerID, MainActivity.CurrentFarmerName);
+		   return;
+	   } */
   }
 	
   

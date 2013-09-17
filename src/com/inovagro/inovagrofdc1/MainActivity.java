@@ -88,6 +88,8 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
     public static  String mnuGoOffline;
     public static  String mnuUploadSavedData;
     public static String mnuUploadSavedSurvey2013Data;
+    
+    public static String mnuPigeonPeaHarvestSurvey;
     ////---^
 	   
 	@Override
@@ -137,12 +139,13 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 		 mnuSynchronize=OnlineMenu[6];
 		 mnuGoOffline=OnlineMenu[7];
 	     mnuChangePassword=OnlineMenu[8];
+	     mnuPigeonPeaHarvestSurvey=OnlineMenu[11];
 	     
 	      
 	    
 	     mnuSurvey2013=OnlineMenu[9];
 	     mnuUploadSavedSurvey2013Data=OnlineMenu[10];
-	    mnuExit=OnlineMenu[11];
+	    mnuExit=OnlineMenu[12];
 	    
 	    mnuGoOnline=OfflineMenu[5] ;
 	    
@@ -297,6 +300,23 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
                    fragmentTransaction.addToBackStack(null);
                    fragmentTransaction.commit(); */
             }
+            /*
+            if(id.equals(mnuPigeonPeaHarvestSurvey)){
+            	//short circuit, not passing to fragment and back:
+            	glbActionType =actionPIGEONPEA_HARVEST_SURVEY;
+            	fragment=new SurveyPigeonPeaHarvestFragment();
+            	   fragmentTransaction.replace(TargetPane, fragment); //as .add
+                   fragmentTransaction.addToBackStack(null);
+                   fragmentTransaction.commit(); 
+            } */
+            if(id.equals(mnuPigeonPeaHarvestSurvey)){        //search for farmer for pegionPea      
+            	//short circuit, not passing to fragment and back:
+            	MainActivity.PurposeOfSearch=searchPIGEONPEA_HARVEST_SURVEY;
+            	fragment=new BasicAdvancedSearchFragment(searchPIGEONPEA_HARVEST_SURVEY);
+            	   fragmentTransaction.replace(TargetPane, fragment); //as .add
+                   fragmentTransaction.addToBackStack(null);
+                   fragmentTransaction.commit(); 
+            }
           
 	}//on item selected
 	
@@ -344,6 +364,11 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 		}
 		String addr=null;
 		int action=-1;
+		UtilityFunctions uf= new UtilityFunctions();
+		
+		searchString=uf.urlEncode(searchString); //added to encode data passed. to enable search including spaces. Sept 15,2012, NNA
+		//the encoding has not been done for the advanced case. Do encode the tmp variable.
+		
 		if (searchType==actionSEARCH_FARMERNAME){
 		 addr=BaseURL+"?action=SEARCH_FARMERS_BY_NAME&searchString="+searchString;
 		 action=searchType;//actionSEARCH_FARMERNAME;
@@ -352,7 +377,7 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 			 addr=BaseURL+"?action=SEARCH_FARMERS_BY_REFNO&searchString="+searchString;
 			 action=searchType;//actionSEARCH_FARMERREFERENCENO;
 			}
-		if (MainActivity.PurposeOfSearch ==view_PLANNED_VISITS){
+		if (MainActivity.PurposeOfSearch ==view_PLANNED_VISITS){   
 			doSearchOffline(searchType, searchString);
 			return;
 		}
@@ -583,6 +608,11 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 			 action=actionType;
 			 glbActionType=action;
 			 break;
+		 case actionPIGEONPEA_HARVEST_SURVEY:
+			 addr=BaseURL+"?action=PIGEONPEA_HARVEST_SURVEY";
+			 action=actionType;
+			 glbActionType=action;
+			 break;
 		}
 		Log.v("postData msg","OfflineState="+OfflineState);
 		if (MainActivity.OfflineState ==OnLineMode){
@@ -764,6 +794,8 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 				Toast.makeText(getApplicationContext(), "No data or bad data to upload", Toast.LENGTH_LONG).show();
 			}
 		}
+		
+		
 		/*
 		 *  //will need to pass actionTypes to doAfterPostData to specialize the result handling.
 
@@ -946,6 +978,35 @@ int TargetPane;
 		fragmentTransaction.replace(TargetPane , fragment);
 		fragmentTransaction.addToBackStack(null);
 		fragmentTransaction.commit();
+	}
+	
+	public void showPigeonPeaHarvestForm(int FarmerID, String FarmerName){
+		int TargetPane;
+		
+		if (mTwoPane) {
+	          TargetPane=R.id.rightFrame;
+		}
+		else
+		{
+		      TargetPane=R.id.leftFrame;			
+		}
+		
+		
+		 //double check that FarmYearlyDataID is being used!
+			//call a different constructor bc not all the array is needed
+			
+			//fetch list of visit types from resource
+			FragmentManager fragmentManager = getSupportFragmentManager();	
+			FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+			android.support.v4.app.Fragment fragment=null;
+			//show the new fragment -add visit data form
+			//todo: do pass both FarmYearlyDataID and vistType to the constructor 
+			//done----v
+			fragment = new SurveyPigeonPeaHarvestFragment(FarmerID, FarmerName);
+			fragmentTransaction.replace(TargetPane , fragment);
+			fragmentTransaction.addToBackStack(null);
+			fragmentTransaction.commit();
+				
 	}
 	//**************---^---general call backs***************************/
 	

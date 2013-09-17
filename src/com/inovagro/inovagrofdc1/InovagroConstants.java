@@ -2,7 +2,7 @@ package com.inovagro.inovagrofdc1;
 
 public interface InovagroConstants {
 	//public static String BaseURL="http://10.0.2.2/mywebs/inovagro_android/utilities4android.php";
-	public static String BaseURL="http://www.ghmeforum.org/inovagro/inovagro_android/utilities4android.php";
+    public static String BaseURL="http://www.ghmeforum.org/inovagro/inovagro_android/utilities4android.php";
     public static final String DATABASE_TABLE1 = "provinces";
     public static final String DATABASE_TABLE2 = "districts";
     public static final String DATABASE_TABLE3 = "admin_posts";
@@ -75,6 +75,7 @@ public interface InovagroConstants {
     public static final int actionPOST_ADD_FARMS_YEARLY_DATA=112;
     public static final int actionPOST_AUGUST2013_SURVEY=113;
     public static final int actionUPLOAD_SAVED_SURVEY2013_DATA=114;
+    public static final int actionPIGEONPEA_HARVEST_SURVEY=115;
     
     
    // public static final int actionSAVE_ADD_FARMER=9;
@@ -103,6 +104,8 @@ public interface InovagroConstants {
     public static  final int searchBA_ADD_FARM=1002;
     public static  final int searchBA_PLAN_VISIT=1003;
     public static  final int view_PLANNED_VISITS=1004;
+    public static  final int searchPIGEONPEA_HARVEST_SURVEY=1005;
+    
     
     //used for online-offlien status
     public static final int OffLineMode=2000;
