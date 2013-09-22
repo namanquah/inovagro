@@ -44,8 +44,15 @@
 <string name="lblQ15WtOfOneBucket">Weight of one Bucket</string>
 <string name="lblBuyersWithinContract">Buyer</string>
 <string name="lblPriceSoldWithinContract">Price sold per kg</string> 
+<string name="lblFinishedHarvest">Have you finshed harvest?</string>
+
 
 <string-array name="arrySalesContract">
+	<item >Yes</item>
+	<item >No</item>
+	</string-array>
+
+<string-array name="arryFinishedHarvest">
 	<item >Yes</item>
 	<item >No</item>
 	</string-array>

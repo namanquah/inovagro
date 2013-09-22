@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="my_app_version">InovagroFDC v1.9</string>  <!-- v1.9 -does local save and upload-->
+    <string name="my_app_version">InovagroFDC v1.92 -dont use offline mode</string>  <!-- v1.9a does time stamp, modified ID requirement-->
     <string name="app_name">InovagroFDC1</string>
     <string name="lbl_Cancel">Cancel</string>
     <string name="hello_world">Hello world!</string>
@@ -36,6 +36,24 @@
     <string name="lblFemale">Female</string>
     <string name="lblYes">Yes</string>
     <string name="lblNo">No</string>
+    
+    <!-- modification on Add Farmer -->
+    <string name="lblBirthCertificate">Birth Certificate</string>
+	<string name="lblTemporaryID">Temporary ID</string>
+	<string name="lblNationalID">NationalID</string>
+	<string name="lblVoterRegistrationCard">Voter Registration Card</string>
+	<string name="lblIncomeTaxNo">Income Tax No</string>
+	<string name="lblPassport">Passport</string>
+	<string name="lblFarmerPicture">Farmers Picture</string>
+	<string name="lblID1Front">Front of ID 1</string>
+	<string name="lblID1Back">Back of ID 1</string>
+    <string name="lblID2Front">Front of ID 2</string>
+	<string name="lblID2Back">Back of ID 2</string>
+    
+	<string name="lblIDType1">ID Type 1</string>
+    <string name="lblFarmerIDNo1">Farmer ID No 1</string>
+    <string name="lblIDType2">ID Type 2</string>
+    <string name="lblFarmerIDNo2">Farmer ID No 2</string>
     
     <!-- layout for add visit -->
     <string name="lblFarmID">Farm Info</string>

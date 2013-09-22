@@ -43,8 +43,15 @@
 <string name="lblQ15WtOfOneBucket">Peso dum balde / bacia</string>
 <string name="lblBuyersWithinContract">Comprador</string>
 <string name="lblPriceSoldWithinContract">Preco por kg</string>
+<string name="lblFinishedHarvest">Port: Termino a colheita?</string>
 
 <string-array name="arrySalesContract">
+	<item >Sim</item>
+	<item >Nao</item>
+	</string-array>
+
+
+<string-array name="arryFinishedHarvest">
 	<item >Sim</item>
 	<item >Nao</item>
 	</string-array>

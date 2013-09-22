@@ -615,7 +615,20 @@
                 android:layout_height="wrap_content"
                 
                 android:ems="10"     
-                android:inputType="numberDecimal" /> 
+                android:inputType="numberDecimal" />
+
+            
+
+            <TextView
+                android:id="@+id/lblFinishedHarvest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+            
+            <Spinner
+                android:id="@+id/spnFinishedHarvest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         
         <LinearLayout
         android:layout_width="match_parent"

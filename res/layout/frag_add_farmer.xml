@@ -40,6 +40,24 @@
         android:ems="10"
         android:inputType="textPersonName" />
 
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content" >
+
+	    <Button
+	        android:id="@+id/btnFarmerPicture"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/lblFarmerPicture" />
+
+	    <TextView
+	        android:id="@+id/txtFarmerPicture"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/lblFarmerPicture" />
+
+	</LinearLayout>
+	
     <TextView
         android:id="@+id/txtFarmerReferenceNo"
         android:layout_width="wrap_content"
@@ -181,15 +199,190 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <!-- Mod -individual ID types listes -->
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/lblIDType"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+<TextView
+                android:id="@+id/lblBirthCertificate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblBirthCertificate"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtBirthCertificate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"
+                android:inputType="text" />
+ 
+<TextView
+                android:id="@+id/lblTemporaryID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblTemporaryID"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtTemporaryID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="text" /> 
+<TextView
+                android:id="@+id/lblNationalID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblNationalID"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtNationalID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="text" /> 
+<TextView
+                android:id="@+id/lblVoterRegistrationCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblVoterRegistrationCard"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtVoterRegistrationCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="text" /> 
+			<TextView
+                android:id="@+id/lblIncomeTaxNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblIncomeTaxNo"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtIncomeTaxNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="text" /> 
+			<TextView
+                android:id="@+id/lblPassport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblPassport"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtPassport"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:ems="10"     
+                android:inputType="text" /> 
+
+             <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+	    
+         <Button
+        android:id="@+id/btnID1Front"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lblID1Front" />
+
+         <TextView
+             android:id="@+id/txtID1Front"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="@string/lblID1Front" />
+
+    </LinearLayout>
+    
+              <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+	    
+         <Button
+        android:id="@+id/btnID1Back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lblID1Back" />
+
+         <TextView
+             android:id="@+id/txtID1Back"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="@string/lblID1Back" />
+
+    </LinearLayout>
+
+	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+	    
+         <Button
+        android:id="@+id/btnID2Front"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lblID2Front" />
+
+         <TextView
+             android:id="@+id/txtID2Front"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="@string/lblID2Front" />
+
+    </LinearLayout>
+     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+	    
+         <Button
+        android:id="@+id/btnID2Back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lblID2Back" />
+
+         <TextView
+             android:id="@+id/txtID2Back"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="@string/lblID2Back" />
+
+    </LinearLayout>
+    <!--  ID type spinner below -->
+    <!--  Note thatn in teh following, the picture button code is duplicaetd. -->
+    <!-- group 1 start -->
+<!-- 
+	<TextView
+	    android:id="@+id/textView12"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:background="@color/lightRed"
+	    android:text="Layout Option 2 below" />
+ 
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lblIDType1"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
 
     <Spinner
-        android:id="@+id/spnIDTYpe"
+        android:id="@+id/spnIDTYpe1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -197,14 +390,114 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/lblFarmerIDNo"
+        android:text="@string/lblFarmerIDNo1"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/edtFarmerIDNo"
+        android:id="@+id/edtFarmerIDNo1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10" />
+
+        	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+	    
+         <Button
+        android:id="@+id/btnID1Front"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lblID1Front" />
+
+         <TextView
+             android:id="@+id/txtID1Front"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="@string/lblID1Front" />
+
+    </LinearLayout>
+     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+	    
+         <Button
+        android:id="@+id/btnID1Back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lblID1Back" />
+
+         <TextView
+             android:id="@+id/txtID1Back"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="@string/lblID1Back" />
+
+    </LinearLayout>
+    
+    --> 
+        <!-- group 1 end,  grp 2 start -->
+        <!-- 
+ <TextView
+        android:id="@+id/textView22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lblIDType2"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+
+    <Spinner
+        android:id="@+id/spnIDTYpe2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/textView32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lblFarmerIDNo2"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/edtFarmerIDNo2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10" />
+    	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+	    
+         <Button
+        android:id="@+id/btnID2Front"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lblID2Front" />
+
+         <TextView
+             android:id="@+id/txtID2Front"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="@string/lblID2Front" />
+
+    </LinearLayout>
+     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+	    
+         <Button
+        android:id="@+id/btnID2Back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lblID2Back" />
+
+         <TextView
+             android:id="@+id/txtID2Back"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="@string/lblID2Back" />
+
+    </LinearLayout>
+    --> 
+    <!-- group 2 end -->
 
     <TextView
         android:id="@+id/textView4"
@@ -286,7 +579,45 @@
             android:text="@string/lblNo" />
 
     </RadioGroup>
+<Button
+                android:id="@+id/btnCaptureGPS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/lblCaptureGPS" />
 
+            <TextView
+                android:id="@+id/lblGPSLong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblGPSLong"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtGPSLong"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:id="@+id/lblGPSLat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblGPSLat"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtGPSLat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="numberDecimal" />
+            
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >

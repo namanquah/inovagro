@@ -1,6 +1,7 @@
 package com.inovagro.inovagrofdc1;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import android.app.Activity;
@@ -35,6 +36,7 @@ String FarmerID, FarmerName;
 	TextView txtFarmerName;
 	
 	Spinner spnSalesContract;
+	Spinner spnFinishedHarvest;
 	EditText edtPlanted2011;
 	EditText edtPlanted2012;
 	EditText edtSeedVarietyPlanted;   // <--------this shd be combination of seed type and variety
@@ -78,6 +80,7 @@ String FarmerID, FarmerName;
 	EditText edtPriceSoldWithinContract;
 	
 	ArrayAdapter<String> aaspnSalesContract=null;
+	ArrayAdapter<String> aaspnFinishedHarvest=null;
 	
 	ArrayList<ComboRowData> alSeedVarietyPlanted=null;
 	ArrayAdapter<ComboRowData> aaSeedVarietyPlanted=null;
@@ -148,6 +151,11 @@ String FarmerID, FarmerName;
 		spnSalesContract=(Spinner)rootView.findViewById(R.id.spnSalesContract);
 		spnSalesContract.setAdapter(aaspnSalesContract);
 		
+		String [] arFinishedHarvest = res.getStringArray(R.array.arryFinishedHarvest);
+		aaspnFinishedHarvest=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, arFinishedHarvest);		
+		aaspnFinishedHarvest.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
+		spnFinishedHarvest=(Spinner)rootView.findViewById(R.id.spnFinishedHarvest);
+		spnFinishedHarvest.setAdapter(aaspnFinishedHarvest);
 		/*
 		SpinnerData s= new SpinnerData(getActivity());
 		 ComboRowData c=(ComboRowData)alCropType.get(position); //determine posiiton in array
@@ -208,6 +216,7 @@ String FarmerID, FarmerName;
 	   values.put("UserID",Integer.toString(Login.UserID));
 	  
 	   values.put("SalesContract",String.valueOf(spnSalesContract.getSelectedItemPosition()));
+	   values.put("FinishedHarvest",String.valueOf(spnFinishedHarvest.getSelectedItemPosition()));
 	   
 	   values.put("Planted2011",edtPlanted2011.getText().toString());
 	   values.put("Planted2012",edtPlanted2012.getText().toString());
@@ -250,6 +259,12 @@ String FarmerID, FarmerName;
 	   values.put("Q15WtOfOneBucket",edtQ15WtOfOneBucket.getText().toString());
 	   values.put("BuyersWithinContract",edtBuyersWithinContract.getText().toString());
 	   values.put("PriceSoldWithinContract",edtPriceSoldWithinContract.getText().toString());
+	   
+	   Calendar cal= Calendar.getInstance();
+ 	   	long timeStamp=cal.getTimeInMillis();
+ 	   	UtilityFunctions uf= new UtilityFunctions();
+ 	   //uf.dateToStringTimeStamp(timeStamp);
+ 	 values.put("MobileTimeStamp",uf.dateToStringTimeStamp(timeStamp));
 	   
 	   
 //	   ComboRowData c;
