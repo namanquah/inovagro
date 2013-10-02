@@ -46,18 +46,21 @@ return original.split(sep);
 	Object [] create2_1DArrays(String original, String rowSep, String colSep){//, String[] NameArry, int IDArry, int [] arry2){
 		//if (original==null || original.trim().equals("")) return null;//new addition.
 		String[] NameArry=null;
-		int [] IDArry=null;
+		//int [] IDArry=null;
+		String [] IDArry=null;
 		String [] rowData= original.split(rowSep);
 	 int numrows= rowData.length;
 	    String tmp[][]=new String[numrows][];
 	    for (int i=0; i<rowData.length; i++){
 	        tmp[i]=rowData[i].split(colSep);
 	    }
-	    IDArry=new int[tmp.length];
+	    //IDArry=new int[tmp.length];
+	    IDArry=new String[tmp.length];
 	   NameArry=new String[tmp.length];
 		 for (int i=0; i<tmp.length; i++){
 			 NameArry[i]=(tmp[i][0]);
-			 IDArry[i]=Integer.parseInt(tmp[i][1]);
+			 //IDArry[i]=Integer.parseInt(tmp[i][1]);
+			 IDArry[i]=tmp[i][1];
 		 }//for i
 		 return new Object[]{NameArry, IDArry};
 	}
@@ -140,8 +143,14 @@ return original.split(sep);
 	return t;
 	}
 
-	public  String dateToStringTimeStamp (long date)
+	/**
+	 * Creates timeStamp given a date in Long format
+	 * @param date as a time stamp
+	 * @return
+	 */
+	public  static String dateToStringTimeStamp (long date)  //made changes to this> verify 
 	{
+	UtilityFunctions thisClass= new UtilityFunctions();
 	Calendar c = Calendar.getInstance();
 	c.setTime(new Date(date));
 	int y = c.get(Calendar.YEAR);
@@ -149,9 +158,21 @@ return original.split(sep);
 	int d = c.get(Calendar.DATE);
 	String t = (y<10? "0": "")+y+"-"+(m<10? "0": "")+m+"-"+(d<10?
 	"0": "")+d;
-	t=t+" "+timeToString(date);
+	t=t+" "+thisClass.timeToString(date);
 	return t;
 	}
+	
+	/**
+	 * creates a timeStamp usign current Time, in string format to save directly in db.
+	 * @return timeStamp. 
+	 */
+	public  static String currentStringTimeStamp (){ //new- oct 	
+		Calendar cal= Calendar.getInstance();
+       	long timeStamp=cal.getTimeInMillis();       	
+       	String theEntryDate=dateToStringTimeStamp(timeStamp);
+		return theEntryDate;
+	}
+	
 	/*
 	public  String dateToString (Date date)
 	{
@@ -196,6 +217,21 @@ return original.split(sep);
 	    return " "+year+"-"+month+1+"-"+day;
 	}
 
+	/**
+	 * This creates a unique ID that can be used eg as FarmerID in offline mode. It si based on timestamp
+	 * 
+	 * @param qualifier adds a string at end to qualify the identifier
+	 * @return
+	 */
+	public static String uniqueID(String qualifier){
+		
+		Calendar cal= Calendar.getInstance();
+    	long timeStamp=cal.getTimeInMillis();
+    	String uniqueID=""+timeStamp+"_"+Login.UserID+qualifier;
+    	
+		return uniqueID;
+	}
+	
 	//use this to handle listview within a scrollView. this should not normally be done.
 	// call Utility.setListViewHeightBasedOnChildren(yourListView) and it will be resized to exactly accommodate the height of its items.
     //public class Utility {

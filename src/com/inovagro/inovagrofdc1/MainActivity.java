@@ -632,6 +632,16 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 			 action=actionType;
 			 glbActionType=action;
 			 break;
+		 case actionUPLOAD_SAVED_FARMER_DATA:
+			 addr=BaseURL+"?action=UPLOAD_SAVED_FARMER_DATA";
+			 action=actionType;
+			 glbActionType=action;
+			 break;
+		 case actionUPLOAD_SAVED_FARM_DATA:
+			 addr=BaseURL+"?action=UPLOAD_SAVED_FARM_DATA";
+			 action=actionType;
+			 glbActionType=action;
+			 break;
 		}
 		Log.v("postData msg","OfflineState="+OfflineState);
 		if (MainActivity.OfflineState ==OnLineMode){
@@ -705,11 +715,46 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 					db.close();
 
 				 break;
+				 
+			 case actionPOST_ADD_FARMER:
+				 db = new DBAdapter(getApplicationContext());
+					db.open();
+					String res4=db.saveFarmerDataOffline(values);
+					if (res4.endsWith("successOK")){
+						Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
+						//close the dialog box, or reset the values.
+						getSupportFragmentManager().popBackStack();
+						//showSuveyAug2013Fragment();
+					}
+					else {//
+						Toast.makeText(getApplicationContext(), "Sorry, Local Save failed", Toast.LENGTH_LONG).show();
+					}
+					db.close();
+
+				 break;	
+				 
+			 case actionPOST_ADD_FARM:
+				 db = new DBAdapter(getApplicationContext());
+					db.open();
+					String res3=db.saveFarmDataOffline(values);
+					if (res3.endsWith("successOK")){
+						Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
+						//close the dialog box, or reset the values.
+						getSupportFragmentManager().popBackStack();
+						//showSuveyAug2013Fragment();
+					}
+					else {//
+						Toast.makeText(getApplicationContext(), "Sorry, Local Save failed", Toast.LENGTH_LONG).show();
+					}
+					db.close();
+
+				 break;	
+				 
 			default:
 				Toast.makeText(getApplicationContext(), "Sorry, You can do this online only", Toast.LENGTH_LONG).show();
 					 
-			}
-		}
+			}//switch
+		} //offline mode
 
 		
 	}
@@ -829,7 +874,45 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 				Toast.makeText(getApplicationContext(), "No data or bad data to upload", Toast.LENGTH_LONG).show();
 			}
 		}
-		
+		//upload farm
+		if (glbActionType==actionUPLOAD_SAVED_FARM_DATA){ //clear local table bc was successful.
+			if (result.endsWith("successOK")){
+			 DBAdapter db = new DBAdapter(getApplicationContext());
+				db.open();
+				db.wipeOfflineFarmData_new();
+				db.initOfflineFarmTables();
+				db.close();
+			}
+			if (result.endsWith("failedOK")){
+				Toast.makeText(getApplicationContext(), "No data or bad data to upload", Toast.LENGTH_LONG).show();
+			}
+		}
+		//upload farmer data
+		if (glbActionType==actionUPLOAD_SAVED_FARMER_DATA){ //clear local table bc was successful.
+			if (result.endsWith("successOK")){
+			 DBAdapter db = new DBAdapter(getApplicationContext());
+				db.open();
+				db.wipeOfflineFarmerData_new();
+				db.initOfflineFarmTables();
+				db.close();
+			}
+			if (result.endsWith("failedOK")){
+				Toast.makeText(getApplicationContext(), "No data or bad data to upload", Toast.LENGTH_LONG).show();
+			}
+		}
+		//upload pigeonPea Harvest data
+		if (glbActionType==actionUPLOAD_SAVED_PIGEONPEA_HARVEST_DATA){ //clear local table bc was successful.
+			if (result.endsWith("successOK")){
+			 DBAdapter db = new DBAdapter(getApplicationContext());
+				db.open();
+				db.wipeOfflinePigeionPeaHarvestData();
+				db.initOfflinePigeionPeaHarvestTables();
+				db.close();
+			}
+			if (result.endsWith("failedOK")){
+				Toast.makeText(getApplicationContext(), "No data or bad data to upload", Toast.LENGTH_LONG).show();
+			}
+		}
 		
 		/*
 		 *  //will need to pass actionTypes to doAfterPostData to specialize the result handling.
@@ -1591,12 +1674,14 @@ int TargetPane;
 		        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 		      //  String[] values = listData[1];
 		        String[] NameArry=null;
-		        int IDArry[]=null;
+		       // int IDArry[]=null; //changed int->str
+		        String IDArry[]=null;
 		        
 		        //seems the following call does not work---------------------------vvv
 		        Object A[]=fxn.create2_1DArrays(result, "</br>", ":");//, NameArry, IDArry, arry2);
 		        NameArry=(String[])A[0];
-		        IDArry=(int[])A[1];
+		        //IDArry=(int[])A[1]; //changed int->str
+		        IDArry=(String[])A[1];
 		        
 		           //above may not work bc of applicaitoncontext
 		        int TargetPane;

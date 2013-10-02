@@ -55,7 +55,60 @@ public class DBAdapter implements InovagroConstants {
 		        "create table seasons (_id integer primary key autoincrement, theid integer not null , thename text not null, parentid integer not null);";
 	    private static final String DATABASE_CREATE13 =
 		        "create table land_ownership_types (_id integer primary key autoincrement, theid integer not null , thename text not null, parentid integer not null);";
-	   		        
+	   	
+	    String createFarmTbl="CREATE TABLE IF NOT EXISTS farms ("+       		
+				 "  FarmID text NOT NULL primary key,"+  //FarmID integer NOT NULL primary key,"+
+				 "  FarmerID integer NOT NULL,"+
+				 "  FarmName text NOT NULL,"+
+				 "  ProvinceID integer NOT NULL,"+
+				 "  DistrictID integer NOT NULL,"+
+				 "  AdminPostID integer NOT NULL,"+
+				 "  LocalityID integer NOT NULL,"+
+				 "  ZoneID integer NOT NULL,"+
+				 "  GPSLong real NOT NULL,"+
+				 "  GPSLat real NOT NULL,"+
+				 "  UserID integer NOT NULL"+
+				 ");";
+	    
+	    String createFarmerTbl="CREATE TABLE IF NOT EXISTS farmers ("+
+				// "_id integer primary key autoincrement,"+
+				 "  FarmerID text NOT NULL primary key on conflict replace,"+  //"  FarmerID integer NOT NULL primary key on conflict replace,"+
+				 "  Surname text NOT NULL,"+
+				 "  ForeNames text NOT NULL,"+
+				 "  FarmerReferenceNo text NOT NULL,"+
+				 "  Gender integer NOT NULL ,"+
+				 "  PhoneNo text NOT NULL ,"+
+				 "  textOfBirth text NOT NULL,"+
+				 "  ProvinceID integer NOT NULL,"+
+				 "  DistrictID integer NOT NULL,"+
+				 "  AdminPostID integer NOT NULL,"+
+				 "  LocalityID integer NOT NULL,"+
+				 "  ZoneID integer NOT NULL,"+
+				 "  FarmerGroupID integer NOT NULL,"+
+				 "  IDType integer NOT NULL,"+
+				 "  FarmerIDNo text NOT NULL,"+
+				 "  HeadOfHouseholdName text NOT NULL,"+
+				 "  HeadOfHouseholdGender integer NOT NULL,"+
+				 "  NumberOfDependents integer NOT NULL,"+
+				 "  IsGroupLeader tinyint(4) NOT NULL ,"+
+				 "  UserId integer NOT NULL,"+
+				 " BirthCertificate  text,"+
+				 " TemporaryID  text,"+
+				 " NationalID  text,"+
+				 " VoterRegistrationCard  text,"+
+				 " IncomeTaxNo  text,"+
+				 " Passport  text,"+
+				 " DUAT  text,"+
+				 " ID1Front  text,"+
+				 " ID1Back  text,"+
+				 " ID2Front  text,"+
+				 " ID2Back  text,"+
+				 " FarmerPicture  text,"+
+				 " GPSLong  real,"+
+				 " GPSLat  real,"+
+				 " MobileTimeStamp  text"+
+				 		" );";
+	    
 	    private final Context context;    
 
 	    private DatabaseHelper DBHelper;
@@ -425,7 +478,7 @@ public class DBAdapter implements InovagroConstants {
     }//prepareToSync
         
         public void initOfflineFarmerFarmTables(){
-        	 String createFarmerTbl="CREATE TABLE IF NOT EXISTS farmers ("+
+        	/* String createFarmerTbl="CREATE TABLE IF NOT EXISTS farmers ("+
 				// "_id integer primary key autoincrement,"+
 				 "  FarmerID integer NOT NULL primary key on conflict replace,"+
 				 "  Surname text NOT NULL,"+
@@ -463,7 +516,8 @@ public class DBAdapter implements InovagroConstants {
 				 " GPSLat  real,"+
 				 " MobileTimeStamp  text"+
 				 		" );";
-				 
+				 		*/
+				 /*
         	 String createFarmTbl="CREATE TABLE IF NOT EXISTS farms ("+
         		//"_id integer primary key autoincrement,"+
 				 "  FarmID integer NOT NULL primary key,"+
@@ -477,7 +531,7 @@ public class DBAdapter implements InovagroConstants {
 				 "  GPSLong real NOT NULL,"+
 				 "  GPSLat real NOT NULL,"+
 				 "  UserID integer NOT NULL"+
-				 ");";
+				 ");";  */
         	
         	 String createFarmYearlyData="CREATE TABLE IF NOT EXISTS farms_yearly_data ("+
 					 "  FarmYearlyDataID integer NOT NULL primary key,"+
@@ -1053,7 +1107,8 @@ public class DBAdapter implements InovagroConstants {
         //offline saving code for PigeionPea Harvest (2013)
 
         public void initOfflinePigeionPeaHarvestTables(){  //+"//  `PigeonPeaHarvestID` int(11) NOT NULL AUTO_INCREMENT,"+
-        	String createPigeionPeaTbl="CREATE TABLE IF NOT EXISTS `pigeonpea_harvest` ("	+        			
+        	String createPigeionPeaTbl="CREATE TABLE IF NOT EXISTS `pigeonpea_harvest` ("	+    
+        			"`PigeonPeaHarvestID`  text NOT NULL primary key on conflict replace,"+
         			"  `SalesContract` integer DEFAULT -1,"+
         			"  `Planted2011` real,"+
         			"  `Planted2012` real,"+
@@ -1126,18 +1181,20 @@ public class DBAdapter implements InovagroConstants {
         	
         	String theEntryDate=null; //for now. update when uploading to server.
         	
-        	Calendar cal= Calendar.getInstance();
-        	long timeStamp=cal.getTimeInMillis();
-        	String uniqueID=""+timeStamp+"_"+Login.UserID;
+        	//Calendar cal= Calendar.getInstance();
+        	//long timeStamp=cal.getTimeInMillis();
+        	//String uniqueID=""+timeStamp+"_"+Login.UserID;
         	
         	//theEntryDate=""+cal.YEAR+"-"+(cal.MONTH+1)+"-"+cal.DAY_OF_MONTH;
-        	UtilityFunctions fxn= new UtilityFunctions();
+        	//UtilityFunctions fxn= new UtilityFunctions();
         	//theEntryDate=fxn.dateToString(timeStamp);
-        	theEntryDate=fxn.dateToStringTimeStamp(timeStamp);
+        	//theEntryDate=fxn.dateToStringTimeStamp(timeStamp);
+        	
+        	String uniqueID=UtilityFunctions.uniqueID("");
 
-        	String sql="INSERT INTO `pigeonpea_harvest` (  `SalesContract`,  `Planted2011`,  `Planted2012`,  `SeedVarietyPlanted`,  `QuantitySeedReceived`,  `SeedRateUsed`,   `Q7Kg`,  `Q7NoBags`,  `Q7WtOfOneBag`,  `Q7NoBuckets`,  `Q7WtOfOneBucket`,   `Q8Kg`,  `Q8NoBags`,  `Q8WtOfOneBag`,  `Q8NoBuckets`,  `Q8WtOfOneBucket`,    `Q9Kg`,  `Q9NoBags`,  `Q9WtOfOneBag`,  `Q9NoBuckets`,  `Q9WtOfOneBucket`,  `BuyersGreen`,  `PriceSoldGreen`,   `Q12Kg`,  `Q12NoBags`,  `Q12WtOfOneBag`,  `Q12NoBuckets`,  `Q12WtOfOneBucket`,  `BuyersOutsideContractDry`,  `PriceSoldOutsideContractDry`,   `Q15Kg`,  `Q15NoBags`,  `Q15WtOfOneBag`,  `Q15NoBuckets`,  `Q15WtOfOneBucket`,  `BuyersWithinContract`,  `PriceSoldWithinContract`,  `FarmerID`, `UserID`, `FinishedHarvest`,  `MobileTimeStamp`, `GPSLong`, `GPSLat`) "+ 
+        	String sql="INSERT INTO `pigeonpea_harvest` ( `PigeonPeaHarvestID`,  `SalesContract`,  `Planted2011`,  `Planted2012`,  `SeedVarietyPlanted`,  `QuantitySeedReceived`,  `SeedRateUsed`,   `Q7Kg`,  `Q7NoBags`,  `Q7WtOfOneBag`,  `Q7NoBuckets`,  `Q7WtOfOneBucket`,   `Q8Kg`,  `Q8NoBags`,  `Q8WtOfOneBag`,  `Q8NoBuckets`,  `Q8WtOfOneBucket`,    `Q9Kg`,  `Q9NoBags`,  `Q9WtOfOneBag`,  `Q9NoBuckets`,  `Q9WtOfOneBucket`,  `BuyersGreen`,  `PriceSoldGreen`,   `Q12Kg`,  `Q12NoBags`,  `Q12WtOfOneBag`,  `Q12NoBuckets`,  `Q12WtOfOneBucket`,  `BuyersOutsideContractDry`,  `PriceSoldOutsideContractDry`,   `Q15Kg`,  `Q15NoBags`,  `Q15WtOfOneBag`,  `Q15NoBuckets`,  `Q15WtOfOneBucket`,  `BuyersWithinContract`,  `PriceSoldWithinContract`,  `FarmerID`, `UserID`, `FinishedHarvest`,  `MobileTimeStamp`, `GPSLong`, `GPSLat`) "+ 
         			"Values( "+ 
-        			"		'"+values.get("SalesContract")+"', '"+values.get("Planted2011")+"', '"+values.get("Planted2012")+"', '"+values.get("SeedVarietyPlanted")+"', '"+values.get("QuantitySeedReceived")+"', '"+values.get("SeedRateUsed")+"', '"+values.get("Q7Kg")+"', '"+values.get("Q7NoBags")+"', '"+values.get("Q7WtOfOneBag")+"', '"+values.get("Q7NoBuckets")+"', '"+values.get("Q7WtOfOneBucket")+"', '"+values.get("Q8Kg")+"', '"+values.get("Q8NoBags")+"', '"+values.get("Q8WtOfOneBag")+"', '"+values.get("Q8NoBuckets")+"', '"+values.get("Q8WtOfOneBucket")+"', '"+values.get("Q9Kg")+"', '"+values.get("Q9NoBags")+"', '"+values.get("Q9WtOfOneBag")+"', '"+values.get("Q9NoBuckets")+"', '"+values.get("Q9WtOfOneBucket")+"', '"+values.get("BuyersGreen")+"', '"+values.get("PriceSoldGreen")+"', '"+values.get("Q12Kg")+"', '"+values.get("Q12NoBags")+"', '"+values.get("Q12WtOfOneBag")+"', '"+values.get("Q12NoBuckets")+"', '"+values.get("Q12WtOfOneBucket")+"', '"+values.get("BuyersOutsideContractDry")+"', '"+values.get("PriceSoldOutsideContractDry")+"', '"+values.get("Q15Kg")+"', '"+values.get("Q15NoBags")+"', '"+values.get("Q15WtOfOneBag")+"', '"+values.get("Q15NoBuckets")+"', '"+values.get("Q15WtOfOneBucket")+"', '"+values.get("BuyersWithinContract")+"', '"+values.get("PriceSoldWithinContract")+"', '"+values.get("FarmerID")+"', '"+values.get("UserID")+"' , '"+values.get("FinishedHarvest")+"',  '"+values.get("MobileTimeStamp")+"', '"+values.get("GPSLong")+"', '"+values.get("GPSLat")+"'  "+ 
+        			"		'"+uniqueID+"', '"+values.get("SalesContract")+"', '"+values.get("Planted2011")+"', '"+values.get("Planted2012")+"', '"+values.get("SeedVarietyPlanted")+"', '"+values.get("QuantitySeedReceived")+"', '"+values.get("SeedRateUsed")+"', '"+values.get("Q7Kg")+"', '"+values.get("Q7NoBags")+"', '"+values.get("Q7WtOfOneBag")+"', '"+values.get("Q7NoBuckets")+"', '"+values.get("Q7WtOfOneBucket")+"', '"+values.get("Q8Kg")+"', '"+values.get("Q8NoBags")+"', '"+values.get("Q8WtOfOneBag")+"', '"+values.get("Q8NoBuckets")+"', '"+values.get("Q8WtOfOneBucket")+"', '"+values.get("Q9Kg")+"', '"+values.get("Q9NoBags")+"', '"+values.get("Q9WtOfOneBag")+"', '"+values.get("Q9NoBuckets")+"', '"+values.get("Q9WtOfOneBucket")+"', '"+values.get("BuyersGreen")+"', '"+values.get("PriceSoldGreen")+"', '"+values.get("Q12Kg")+"', '"+values.get("Q12NoBags")+"', '"+values.get("Q12WtOfOneBag")+"', '"+values.get("Q12NoBuckets")+"', '"+values.get("Q12WtOfOneBucket")+"', '"+values.get("BuyersOutsideContractDry")+"', '"+values.get("PriceSoldOutsideContractDry")+"', '"+values.get("Q15Kg")+"', '"+values.get("Q15NoBags")+"', '"+values.get("Q15WtOfOneBag")+"', '"+values.get("Q15NoBuckets")+"', '"+values.get("Q15WtOfOneBucket")+"', '"+values.get("BuyersWithinContract")+"', '"+values.get("PriceSoldWithinContract")+"', '"+values.get("FarmerID")+"', '"+values.get("UserID")+"' , '"+values.get("FinishedHarvest")+"',  '"+values.get("MobileTimeStamp")+"', '"+values.get("GPSLong")+"', '"+values.get("GPSLat")+"'  "+ 
         			"		)";
         	
         	
@@ -1166,7 +1223,7 @@ public class DBAdapter implements InovagroConstants {
         	 *
         	 */
         	//Log.v("in upload sved pigeionPea harvest data","---");
-        	String sql="select null, `SalesContract`, `Planted2011`, `Planted2012`, `SeedVarietyPlanted`, `QuantitySeedReceived`, `SeedRateUsed`, `Q7Kg`, `Q7NoBags`, `Q7WtOfOneBag`, `Q7NoBuckets`, `Q7WtOfOneBucket`, `Q8Kg`, `Q8NoBags`, `Q8WtOfOneBag`, `Q8NoBuckets`, `Q8WtOfOneBucket`, `Q9Kg`, `Q9NoBags`, `Q9WtOfOneBag`, `Q9NoBuckets`, `Q9WtOfOneBucket`, `BuyersGreen`, `PriceSoldGreen`, `Q12Kg`, `Q12NoBags`, `Q12WtOfOneBag`, `Q12NoBuckets`, `Q12WtOfOneBucket`, `BuyersOutsideContractDry`, `PriceSoldOutsideContractDry`, `Q15Kg`, `Q15NoBags`, `Q15WtOfOneBag`, `Q15NoBuckets`, `Q15WtOfOneBucket`, `BuyersWithinContract`, `PriceSoldWithinContract`, `FarmerID`, `UserID`, `FinishedHarvest`, `MobileTimeStamp`, `GPSLong`, `GPSLat` from pigeonpea_harvest ";
+        	String sql="select `PigeonPeaHarvestID`, `SalesContract`, `Planted2011`, `Planted2012`, `SeedVarietyPlanted`, `QuantitySeedReceived`, `SeedRateUsed`, `Q7Kg`, `Q7NoBags`, `Q7WtOfOneBag`, `Q7NoBuckets`, `Q7WtOfOneBucket`, `Q8Kg`, `Q8NoBags`, `Q8WtOfOneBag`, `Q8NoBuckets`, `Q8WtOfOneBucket`, `Q9Kg`, `Q9NoBags`, `Q9WtOfOneBag`, `Q9NoBuckets`, `Q9WtOfOneBucket`, `BuyersGreen`, `PriceSoldGreen`, `Q12Kg`, `Q12NoBags`, `Q12WtOfOneBag`, `Q12NoBuckets`, `Q12WtOfOneBucket`, `BuyersOutsideContractDry`, `PriceSoldOutsideContractDry`, `Q15Kg`, `Q15NoBags`, `Q15WtOfOneBag`, `Q15NoBuckets`, `Q15WtOfOneBucket`, `BuyersWithinContract`, `PriceSoldWithinContract`, `FarmerID`, `UserID`, `FinishedHarvest`, `MobileTimeStamp`, `GPSLong`, `GPSLat` from pigeonpea_harvest ";
         	
         	Cursor c=null;
            	try{
@@ -1213,7 +1270,7 @@ public class DBAdapter implements InovagroConstants {
 
         //offline saving code for farmer data //new sept 2013!
         public void initOfflineFarmerTables(){  //+"//  only Farmer table updated.
-        	 String createFarmerTbl="CREATE TABLE IF NOT EXISTS farmers ("+
+        /*	 String createFarmerTbl="CREATE TABLE IF NOT EXISTS farmers ("+
      				// "_id integer primary key autoincrement,"+
      				 "  FarmerID integer NOT NULL primary key on conflict replace,"+
      				 "  Surname text NOT NULL,"+
@@ -1251,6 +1308,7 @@ public class DBAdapter implements InovagroConstants {
      				 " GPSLat  real,"+
      				 " MobileTimeStamp  text"+
      				 		" );";
+        	 */
 //" `SystemTime`
         		
 				     
@@ -1268,7 +1326,7 @@ public class DBAdapter implements InovagroConstants {
         	
         	
         	//verify if null inserted into db
-        	
+        	/*
         	String theEntryDate=null; //for now. update when uploading to server.
         	
         	Calendar cal= Calendar.getInstance();
@@ -1278,11 +1336,13 @@ public class DBAdapter implements InovagroConstants {
         	//theEntryDate=""+cal.YEAR+"-"+(cal.MONTH+1)+"-"+cal.DAY_OF_MONTH;
         	UtilityFunctions fxn= new UtilityFunctions();
         	//theEntryDate=fxn.dateToString(timeStamp);
-        	theEntryDate=fxn.dateToStringTimeStamp(timeStamp);
+        	theEntryDate=fxn.dateToStringTimeStamp(timeStamp); */
+        	
+        	String uniqueID=UtilityFunctions.uniqueID("");
 
         	String sql="INSERT INTO `farmers` ( `FarmerID`, `Surname`, `ForeNames`, `FarmerReferenceNo`, `Gender`, `PhoneNo`, `DateOfBirth`, `ProvinceID`, `DistrictID`, `AdminPostID`, `LocalityID`, `ZoneID`, `FarmerGroupID`, `IDType`, `FarmerIDNo`, `HeadOfHouseholdName`, `HeadOfHouseholdGender`, `NumberOfDependents`, `IsGroupLeader`, `UserId`, `BirthCertificate`, `TemporaryID`, `NationalID`, `VoterRegistrationCard`, `IncomeTaxNo`, `Passport`, `DUAT`, `ID1Front`, `ID1Back`, `ID2Front`, `ID2Back`, `FarmerPicture`, `GPSLong`, `GPSLat`, `MobileTimeStamp`) "+ 
         			"Values( "+ 
-        			"		'"+values.get("FarmerID")+"', '"+values.get("Surname")+"', '"+values.get("ForeNames")+"', '"+values.get("FarmerReferenceNo")+"', '"+values.get("Gender")+"', '"+values.get("PhoneNo")+"', '"+values.get("DateOfBirth")+"', '"+values.get("ProvinceID")+"', '"+values.get("DistrictID")+"', '"+values.get("AdminPostID")+"', '"+values.get("LocalityID")+"', '"+values.get("ZoneID")+"', '"+values.get("FarmerGroupID")+"', '"+values.get("IDType")+"', '"+values.get("FarmerIDNo")+"', '"+values.get("HeadOfHouseholdName")+"', '"+values.get("HeadOfHouseholdGender")+"', '"+values.get("NumberOfDependents")+"', '"+values.get("IsGroupLeader")+"', '"+values.get("UserId")+"', '"+values.get("BirthCertificate")+"', '"+values.get("TemporaryID")+"', '"+values.get("NationalID")+"', '"+values.get("VoterRegistrationCard")+"', '"+values.get("IncomeTaxNo")+"', '"+values.get("Passport")+"', '"+values.get("DUAT")+"', '"+values.get("ID1Front")+"', '"+values.get("ID1Back")+"', '"+values.get("ID2Front")+"', '"+values.get("ID2Back")+"', '"+values.get("FarmerPicture")+"', '"+values.get("GPSLong")+"', '"+values.get("GPSLat")+"',  '"+values.get("MobileTimeStamp")+"'  "+ 
+        			"		'"+uniqueID+"', '"+values.get("Surname")+"', '"+values.get("ForeNames")+"', '"+values.get("FarmerReferenceNo")+"', '"+values.get("Gender")+"', '"+values.get("PhoneNo")+"', '"+values.get("DateOfBirth")+"', '"+values.get("ProvinceID")+"', '"+values.get("DistrictID")+"', '"+values.get("AdminPostID")+"', '"+values.get("LocalityID")+"', '"+values.get("ZoneID")+"', '"+values.get("FarmerGroupID")+"', '"+values.get("IDType")+"', '"+values.get("FarmerIDNo")+"', '"+values.get("HeadOfHouseholdName")+"', '"+values.get("HeadOfHouseholdGender")+"', '"+values.get("NumberOfDependents")+"', '"+values.get("IsGroupLeader")+"', '"+values.get("UserId")+"', '"+values.get("BirthCertificate")+"', '"+values.get("TemporaryID")+"', '"+values.get("NationalID")+"', '"+values.get("VoterRegistrationCard")+"', '"+values.get("IncomeTaxNo")+"', '"+values.get("Passport")+"', '"+values.get("DUAT")+"', '"+values.get("ID1Front")+"', '"+values.get("ID1Back")+"', '"+values.get("ID2Front")+"', '"+values.get("ID2Back")+"', '"+values.get("FarmerPicture")+"', '"+values.get("GPSLong")+"', '"+values.get("GPSLat")+"',  '"+values.get("MobileTimeStamp")+"'  "+ 
         			"		)";
         	
         	
@@ -1307,7 +1367,7 @@ public class DBAdapter implements InovagroConstants {
         	 *
         	 */
         	//Log.v("in upload sved pigeionPea harvest data","---");
-        	String sql="select null, `FarmerID`, `Surname`, `ForeNames`, `FarmerReferenceNo`, `Gender`, `PhoneNo`, `DateOfBirth`, `ProvinceID`, `DistrictID`, `AdminPostID`, `LocalityID`, `ZoneID`, `FarmerGroupID`, `IDType`, `FarmerIDNo`, `HeadOfHouseholdName`, `HeadOfHouseholdGender`, `NumberOfDependents`, `IsGroupLeader`, `UserId`, `BirthCertificate`, `TemporaryID`, `NationalID`, `VoterRegistrationCard`, `IncomeTaxNo`, `Passport`, `DUAT`, `ID1Front`, `ID1Back`, `ID2Front`, `ID2Back`, `FarmerPicture`, `GPSLong`, `GPSLat`,  `MobileTimeStamp` from farmers ";
+        	String sql="select `FarmerID`, `Surname`, `ForeNames`, `FarmerReferenceNo`, `Gender`, `PhoneNo`, `DateOfBirth`, `ProvinceID`, `DistrictID`, `AdminPostID`, `LocalityID`, `ZoneID`, `FarmerGroupID`, `IDType`, `FarmerIDNo`, `HeadOfHouseholdName`, `HeadOfHouseholdGender`, `NumberOfDependents`, `IsGroupLeader`, `UserId`, `BirthCertificate`, `TemporaryID`, `NationalID`, `VoterRegistrationCard`, `IncomeTaxNo`, `Passport`, `DUAT`, `ID1Front`, `ID1Back`, `ID2Front`, `ID2Back`, `FarmerPicture`, `GPSLong`, `GPSLat`,  `MobileTimeStamp` from farmers ";
         	
         	Cursor c=null;
            	try{
@@ -1352,7 +1412,94 @@ public class DBAdapter implements InovagroConstants {
 	       	return null;
         }
         
+        //offline saving code for FARM data: saveFarmDataOffline //Oct 2-2013
         
+        public void initOfflineFarmTables(){  //+"//  only Farmer table updated.
+       	 
+				     
+       	db.execSQL(createFarmTbl);
+       }
+       
+       public void wipeOfflineFarmData_new(){
+         	 db.execSQL("DROP TABLE IF EXISTS farms");
+         	initOfflineFarmerTables();
+         }
+       
+       public String saveFarmDataOffline(HashMap<String, String>values){      	
+       	initOfflineFarmerTables();//only create the table if it does not exist
+       	String uniqueID=UtilityFunctions.uniqueID("");
+
+       	String theEntryDate=UtilityFunctions.currentStringTimeStamp(); 
+       	//no timeStamp here yet!
+       	
+       	String sql="INSERT INTO `farms` (`FarmID`, `FarmerID`, `FarmName`, `ProvinceID`, `DistrictID`, `AdminPostID`, `LocalityID`, `ZoneID`, `GPSLong`, `GPSLat`, `UserID`) "+
+       			"VALUES ("+
+       			"		'"+uniqueID+"', '"+values.get("FarmerID")+"', '"+values.get("FarmName")+"', '"+values.get("ProvinceID")+"', '"+values.get("DistrictID")+"', '"+values.get("AdminPostID")+"', '"+values.get("LocalityID")+"', '"+values.get("ZoneID")+"', '"+values.get("GPSLong")+"', '"+values.get("GPSLat")+"', '"+values.get("UserID")+"'  "+
+       			"		)";
+       	
+       	try{
+       	db.execSQL(sql);
+       	}catch (Exception e){  //SQLException
+       		System.out.println("Local Save Error-saveFarmDataOffline"+e.toString());
+       		return e.toString()+"SaveLocalfailedOK";
+       	}
+       	return "successOK";
+       	
+       }
+
+       public String uploadSavedFarmData_getInsertValuesPart(){
+       	//this function will read saved data and write it directly to the web server.
+       	/*
+       	 * it will sync with onilne db using insert or update, and make use of a unique
+       	 * key on the millisecs+userid code. shd be reasonably unique.
+       	 * will deal with the case where response from server is not received, and prevent duplicated data.
+       	 *
+       	 */
+       	//Log.v("in upload sved pigeionPea harvest data","---");
+       	String sql="SELECT `FarmID`, `FarmerID`, `FarmName`, `ProvinceID`, `DistrictID`, `AdminPostID`, `LocalityID`, `ZoneID`, `GPSLong`, `GPSLat`, `UserID` FROM `farms`";
+       	
+       	Cursor c=null;
+          	try{
+          		c=   db.rawQuery(sql, null);
+          	}catch(Exception e){
+          		
+          	}
+          	
+	       	 if (c != null) {
+		            c.moveToFirst();
+		    
+		        }
+	      
+	       	 //convert cursor into a long string to be uploaded/posted to php
+		        // mCursor;
+	       	StringBuffer ValuesPart=new StringBuffer();
+	       	if (c != null) {  //placed in here in case no data exists locally.
+	       	if (c.moveToFirst())
+	        {
+	            do {  
+	            	ValuesPart.append("(");
+	            	//prepare the values part of an insert or replace statement
+	            	for (int i=0; i<c.getColumnCount(); i++){
+	            		if (i==c.getColumnCount()-1){
+	            			ValuesPart.append("'"+c.getString(i)+"')");  
+	            		}else{
+	            			ValuesPart.append("'"+c.getString(i)+"'");//
+	            		}
+	            		if (!(c.isLast() && i==c.getColumnCount()-1)) { //last column of last row has no  comma but bracket 
+	            			
+	            			ValuesPart.append(","); 
+	            		
+	            		}
+	            	}
+	                
+	            } while (c.moveToNext());
+	        }
+	        c.close();
+       	 
+       	return ValuesPart.toString();
+	       	}
+	       	return null;
+       }
 
         public void masterDBReset(){
 

@@ -78,6 +78,9 @@ public interface InovagroConstants {
     public static final int actionPIGEONPEA_HARVEST_SURVEY=115;
     public static final int actionUPLOAD_SAVED_PIGEONPEA_HARVEST_DATA=116;
     
+    public static final int actionUPLOAD_SAVED_FARMER_DATA=117;
+    public static final int actionUPLOAD_SAVED_FARM_DATA=118;
+    
     
    // public static final int actionSAVE_ADD_FARMER=9;
     

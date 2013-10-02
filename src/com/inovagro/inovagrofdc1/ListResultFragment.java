@@ -32,14 +32,15 @@ public class ListResultFragment extends ListFragment implements InovagroConstant
 	
 	ArrayAdapter<String> adapter ;
 	String[] values;
-	int[] IDArry;
+	//int[] IDArry;  //id->str
+	String[] IDArry;
 	int actionType=-1;
 	int currentFarmYearlyDataID=-1;
 	int PurposeOfSearch;
 	
 	ListView lv;
-	
-	public ListResultFragment(String a[], int numericIDs[], int actionType, int PurposeOfSearch){
+	public ListResultFragment(String a[], String numericIDs[], int actionType, int PurposeOfSearch){
+	//public ListResultFragment(String a[], int numericIDs[], int actionType, int PurposeOfSearch){
 		super();
 		values=a;
 		IDArry=numericIDs;
@@ -177,7 +178,8 @@ public class ListResultFragment extends ListFragment implements InovagroConstant
 	  //if (PurposeOfSearch==searchBA_FARM_VISIT){
 			if ((actionType==actionSEARCH_FARMERNAME) || (actionType==actionSEARCH_FARMERREFERENCENO) || (actionType==actionSEARCH_ADVANCED)){  
 								//add a new callback to list farms.  
-				  int FarmerID= IDArry[position];
+				  //int FarmerID= IDArry[position];
+				  String FarmerID= IDArry[position];
 				  //using a shortcircuit:_____vvv___
 				  MainActivity.CurrentFarmerID=FarmerID;
 				  MainActivity.CurrentFarmerName=values[position];

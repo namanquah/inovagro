@@ -261,6 +261,7 @@ public class AddFarmerDetailFragment extends Fragment implements OnClickListener
 		   //alternative to ahve a single var to pass to post method
 		   HashMap<String, String> values = new HashMap<String, String>();
 		   
+		   values.put("FarmerID",UtilityFunctions.uniqueID(""));
 		   values.put("Surname",edtSurname.getText().toString());
 		   values.put("ForeNames",edtForenames.getText().toString());
 		   values.put("FarmerReferenceNo",edtFarmerReferenceNo.getText().toString());
