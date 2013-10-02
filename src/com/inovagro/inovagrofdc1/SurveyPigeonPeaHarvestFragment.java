@@ -32,6 +32,7 @@ String FarmerID, FarmerName;
 	
 	Button btnCancel;
 	Button btnSubmit;
+	Button btnCaptureGPS;
 	
 	TextView txtFarmerName;
 	
@@ -78,6 +79,9 @@ String FarmerID, FarmerName;
 	EditText edtQ15WtOfOneBucket;
 	EditText edtBuyersWithinContract;
 	EditText edtPriceSoldWithinContract;
+	EditText edtGPSLong;
+	EditText edtGPSLat;
+	
 	
 	ArrayAdapter<String> aaspnSalesContract=null;
 	ArrayAdapter<String> aaspnFinishedHarvest=null;
@@ -99,6 +103,9 @@ String FarmerID, FarmerName;
         btnCancel.setOnClickListener(this);
         btnSubmit=(Button)rootView.findViewById(R.id.btnSubmit);
         btnSubmit.setOnClickListener(this);
+        btnCaptureGPS=(Button)rootView.findViewById(R.id.btnCaptureGPS);
+        btnCaptureGPS.setOnClickListener(this);
+        
   
         txtFarmerName=(TextView)rootView.findViewById(R.id.txtFarmerName);
         //edtSalesContract=(EditText)rootView.findViewById(R.id.edtSalesContract);
@@ -143,6 +150,10 @@ String FarmerID, FarmerName;
         edtQ15WtOfOneBucket=(EditText)rootView.findViewById(R.id.edtQ15WtOfOneBucket);
         edtBuyersWithinContract=(EditText)rootView.findViewById(R.id.edtBuyersWithinContract);
         edtPriceSoldWithinContract=(EditText)rootView.findViewById(R.id.edtPriceSoldWithinContract);
+        
+        edtGPSLong=(EditText)rootView.findViewById(R.id.edtGPSLong);
+        edtGPSLat=(EditText)rootView.findViewById(R.id.edtGPSLat);
+        
         
         Resources res = getResources();
 		String [] arSalesContract = res.getStringArray(R.array.arrySalesContract);
@@ -199,6 +210,9 @@ String FarmerID, FarmerName;
 			  return;
 		   fetchDataAndPost();   
 	   }
+	   if (v==btnCaptureGPS){
+			 showCurrentLocation(); //use this fxn to set the GPS coords in text boxes
+		 }
 	   
 	  
    }
@@ -266,6 +280,9 @@ String FarmerID, FarmerName;
  	   //uf.dateToStringTimeStamp(timeStamp);
  	 values.put("MobileTimeStamp",uf.dateToStringTimeStamp(timeStamp));
 	   
+ 	 values.put("GPSLong",edtGPSLong.getText().toString());
+	 values.put("GPSLat",edtGPSLat.getText().toString());
+	   
 	   
 //	   ComboRowData c;
 //	   c=(ComboRowData)alProvince.get(spnProvince.getSelectedItemPosition());		   
@@ -287,6 +304,18 @@ String FarmerID, FarmerName;
 
 	   return true;
    }
+   protected void showCurrentLocation() {
+       String[] longLat=callBack.getCurrentLocation();
+       if (longLat!=null){
+       edtGPSLong.setText(longLat[0]);
+       edtGPSLat.setText(longLat[1]);
+       }
+       else {
+    	   Toast.makeText(getActivity(), "AddFarmer: No GPS data", Toast.LENGTH_LONG).show();
+       
+       }
+       
+    }  
 
    //deal with call backs
    @Override

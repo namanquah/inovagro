@@ -623,13 +623,54 @@
                 android:id="@+id/lblFinishedHarvest"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="@string/lblFinishedHarvest" />
             
             <Spinner
                 android:id="@+id/spnFinishedHarvest"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-        
+
+            <Button
+                android:id="@+id/btnCaptureGPS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/lblCaptureGPS" />
+
+            <TextView
+                android:id="@+id/lblGPSLong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblGPSLong"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtGPSLong"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:id="@+id/lblGPSLat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lblGPSLat"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/edtGPSLat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="numberDecimal" />
+            
+            
+            
         <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >

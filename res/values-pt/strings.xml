@@ -36,6 +36,27 @@
   <string name="lblYes">Sim</string> 
   <string name="lblNo">Nao</string> 
   
+      <!-- modification on Add Farmer added on Monday 22-sept-13 -->
+    <string name="lblBirthCertificate">Cedula</string>
+	<string name="lblTemporaryID">Espera BI</string>
+	<string name="lblNationalID">BI</string>
+	<string name="lblVoterRegistrationCard">Cartao de eleitor</string>
+	<string name="lblIncomeTaxNo">NUIT</string>
+	<string name="lblPassport">Passporte</string>
+	<string name="lblFarmerPicture">Foto do Productore </string>
+	<string name="lblID1Front">Documento frente  1</string>
+	<string name="lblID1Back"> Documento verso 1</string>
+    <string name="lblID2Front">Documento frente  2</string>
+	<string name="lblID2Back"> Documento verso 2</string>
+	<string name="lblDUAT"> DUAT</string>
+    
+	
+	<string name="lblIDType1">ID Type 1</string>
+    <string name="lblFarmerIDNo1">Farmer ID No 1</string>
+    <string name="lblIDType2">ID Type 2</string>
+    <string name="lblFarmerIDNo2">Farmer ID No 2</string>
+    
+  
  <!--  layout for add visit   --> 
   <string name="lblFarmID">Informacao da machamba</string> 
   <string name="lblVisitDate">Data da visita</string> 
@@ -120,6 +141,7 @@
 		<item >Inquerito Agosto 2013</item>
 		<item >Carregar Inquerito informacao armazenada</item>
 		<item >Colheita De Feijao Boer</item> 
+		<item >Carregar informacao armazenada Colheita de Feijao Boer</item>
 		<item >Sair</item>
     </string-array>
     <string-array name="arryOfflineMenu">

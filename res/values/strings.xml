@@ -49,6 +49,7 @@
 	<string name="lblID1Back">Back of ID 1</string>
     <string name="lblID2Front">Front of ID 2</string>
 	<string name="lblID2Back">Back of ID 2</string>
+	<string name="lblDUAT"> RUEL</string>
     
 	<string name="lblIDType1">ID Type 1</string>
     <string name="lblFarmerIDNo1">Farmer ID No 1</string>

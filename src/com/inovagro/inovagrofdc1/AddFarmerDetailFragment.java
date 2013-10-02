@@ -50,6 +50,7 @@ public class AddFarmerDetailFragment extends Fragment implements OnClickListener
 	EditText edtVoterRegistrationCard;
 	EditText edtIncomeTaxNo;
 	EditText edtPassport;
+	EditText edtDUAT;
 	//EditText edtFarmerIDNO;  //removed
 	EditText edtGPSLong;
 	EditText edtGPSLat;
@@ -124,6 +125,7 @@ public class AddFarmerDetailFragment extends Fragment implements OnClickListener
 			edtVoterRegistrationCard=(EditText)rootView.findViewById(R.id.edtVoterRegistrationCard);
 			edtIncomeTaxNo=(EditText)rootView.findViewById(R.id.edtIncomeTaxNo);
 			edtPassport=(EditText)rootView.findViewById(R.id.edtPassport);
+			edtDUAT=(EditText)rootView.findViewById(R.id.edtDUAT);
 			edtGPSLong=(EditText)rootView.findViewById(R.id.edtGPSLong);
 	        edtGPSLat=(EditText)rootView.findViewById(R.id.edtGPSLat);
 	        
@@ -278,6 +280,7 @@ public class AddFarmerDetailFragment extends Fragment implements OnClickListener
 		   values.put("VoterRegistrationCard",edtVoterRegistrationCard.getText().toString());
 		   values.put("IncomeTaxNo",edtIncomeTaxNo.getText().toString());
 		   values.put("Passport",edtPassport.getText().toString());
+		   values.put("DUAT",edtDUAT.getText().toString());
 		   
 		   values.put("FarmerPicture",txtFarmerPicture.getText().toString());
 		   values.put("ID1Front",txtID1Front.getText().toString());
