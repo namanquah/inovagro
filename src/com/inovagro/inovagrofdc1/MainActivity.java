@@ -19,7 +19,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -53,13 +52,13 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 	//intent result no for taking picture
 	private final int RES_IMAGE_CAPTURE=2020;
 	private final int RESIZE_IMAGE_CAPTURED=2021;
-	private final int RESIZE_IMAGE_CAPTUREDorig=2022;
+	//private final int RESIZE_IMAGE_CAPTUREDorig=2022;
 	private String captured_image; //use this to store path of the captured image for use in both TextView/button and onActivityResult fxns
 	
 	
 	static int OfflineState=0; //can be online or offline - used accros the entire application
 	static int PurposeOfSearch;    //this is CLOSELY ALLIED TO THE MENU CHOICE in main Menu List. unlike actionType 
-	static int CurrentFarmerID;  //short cut- use for addFarm, (farmVist) etc to track current farmer
+	static String CurrentFarmerID;  //short cut- use for addFarm, (farmVist) etc to track current farmer //was an int
 	static String CurrentFarmerName;
 	private int glbActionType; //action type to be used in results ie after post
 	
@@ -91,6 +90,7 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
     
     public static String mnuPigeonPeaHarvestSurvey;
     public static String mnuUploadAllData;
+    public static String mnuUploadFarmerData;
     ////---^
 	   
 	@Override
@@ -146,7 +146,8 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 	     mnuUploadSavedSurvey2013Data=OnlineMenu[10];
 	     mnuPigeonPeaHarvestSurvey=OnlineMenu[11];
 	     mnuUploadAllData=OnlineMenu[12];
-	    mnuExit=OnlineMenu[13];
+	     mnuUploadFarmerData=OnlineMenu[13];
+	    mnuExit=OnlineMenu[14];
 	    
 	    mnuGoOnline=OfflineMenu[6] ;
 	    
@@ -331,7 +332,17 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
             	postData( actionUPLOAD_SAVED_PIGEONPEA_HARVEST_DATA, data); //fetch the data in the postData or PostThread
             
             }
-          
+            if (id.equals(mnuUploadFarmerData)){
+            	HashMap<String,String> data= new HashMap<String, String>();
+            	String strData;
+            	DBAdapter db = new DBAdapter(getApplicationContext());
+ 				db.open();
+ 				strData =db.uploadSavedFarmerData_getInsertValuesPart();
+ 				db.close();
+            	data.put("valuesPart", strData);
+            	postData( actionUPLOAD_SAVED_FARMER_DATA, data); //fetch the data in the postData or PostThread
+            
+            }
 	}//on item selected
 	
 	//call back function from basic+adv serach
@@ -449,7 +460,7 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
        
 	}
 
-	public void fetchListOfFarms(int searchType, int FarmerID){
+	public void fetchListOfFarms(int searchType, String FarmerID){
 		//connect to server, return data and show a list!
 		int TargetPane;
 	
@@ -482,7 +493,7 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 	}
 	
 	//show the fixed list of visit types. No need for assync task.
-	public void showVisitTypes(int actionType, int FarmYearlyDataID){
+	public void showVisitTypes(int actionType, String FarmYearlyDataID){
 		//actually, FarmYearlyDataID is not needed here, but has to be passed to the event after
 		//a visit type has been chosen so that records get created properly. 
 		//DO NOT DELETE IT
@@ -516,7 +527,7 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 	}
 	
 	// show the add visit form
-	public void showVisitForm(int actionType, int FarmYearlyDataID, int VisitType){
+	public void showVisitForm(int actionType, String FarmYearlyDataID, int VisitType){
 		int TargetPane;
 		
 		if (mTwoPane) {
@@ -822,7 +833,8 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 				//load the second form.
 				UtilityFunctions fxn= new UtilityFunctions ();
 				String results[]=fxn.msplit(result, ":");
-				int farmID=Integer.valueOf(results[0]);
+				String farmID=results[0];
+				//int farmID=Integer.valueOf(results[0]);
 				showAddFarmSeasonDetailFragment(farmID);
 				
 			}
@@ -995,7 +1007,7 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
           */
 	}
 	
-	public void showAddFarmForm(int FarmerID, String FarmerName){
+	public void showAddFarmForm(String FarmerID, String FarmerName){
 		int TargetPane;
 		
 		if (mTwoPane) {
@@ -1098,7 +1110,7 @@ int TargetPane;
 		fragmentTransaction.commit();
 	}
 	
-	public void showPigeonPeaHarvestForm(int FarmerID, String FarmerName){
+	public void showPigeonPeaHarvestForm(String FarmerID, String FarmerName){
 		int TargetPane;
 		
 		if (mTwoPane) {
@@ -1128,7 +1140,7 @@ int TargetPane;
 	}
 	//**************---^---general call backs***************************/
 	
-	public void showAddFarmSeasonDetailFragment(int FarmID){
+	public void showAddFarmSeasonDetailFragment(String FarmID){
 		int TargetPane;
 		
 		if (mTwoPane) {
@@ -1144,19 +1156,12 @@ int TargetPane;
 			FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 			android.support.v4.app.Fragment fragment=null;
 			//show the new fragment -add farm_season data form
-			glbActionType =actionSURVEY2013;
+			glbActionType =actionPOST_ADD_FARMS_YEARLY_DATA;
+					
         	//initialize the values array to hold new data (make it empty). 
-        	gblPartIValues.clear();
-        	gblPartIIValues.clear();
-        	gblPartIIIaValues.clear();
-        	gblPartIIIbValues.clear();
-        	gblPartIVValues.clear();
+        	
         	  
-       	   Calendar cal= Calendar.getInstance();
-       	   	long timeStamp=cal.getTimeInMillis();
-       	   	String uniqueID=""+timeStamp+"_"+Login.UserID;
-       	   	gblPartIValues.put("SurveyDataID", uniqueID);  //will not be overwritten inspite of back and forth while collecting data. will be lost if new data collected again.
-       	   	  fragment=new SurveyBackgroundFragment();
+       	   	  fragment=new AddFarmSeasonDetailFragment(FarmID, CurrentFarmerName );
         	   fragmentTransaction.replace(TargetPane, fragment); //as .add
                fragmentTransaction.addToBackStack(null);
                fragmentTransaction.commit(); 
@@ -1537,12 +1542,12 @@ int TargetPane;
 			        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 			    
 			        String[] NameArry=null;
-			        int IDArry[]=null;
+			        String IDArry[]=null;
 			        
 			        //seems the following call does not work---------------------------vvv
 			        Object A[]=fxn.create2_1DArrays(result, "</br>", ":");  //convention: 1st col is strings, 2nd col is numbers
 			        NameArry=(String[])A[0];
-			        IDArry=(int[])A[1];
+			        IDArry=(String[])A[1];
 			        
 			           //above may not work bc of applicaitoncontext
 			        int TargetPane;
@@ -1584,7 +1589,7 @@ int TargetPane;
 					 FragmentManager fragmentManager = getSupportFragmentManager();	
 				        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 				        String[] NameArry=null;
-				        int IDArry[]=null;
+				        String IDArry[]=null;
 				           
 				        int TargetPane;
 				    	
@@ -1617,12 +1622,12 @@ int TargetPane;
 				    FragmentManager fragmentManager = getSupportFragmentManager();	
 			        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 			        String[] NameArry=null;
-			        int IDArry[]=null;
+			        String IDArry[]=null;
 			        
 			        //seems the following call does not work---------------------------vvv
 			        Object A[]=fxn.create2_1DArrays(result, "</br>", ":");
 			        NameArry=(String[])A[0];
-			        IDArry=(int[])A[1];
+			        IDArry=(String[])A[1];
 			        
 			           
 			        int TargetPane;
@@ -1874,12 +1879,12 @@ int TargetPane;
 	        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 	      
 	        String[] NameArry=null;
-	        int IDArry[]=null;
+	        String IDArry[]=null;
 	        
 	        //seems the following call does not work---------------------------vvv
 	        Object A[]=fxn.create2_1DArrays(result, "</br>", ":");//, NameArry, IDArry, arry2);
 	        NameArry=(String[])A[0];
-	        IDArry=(int[])A[1];
+	        IDArry=(String[])A[1];
 	        
 	           //above may not work bc of applicaitoncontext
 	        int TargetPane;
@@ -1920,12 +1925,12 @@ int TargetPane;
 	        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 	      
 	        String[] NameArry=null;
-	        int IDArry[]=null;
+	        String IDArry[]=null;
 	        
 	        //seems the following call does not work---------------------------vvv
 	        Object A[]=fxn.create2_1DArrays(result, "</br>", ":");//, NameArry, IDArry, arry2);
 	        NameArry=(String[])A[0];
-	        IDArry=(int[])A[1];
+	        IDArry=(String[])A[1];
 	        
 	           //above may not work bc of applicaitoncontext
 	        int TargetPane;

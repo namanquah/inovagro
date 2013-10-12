@@ -64,6 +64,7 @@ public class Login extends Activity implements InovagroConstants {
 			String usr=edtUserName.getText().toString();
 			String pass=edtPassword.getText().toString();
 			//backdoor to reset the localDB
+			/*
 			if (usr.equalsIgnoreCase("m")) {
 				if (pass.equals("12")){ //12bms34std
 		        	DBAdapter db= new DBAdapter(getApplicationContext());
@@ -96,9 +97,9 @@ public class Login extends Activity implements InovagroConstants {
 						builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
 						    .setNegativeButton("No", dialogClickListener).show();
 				 */
-				
+				/*
 				}
-			}
+			}  */
 			
 			String addr=BaseURL+"?action=LOGIN&username="+usr+"&password="+pass;
 			new LoginTask(addr,Login.this).execute();

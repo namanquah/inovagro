@@ -89,8 +89,8 @@ String FarmerID, FarmerName;
 	ArrayList<ComboRowData> alSeedVarietyPlanted=null;
 	ArrayAdapter<ComboRowData> aaSeedVarietyPlanted=null;
 	
-	public SurveyPigeonPeaHarvestFragment(int FarmerID, String FarmerName){
-		this.FarmerID=Integer.toString(FarmerID);
+	public SurveyPigeonPeaHarvestFragment(String farmerID2, String FarmerName){
+		this.FarmerID=farmerID2;
 		this.FarmerName=FarmerName;
 	}
 	
@@ -225,6 +225,8 @@ String FarmerID, FarmerName;
 	   HashMap<String, String> values = new HashMap<String, String>();
 	   
 	   values.put("FarmerID",FarmerID);
+	   
+	   values.put("PigeonPeaHarvestID",UtilityFunctions.uniqueID(""));
 	   //values.put("FarmName",edtFarmName.getText().toString());
 	   
 	   values.put("UserID",Integer.toString(Login.UserID));
@@ -276,9 +278,9 @@ String FarmerID, FarmerName;
 	   
 	   Calendar cal= Calendar.getInstance();
  	   	long timeStamp=cal.getTimeInMillis();
- 	   	UtilityFunctions uf= new UtilityFunctions();
+ 	   	//UtilityFunctions uf= new UtilityFunctions();
  	   //uf.dateToStringTimeStamp(timeStamp);
- 	 values.put("MobileTimeStamp",uf.dateToStringTimeStamp(timeStamp));
+ 	 values.put("MobileTimeStamp",UtilityFunctions.dateToStringTimeStamp(timeStamp));
 	   
  	 values.put("GPSLong",edtGPSLong.getText().toString());
 	 values.put("GPSLat",edtGPSLat.getText().toString());

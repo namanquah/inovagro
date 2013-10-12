@@ -39,9 +39,9 @@ public class AddFarmSeasonDetailFragment extends Fragment implements OnClickList
 	ArrayAdapter<ComboRowData> aaLandOwnership=null;
 	
 	//local variables
-	int FarmID=0;
+	String FarmID="0";
 	String FarmName=null;
-	public AddFarmSeasonDetailFragment(int FarmID, String FarmName){
+	public AddFarmSeasonDetailFragment(String FarmID, String FarmName){
 		this.FarmID=FarmID;
 		this.FarmName=FarmName;
 	}

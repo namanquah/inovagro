@@ -8,7 +8,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -66,11 +65,11 @@ public class FarmVisitData extends Fragment implements OnClickListener, AdapterV
 	
 	//variables to hold the values
 	
-	int FarmYearlyDataID;
+	String FarmYearlyDataID;
 	int VisitType;
-	public FarmVisitData(int FarmYearlyDataID, int VisitType){
+	public FarmVisitData(String farmYearlyDataID2, int VisitType){
 		super();
-		this.FarmYearlyDataID=FarmYearlyDataID;
+		this.FarmYearlyDataID=farmYearlyDataID2;
 		this.VisitType=VisitType;
 	}
 	
@@ -322,7 +321,7 @@ public class FarmVisitData extends Fragment implements OnClickListener, AdapterV
 
 	   	values.put("VisitID", uniqueID);
 	   values.put("VisitTypeID",Integer.toString(VisitType));
-	   values.put("FarmYearlyDataID",Integer.toString(FarmYearlyDataID));
+	   values.put("FarmYearlyDataID",FarmYearlyDataID);
 	   values.put("VisitDate",edtVisitDate.getText().toString());
 	   if (edtScheduledDate.getVisibility()!=View.GONE)
 		   values.put("ScheduledDate",edtScheduledDate.getText().toString());

@@ -35,7 +35,7 @@ public class ListResultFragment extends ListFragment implements InovagroConstant
 	//int[] IDArry;  //id->str
 	String[] IDArry;
 	int actionType=-1;
-	int currentFarmYearlyDataID=-1;
+	String currentFarmYearlyDataID="-1";
 	int PurposeOfSearch;
 	
 	ListView lv;
@@ -49,7 +49,7 @@ public class ListResultFragment extends ListFragment implements InovagroConstant
 	}
 
 	//used only by actionSHOW_VISIT_TYPES, called from MainActivity
-	public ListResultFragment(String a[], int actionType, int FarmYearlyDataID){  
+	public ListResultFragment(String a[], int actionType, String FarmYearlyDataID){  
 		super();
 		values=a;
 		IDArry=null;
@@ -58,6 +58,8 @@ public class ListResultFragment extends ListFragment implements InovagroConstant
 	}
 	
 	
+	
+
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -201,7 +203,7 @@ public class ListResultFragment extends ListFragment implements InovagroConstant
 		//do not show visits if purpose is add form
 		if (MainActivity.PurposeOfSearch==searchBA_FARM_VISIT){  //using the global one. Have not been consistent. Use#1
 		  if (actionType==actionSEARCH_CURRENT_FARMS){
-			  int FarmYearlyDataID= IDArry[position]; //fetch a particular farm, keep this ID. start Visit List, and show appropriate form
+			  String FarmYearlyDataID= IDArry[position]; //fetch a particular farm, keep this ID. start Visit List, and show appropriate form
 			  callBack.showVisitTypes(actionSHOW_VISIT_TYPES, FarmYearlyDataID);
 			  return;
 		  }

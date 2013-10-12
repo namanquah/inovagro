@@ -53,10 +53,10 @@ public class AddFarmDetailFragment extends Fragment  implements OnClickListener,
 	ArrayAdapter<ComboRowData> aaIDTypes=null;
 
 	//local class variables passed in
-	int FarmerID;
+	String FarmerID;
 	String FarmerName;
 	
-	public AddFarmDetailFragment(int FarmerID, String FarmerName){
+	public AddFarmDetailFragment(String FarmerID, String FarmerName){
 		this.FarmerID=FarmerID;
 		this.FarmerName=FarmerName;
 	}

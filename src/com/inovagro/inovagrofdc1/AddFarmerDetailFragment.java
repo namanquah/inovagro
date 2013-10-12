@@ -293,14 +293,14 @@ public class AddFarmerDetailFragment extends Fragment implements OnClickListener
 		   
 		   Calendar cal= Calendar.getInstance();
       	   	long timeStamp=cal.getTimeInMillis();
-      	   	UtilityFunctions uf= new UtilityFunctions();
+      	   	
       	   //uf.dateToStringTimeStamp(timeStamp);
-      	 values.put("MobileTimeStamp",uf.dateToStringTimeStamp(timeStamp));
+      	 values.put("MobileTimeStamp",UtilityFunctions.dateToStringTimeStamp(timeStamp));
 		   //add time stamp (local time)
 		   
 		   
 		   ComboRowData c;
-		   int index;
+		   //int index;
 		   c=(ComboRowData)alProvince.get(spnProvince.getSelectedItemPosition());		   
 		   values.put("ProvinceID",String.valueOf(c.ID));
 		   c=(ComboRowData)alDistrict.get(spnDistrict.getSelectedItemPosition());		   

@@ -116,6 +116,12 @@ public interface InovagroConstants {
     public static final int OnLineMode=2001;
     
     
+    //if a form should be viewed, edited or is in add mode
+    public static final int ADD_MODE=3001;
+    public static final int VIEW_MODE=3002;
+    public static final int EDIT_MODE=3003;
+    
+    
     //menu items, perhaps add mnu to the constatns
     
     

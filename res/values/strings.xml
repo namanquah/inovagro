@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="my_app_version">InovagroFDC v1.92 -dont use offline mode</string>  <!-- v1.9a does time stamp, modified ID requirement-->
+    <string name="my_app_version">InovagroFDC v1.98.1 with individual upload of offline data</string>  <!-- v1.9a does time stamp, modified ID requirement-->
     <string name="app_name">InovagroFDC1</string>
     <string name="lbl_Cancel">Cancel</string>
     <string name="hello_world">Hello world!</string>
@@ -141,7 +141,8 @@
 		<item >August 2013 Survey</item>
 		<item >Upload Saved Survey Data</item>	
 		<item >Pigeon Pea Harvest Survey</item>
-		<item >Upload Offline Pigeon Pea Data</item>		
+		<item >Upload Offline Pigeon Pea Data</item>
+		<item >Upload Offline Farmer Data</item>		
 		<item >Exit</item>		
     </string-array>
     <!-- menu items removed from menu:

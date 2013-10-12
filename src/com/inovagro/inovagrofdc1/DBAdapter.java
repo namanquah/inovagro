@@ -24,7 +24,7 @@ public class DBAdapter implements InovagroConstants {
 	    
 	    private static final String DATABASE_NAME = "MyDB";    
 	    
-	    private static final int DATABASE_VERSION = 2;
+	    private static final int DATABASE_VERSION = 3;
 
 	    /*private static final String DATABASE_CREATE =
 	        "create table contacts (_id integer primary key autoincrement, "
@@ -56,7 +56,7 @@ public class DBAdapter implements InovagroConstants {
 	    private static final String DATABASE_CREATE13 =
 		        "create table land_ownership_types (_id integer primary key autoincrement, theid integer not null , thename text not null, parentid integer not null);";
 	   	
-	    String createFarmTbl="CREATE TABLE IF NOT EXISTS farms ("+       		
+	    private static final String createFarmTbl="CREATE TABLE IF NOT EXISTS farms ("+       		
 				 "  FarmID text NOT NULL primary key,"+  //FarmID integer NOT NULL primary key,"+
 				 "  FarmerID integer NOT NULL,"+
 				 "  FarmName text NOT NULL,"+
@@ -70,7 +70,7 @@ public class DBAdapter implements InovagroConstants {
 				 "  UserID integer NOT NULL"+
 				 ");";
 	    
-	    String createFarmerTbl="CREATE TABLE IF NOT EXISTS farmers ("+
+	   private static final  String createFarmerTbl="CREATE TABLE IF NOT EXISTS farmers ("+
 				// "_id integer primary key autoincrement,"+
 				 "  FarmerID text NOT NULL primary key on conflict replace,"+  //"  FarmerID integer NOT NULL primary key on conflict replace,"+
 				 "  Surname text NOT NULL,"+
@@ -78,7 +78,7 @@ public class DBAdapter implements InovagroConstants {
 				 "  FarmerReferenceNo text NOT NULL,"+
 				 "  Gender integer NOT NULL ,"+
 				 "  PhoneNo text NOT NULL ,"+
-				 "  textOfBirth text NOT NULL,"+
+				 "  DateOfBirth text NOT NULL,"+
 				 "  ProvinceID integer NOT NULL,"+
 				 "  DistrictID integer NOT NULL,"+
 				 "  AdminPostID integer NOT NULL,"+
@@ -145,6 +145,8 @@ public class DBAdapter implements InovagroConstants {
 	        		db.execSQL(DATABASE_CREATE11);
 	        		db.execSQL(DATABASE_CREATE12);
 	        		db.execSQL(DATABASE_CREATE13);
+	        		db.execSQL(createFarmTbl);
+	        		db.execSQL(createFarmerTbl);
 	        		//add functions to create the survey data table etc. Call their respective functions
 	        		/*
 	        		 * 
@@ -181,6 +183,9 @@ public class DBAdapter implements InovagroConstants {
 	            db.execSQL("DROP TABLE IF EXISTS service_providers");
 	            db.execSQL("DROP TABLE IF EXISTS seasons");
 	            db.execSQL("DROP TABLE IF EXISTS land_ownership_types");
+	            
+	            db.execSQL("DROP TABLE IF EXISTS farmers");
+	            db.execSQL("DROP TABLE IF EXISTS farms");
 	         
 			            onCreate(db);
 	        }
@@ -1165,7 +1170,7 @@ public class DBAdapter implements InovagroConstants {
           }
         
         public String savePigeionPeaHarvestDataOffline(HashMap<String, String>values){
-        	//wipeOfflineSurvey2013Data();  // keep this for testing purposes only
+        	//wipeOfflinePigeionPeaHarvestData();  // keep this for testing purposes only
         	initOfflinePigeionPeaHarvestTables();//only create the table if it does not exist
         	/*
         	String sql=values.get("theSQL");
@@ -1248,7 +1253,7 @@ public class DBAdapter implements InovagroConstants {
 	            	//prepare the values part of an insert or replace statement
 	            	for (int i=0; i<c.getColumnCount(); i++){
 	            		if (i==c.getColumnCount()-1){
-	            			ValuesPart.append("'"+c.getString(i)+"')");  
+	            			ValuesPart.append("'"+c.getString(i)+"', NOW() )");  //closing brace + remote system time stamp
 	            		}else{
 	            			ValuesPart.append("'"+c.getString(i)+"'");//
 	            		}
@@ -1321,7 +1326,7 @@ public class DBAdapter implements InovagroConstants {
           }
         
         public String saveFarmerDataOffline(HashMap<String, String>values){
-        	//wipeOfflineSurvey2013Data();  // keep this for testing purposes only
+        	//wipeOfflineFarmerData_new();  // keep this for testing purposes only
         	initOfflineFarmerTables();//only create the table if it does not exist
         	
         	
@@ -1392,7 +1397,7 @@ public class DBAdapter implements InovagroConstants {
 	            	//prepare the values part of an insert or replace statement
 	            	for (int i=0; i<c.getColumnCount(); i++){
 	            		if (i==c.getColumnCount()-1){
-	            			ValuesPart.append("'"+c.getString(i)+"')");  
+	            			ValuesPart.append("'"+c.getString(i)+"', NOW() )");  //closing paranthesis, but added timestamp
 	            		}else{
 	            			ValuesPart.append("'"+c.getString(i)+"'");//
 	            		}

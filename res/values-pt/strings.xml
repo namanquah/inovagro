@@ -142,6 +142,7 @@
 		<item >Carregar Inquerito informacao armazenada</item>
 		<item >Colheita De Feijao Boer</item> 
 		<item >Carregar informacao armazenada Colheita de Feijao Boer</item>
+		<item >Carregar informacao armazenada productore</item>
 		<item >Sair</item>
     </string-array>
     <string-array name="arryOfflineMenu">
