@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="my_app_version">InovagroFDC v1.98.1 with individual upload of offline data</string>  <!-- v1.9a does time stamp, modified ID requirement-->
+    <string name="my_app_version">InovagroFDC v2.61 bug fixes, fixed offline farmer update</string>  
     <string name="app_name">InovagroFDC1</string>
     <string name="lbl_Cancel">Cancel</string>
     <string name="hello_world">Hello world!</string>
@@ -12,6 +12,7 @@
     <string name="lbl_Password">Password</string>
 	<string name="hntUsername">UserName</string>
     <string name="hntPassword">Password</string>
+    <string name="lblBack">Back</string>
     
     <!-- layout for add farmer -->
     <string name="lblSurname">Surname</string>
@@ -128,8 +129,25 @@
     </string-array>
     <color name="lightBlue">#ccccFF</color>
     <color name="lightRed">#FFCCCC</color>
-     <string-array name="arryOnlineMenu">
-		<item >Add Farmer</item>
+    
+     <string-array name="arryOnlineMenu">		 
+		 <item >Farmers</item>
+		<item >Add Farm</item>
+		<item >Farm Visit</item>
+		<item >Plan Visit</item>
+		<item >Mange Stored Farmer Data</item>
+		<item >Upload Saved Data</item>
+		<item >Update Configuration Data</item>
+		<item >Go Offline</item>
+		<item >Change Password</item>
+		<item >August 2013 Survey</item>			
+		<item >Pigeon Pea Harvest Survey</item>
+		<item >Exit</item>		
+    </string-array>
+    
+     <!-- 
+      <string-array name="arryOnlineMenu">		 
+		 <item >Farmers</item>
 		<item >Add Farm</item>
 		<item >Farm Visit</item>
 		<item >Plan Visit</item>
@@ -142,14 +160,18 @@
 		<item >Upload Saved Survey Data</item>	
 		<item >Pigeon Pea Harvest Survey</item>
 		<item >Upload Offline Pigeon Pea Data</item>
-		<item >Upload Offline Farmer Data</item>		
+		<item >Upload Offline Farmer Data</item>
+		<item >Upload Offline Farm Data</item>		
 		<item >Exit</item>		
     </string-array>
+    
+      -->
+     
     <!-- menu items removed from menu:
     	<item >Add Farmer to season</item>
 		<item >Add Farm to season</item> -->
     <string-array name="arryOfflineMenu">
-		<item >Add Farmer</item>
+		<item >Farmers</item>
 		<item >Add Farm</item>
 		<item >Farm Visit</item>
 		<item >August 2013 Survey</item>
@@ -159,6 +181,21 @@
 		<item >Exit</item>
     </string-array>
    <string name="lblComfirmData">Confirm Data before Submission</string>
-   <string name="lblPigeonPeaHarvestSurvey">Colheita De Feijao Boer</string>
+   <string name="lblPigeonPeaHarvestSurvey">PigeonPea harvest</string>
+   
+   <string-array name="arryFarmerManagementMenu">
+		<item >Add Farmer</item>
+		<item >View-Edit Farmer</item>		
+		<item >Back To Main Menu</item>
+    </string-array>
+    
+   <string-array name="arryUploadsMenu">
+		<item >Upload Saved Farm Visit Data</item>
+		<item >Upload Saved Survey Data</item>
+		<item >Upload Offline Pigeon Pea Data</item>
+		<item >Upload Offline Farmer Data</item>
+		<item >Upload Offline Farm Data</item>		
+		<item >Back To Main Menu</item>
+    </string-array>
    
 </resources>

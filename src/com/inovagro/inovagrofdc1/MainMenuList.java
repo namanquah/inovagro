@@ -26,20 +26,13 @@ public class MainMenuList extends ListFragment implements InovagroConstants{
 	
 	String [] OnlineMenu;
 	String [] OfflineMenu;
+	String [] FarmerManagementMenu;
+	String [] UploadManagementMenu;
 	
-	/*	
-	Resources res = getResources();
-	String[] OnlineMenu = res.getStringArray(R.array.arryOnlineMenu);
-	//Resources res = getResources();
-	String[] OfflineMenu = res.getStringArray(R.array.arryOfflineMenu);
-	*/
-	/*
-	String [] OnlineMenu = new String[] { mnuAddFarmer, mnuAddFarm, mnuFarmVisit, mnuPlanVisits,
-    		mnuViewPlan, mnuUploadSavedData, mnuSynchronize, mnuGoOffline,mnuChangePassword, mnuExit};
+	 
 	
-	String [] OfflineMenu=new String[] {  mnuAddFarmer, mnuAddFarm, mnuFarmVisit, 
-    		mnuViewPlan,  mnuGoOnline, mnuExit};
-*/
+	
+
 	public void onActivityCreated(Bundle savedInstanceState) {
 	    super.onActivityCreated(savedInstanceState);
 	    
@@ -49,9 +42,14 @@ public class MainMenuList extends ListFragment implements InovagroConstants{
 		//Resources res = getResources();
 		OfflineMenu = res.getStringArray(R.array.arryOfflineMenu);
 		
+		FarmerManagementMenu= res.getStringArray(R.array.arryFarmerManagementMenu);
+		UploadManagementMenu=res.getStringArray(R.array.arryUploadsMenu);
+		
 	     //this might get reloaded everytime the menu shows up. Consider moving into mainactivity.
 	    //or do an immediate change menu depending on online state.
-/*	    
+		
+		
+/*	 //no longer in use vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv============    
 	    if (MainActivity.OfflineState==OnLineMode){
 	    rawValues = new String[] { mnuAddFarmer, mnuAddFarm, mnuFarmVisit, mnuPlanVisits,
 	    		mnuViewPlan, mnuUploadSavedData, mnuSynchronize, mnuGoOffline,mnuChangePassword, mnuExit};
@@ -63,7 +61,12 @@ public class MainMenuList extends ListFragment implements InovagroConstants{
 		//mnuViewPlan, mnuFarmVisit, mnuSynchronize, mnuGoOffline,mnuChangePassword, mnuExit};
     	
 	    }
+	    
+	    //==========^^^^^^^^^^^^^^^^^^^^^^
 */	
+	    
+	    
+		//online menu
 	    if (MainActivity.OfflineState==OnLineMode){
 	    	rawValues=OnlineMenu;
 	    	lblMenuTop.setBackgroundColor(getResources().getColor(R.color.lightBlue));
@@ -71,11 +74,23 @@ public class MainMenuList extends ListFragment implements InovagroConstants{
 			  lblMenuTop.setText("Online");
 			  
 	    }
-	    else{
+	    //else{
+	    //offline menu
+	    if (MainActivity.OfflineState==OffLineMode){	
 	    	rawValues=OfflineMenu;
 	    	lblMenuTop.setBackgroundColor(getResources().getColor(R.color.lightRed));
 			  lblMenuBottom.setBackgroundColor(getResources().getColor(R.color.lightRed));
 			  lblMenuTop.setText("Offline");
+	    }
+	    //mnuFarmerManagementMenu
+	    if (MainActivity.MenuType==FarmerManagementMenuType){	
+	    	rawValues=FarmerManagementMenu;
+	    	
+	    }
+	  //UploadManagementMenu
+	    if (MainActivity.MenuType==UploadSavedDataMenuType){	
+	    	rawValues=UploadManagementMenu;
+	    	
 	    }
 	     values =new ArrayList<String>();
 	     Collections.addAll(values, rawValues);
@@ -84,6 +99,8 @@ public class MainMenuList extends ListFragment implements InovagroConstants{
 	    adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, values);//.simple_list_item_1
 	     
 	    	setListAdapter(adapter);
+	    	
+	    	
 		}
 	
 	 public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -106,12 +123,16 @@ public class MainMenuList extends ListFragment implements InovagroConstants{
 
   }
   public interface Callbacks {
+	  
       public void onItemSelected(String id, Fragment frag, int position);
   }
   
+  
+  //it seems position is not used.
   public void  changeMenu( String var, int position){
 	  //values.set(position, var);
 	  //adapter.notifyDataSetChanged();
+	  //
 	  
 	  if (MainActivity.OfflineState ==OffLineMode){
 		  lblMenuTop.setBackgroundColor(getResources().getColor(R.color.lightRed));
@@ -136,9 +157,31 @@ public class MainMenuList extends ListFragment implements InovagroConstants{
 		  //values.add(values.size()-2,mnuUploadSavedData);
 		  //values.add(3,mnuPlanVisits);
 		  //adapter.notifyDataSetChanged();  //added Sun29-06
-		  Toast.makeText(getActivity(), "mainmenuList: Online", Toast.LENGTH_LONG).show();
+		  Toast.makeText(getActivity(), "mainmenuList: Online Mode", Toast.LENGTH_LONG).show();
 		  values.clear();
 		  Collections.addAll(values, OnlineMenu);
+	  }
+	  
+	  if (MainActivity.MenuType ==FarmerManagementMenuType){
+		  //lblMenuTop.setText("Offline");
+		  values.clear();
+		  Collections.addAll(values, FarmerManagementMenu);
+		  /*
+		  if (values.indexOf(mnuUploadSavedData) !=-1){ //size()-3)==mnuUploadSavedData){
+			  values.remove(values.indexOf(mnuUploadSavedData));
+			  adapter.notifyDataSetChanged(); //added Sun29-06
+		  }
+		  
+		  values.remove(values.indexOf(mnuPlanVisits));
+		  */
+		  
+	  }
+
+	  if (MainActivity.MenuType ==UploadSavedDataMenuType){
+		  values.clear();
+		  Collections.addAll(values, UploadManagementMenu);
+		  
+		  
 	  }
 	  adapter.notifyDataSetChanged();
   }

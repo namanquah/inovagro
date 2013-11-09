@@ -12,6 +12,8 @@
   <string name="lbl_Password">Palavra-passe</string> 
   <string name="hntUsername">nome de usuario</string> 
   <string name="hntPassword">Palavra-passe</string> 
+  <string name="lblBack">Voltar</string>
+  
  <!--  layout for add farmer   --> 
   <string name="lblSurname">Apelido</string> 
   <string name="lblForenames">Nome</string> 
@@ -129,7 +131,24 @@
   <color name="lightBlue">#ccccFF</color> 
   <color name="lightRed">#FFCCCC</color> 
        <string-array name="arryOnlineMenu">
-		<item >Adicionar productore</item>
+		<item >Productores</item>
+		<item >Adicionar machamba</item>
+		<item >Visita da machamba</item>
+		<item >Plano de Visita</item>
+		<item >Gerir informacao armazenada</item>
+		<item >Carregar informacao armazenada</item>
+		<item >Actualisar Configuracoes de dados</item>
+		<item >Trabalhar Offline</item>
+		<item >Alterar Palavra-passe</item>
+		<item >Inquerito Agosto 2013</item>
+		
+		<item >Colheita De Feijao Boer</item> 
+		<item >Sair</item>
+    </string-array>
+    
+       <!-- 
+       <string-array name="arryOnlineMenu">
+		<item >Productores</item>
 		<item >Adicionar machamba</item>
 		<item >Visita da machamba</item>
 		<item >Plano de Visita</item>
@@ -143,8 +162,10 @@
 		<item >Colheita De Feijao Boer</item> 
 		<item >Carregar informacao armazenada Colheita de Feijao Boer</item>
 		<item >Carregar informacao armazenada productore</item>
+		<item >Carregar informacao armazenada machamba</item>
 		<item >Sair</item>
     </string-array>
+        -->
     <string-array name="arryOfflineMenu">
 		<item >Adicionar productore</item>
 		<item >Adicionar machamba</item>
@@ -156,6 +177,21 @@
 		<item >Sair</item>
     </string-array>
   
-   <string name="lblPigeonPeaHarvestSurvey">PigeonPea harvest</string>
+   <string name="lblComfirmData">Confirmar os dados antes de submeter</string>
+   <string name="lblPigeonPeaHarvestSurvey">Colheita De Feijao Boer</string>
     
+    <string-array name="arryFarmerManagementMenu">
+		<item >Adicionar productore</item>
+		<item >Ver-Editar Produtore</item>		
+		<item >Voltar a menu principal</item>
+    </string-array>
+    
+     <string-array name="arryUploadsMenu">
+		<item >Carregar informacao armazenada Visita da machamba</item>
+		<item >Carregar Inquerito informacao armazenada </item>
+		<item >Carregar informacao armazenada Colheita de Feijao Boer</item>
+		<item >Carregar informacao armazenada productore</item>
+		<item >Carregar informacao armazenada machamba</item>
+		<item >Voltar a menu principal</item>
+    </string-array>
 </resources>

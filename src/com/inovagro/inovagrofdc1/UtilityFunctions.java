@@ -1,13 +1,16 @@
 package com.inovagro.inovagrofdc1;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.Date;
 
 import android.view.View;
-import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 public class UtilityFunctions {
 	public String urlEncode(String sUrl){ 
@@ -58,6 +61,38 @@ return original.split(sep);
 	    IDArry=new String[tmp.length];
 	   NameArry=new String[tmp.length];
 		 for (int i=0; i<tmp.length; i++){
+			 //System.out.println("i..."+i+"=="+tmp[i][0]+"--"+tmp[i][1]);
+			 NameArry[i]=(tmp[i][0]);
+			 //IDArry[i]=Integer.parseInt(tmp[i][1]);
+			 IDArry[i]=tmp[i][1];
+		 }//for i
+		 return new Object[]{NameArry, IDArry};
+	}
+	
+	/**
+	 * Splits a string into a 2-d array. this does not drop the trailing blank string in case they 
+	 * are blank. Also the result can be treated as a key-value pair
+	 * @param original the character delimited string
+	 * @param rowSep the char(s) that separate the rows eg </br>
+	 * @param colSep  the char(s) that separate teh columns eg :
+	 * @return
+	 */
+	Object [] createKey_ValuePairs(String original, String rowSep, String colSep){// eg orig, "</br>", ":" //, String[] NameArry, int IDArry, int [] arry2){
+		//if (original==null || original.trim().equals("")) return null;//new addition.
+		String[] NameArry=null;
+		//int [] IDArry=null;
+		String [] IDArry=null;
+		String [] rowData= original.split(rowSep);
+	 int numrows= rowData.length;
+	    String tmp[][]=new String[numrows][];
+	    for (int i=0; i<rowData.length; i++){
+	        tmp[i]=rowData[i].split(colSep, -1);
+	    }
+	    //IDArry=new int[tmp.length];
+	    IDArry=new String[tmp.length];
+	   NameArry=new String[tmp.length];
+		 for (int i=0; i<tmp.length; i++){
+			 //System.out.println("i..."+i+"=="+tmp[i][0]+"--"+tmp[i][1]);
 			 NameArry[i]=(tmp[i][0]);
 			 //IDArry[i]=Integer.parseInt(tmp[i][1]);
 			 IDArry[i]=tmp[i][1];
@@ -281,4 +316,51 @@ return original.split(sep);
 	 */
    // }
 
+        /**
+         * Utility functions for settign spinner -used in Inovagro Project
+         * @param s
+         * @param id
+         * @return
+         */
+        public static int getSpinnerPosition(Spinner s, String id){
+			  ArrayAdapter<ComboRowData> aa=(ArrayAdapter<ComboRowData>)s.getAdapter();
+			  int pos=-1;
+			  ComboRowData cbr;
+			  for (int i=0; i<aa.getCount(); i++){
+			  		cbr=aa.getItem(i);
+			  		if (cbr.ID==Integer.parseInt(id)){
+			  			pos=i; break;
+			  		}
+			  	}
+			  return pos;
+		  }
+        
+  
+        public static final String md5(final String s) {
+            try {
+                // Create MD5 Hash
+                MessageDigest digest = java.security.MessageDigest
+                        .getInstance("MD5");
+                digest.update(s.getBytes());
+                byte messageDigest[] = digest.digest();
+
+                // Create Hex String
+                StringBuffer hexString = new StringBuffer();
+                for (int i = 0; i < messageDigest.length; i++) {
+                    String h = Integer.toHexString(0xFF & messageDigest[i]);
+                    while (h.length() < 2)
+                        h = "0" + h;
+                    hexString.append(h);
+                }
+                return hexString.toString();
+
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+            return "";
+        }
+        
+        public static final String SQLdateToAndroidStringDate(String sqlDate){
+        	return sqlDate.replace("-", "/");
+        }
 }

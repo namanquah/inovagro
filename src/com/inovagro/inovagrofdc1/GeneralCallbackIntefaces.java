@@ -1,6 +1,7 @@
 package com.inovagro.inovagrofdc1;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import android.support.v4.app.Fragment;
 import android.view.View;
@@ -24,4 +25,6 @@ public interface GeneralCallbackIntefaces {
 	public void showNextSurveyForm(int FormPart); //show partI, IIa, IIb etc
 	public void takePhoto(Fragment srcFragment, View v, String prefix);//take picture
 	public void showPigeonPeaHarvestForm(String FarmerID, String FarmerName);//show the PigeonPeaHarvest Form
+	public void showFarmerDetail(String FarmerID);
+	public void showConfirmationForm(HashMap<String, String> Data, int postAction);
 }

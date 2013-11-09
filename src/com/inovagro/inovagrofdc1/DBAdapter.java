@@ -1,5 +1,8 @@
 package com.inovagro.inovagrofdc1;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,10 +14,10 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
 
 public class DBAdapter implements InovagroConstants {
 	
+	//TODO: test
 	
 	   public static final String KEY_ROWID = "_id";
 	   public static final String KEY_THEID = "theid";
@@ -24,7 +27,7 @@ public class DBAdapter implements InovagroConstants {
 	    
 	    private static final String DATABASE_NAME = "MyDB";    
 	    
-	    private static final int DATABASE_VERSION = 3;
+	    private static final int DATABASE_VERSION = 7;
 
 	    /*private static final String DATABASE_CREATE =
 	        "create table contacts (_id integer primary key autoincrement, "
@@ -58,7 +61,7 @@ public class DBAdapter implements InovagroConstants {
 	   	
 	    private static final String createFarmTbl="CREATE TABLE IF NOT EXISTS farms ("+       		
 				 "  FarmID text NOT NULL primary key,"+  //FarmID integer NOT NULL primary key,"+
-				 "  FarmerID integer NOT NULL,"+
+				 "  FarmerID text NOT NULL,"+
 				 "  FarmName text NOT NULL,"+
 				 "  ProvinceID integer NOT NULL,"+
 				 "  DistrictID integer NOT NULL,"+
@@ -72,43 +75,79 @@ public class DBAdapter implements InovagroConstants {
 	    
 	   private static final  String createFarmerTbl="CREATE TABLE IF NOT EXISTS farmers ("+
 				// "_id integer primary key autoincrement,"+
-				 "  FarmerID text NOT NULL primary key on conflict replace,"+  //"  FarmerID integer NOT NULL primary key on conflict replace,"+
-				 "  Surname text NOT NULL,"+
-				 "  ForeNames text NOT NULL,"+
-				 "  FarmerReferenceNo text NOT NULL,"+
-				 "  Gender integer NOT NULL ,"+
-				 "  PhoneNo text NOT NULL ,"+
-				 "  DateOfBirth text NOT NULL,"+
-				 "  ProvinceID integer NOT NULL,"+
-				 "  DistrictID integer NOT NULL,"+
-				 "  AdminPostID integer NOT NULL,"+
-				 "  LocalityID integer NOT NULL,"+
-				 "  ZoneID integer NOT NULL,"+
-				 "  FarmerGroupID integer NOT NULL,"+
-				 "  IDType integer NOT NULL,"+
-				 "  FarmerIDNo text NOT NULL,"+
-				 "  HeadOfHouseholdName text NOT NULL,"+
-				 "  HeadOfHouseholdGender integer NOT NULL,"+
-				 "  NumberOfDependents integer NOT NULL,"+
-				 "  IsGroupLeader tinyint(4) NOT NULL ,"+
-				 "  UserId integer NOT NULL,"+
-				 " BirthCertificate  text,"+
-				 " TemporaryID  text,"+
-				 " NationalID  text,"+
-				 " VoterRegistrationCard  text,"+
-				 " IncomeTaxNo  text,"+
-				 " Passport  text,"+
-				 " DUAT  text,"+
-				 " ID1Front  text,"+
-				 " ID1Back  text,"+
-				 " ID2Front  text,"+
-				 " ID2Back  text,"+
-				 " FarmerPicture  text,"+
-				 " GPSLong  real,"+
-				 " GPSLat  real,"+
-				 " MobileTimeStamp  text"+
+				 "FarmerID text NOT NULL primary key on conflict replace,"+  //"FarmerID integer NOT NULL primary key on conflict replace,"+
+				 "Surname text NOT NULL,"+
+				 "ForeNames text NOT NULL,"+
+				 "FarmerReferenceNo text NOT NULL,"+
+				 "Gender integer NOT NULL ,"+
+				 "PhoneNo text NOT NULL ,"+
+				 "DateOfBirth text NOT NULL,"+
+				 "ProvinceID integer NOT NULL,"+
+				 "DistrictID integer NOT NULL,"+
+				 "AdminPostID integer NOT NULL,"+
+				 "LocalityID integer NOT NULL,"+
+				 "ZoneID integer NOT NULL,"+
+				 "FarmerGroupID integer NOT NULL,"+
+				 "IDType integer NOT NULL,"+
+				 "FarmerIDNo text NOT NULL,"+
+				 "HeadOfHouseholdName text NOT NULL,"+
+				 "HeadOfHouseholdGender integer NOT NULL,"+
+				 "NumberOfDependents integer NOT NULL,"+
+				 "IsGroupLeader tinyint(4) NOT NULL ,"+
+				 "UserId integer NOT NULL,"+
+				 "BirthCertificate  text,"+
+				 "TemporaryID  text,"+
+				 "NationalID  text,"+
+				 "VoterRegistrationCard  text,"+
+				 "IncomeTaxNo  text,"+
+				 "Passport  text,"+
+				 "DUAT  text,"+
+				 "ID1Front  text,"+
+				 "ID1Back  text,"+
+				 "ID2Front  text,"+
+				 "ID2Back  text,"+
+				 "FarmerPicture  text,"+
+				 "GPSLong  real,"+
+				 "GPSLat  real,"+
+				 "MobileTimeStamp  text,"+				 
+				 "SystemTimeStamp  text"+
 				 		" );";
-	    
+	 
+	   private static final String createUserTbl="CREATE TABLE IF NOT EXISTS `users` ("+
+			   "  `UserID` integer NOT NULL primary key on conflict replace,"+
+			   "  `Username` text NOT NULL,"+
+			   "  `Password` text NOT NULL"+
+			   ");";
+	   
+	   private static final String createFarmYearlyData="CREATE TABLE IF NOT EXISTS farms_yearly_data ("+
+				 "  FarmYearlyDataID text NOT NULL primary key,"+
+				 "  FarmID text NOT NULL,"+
+				 "  SeasonID integer NOT NULL,"+
+				 "  CropTypeID integer NOT NULL,"+
+				 "  SeedVarietyID integer NOT NULL,"+
+				 "  LandOwnershipID integer NOT NULL,"+
+				 "  Mechanized integer NOT NULL ,"+
+				 "  DemoPlot integer NOT NULL,"+
+				 "  TotalFarmSize real NOT NULL)";
+    	 
+	   private static final String createFarmerSeasons="CREATE TABLE IF NOT EXISTS farmer_seasons ("+
+				 "  FarmerYearID text NOT NULL primary key,"+
+				 "  FarmerID text NOT NULL,"+
+				 "  SeasonID integer NOT NULL)";
+	   /*
+	   private static final String createUserTbl="CREATE TABLE IF NOT EXISTS `users` ("+
+			   "  `UserID` integer NOT NULL primary key on conflict replace,"+
+			   "  `Username` text NOT NULL,"+
+			   "  `Password` text NOT NULL,"+
+			   "  `Surname` text NOT NULL,"+
+			   "  `Forenames` text NOT NULL,"+
+			   "  `CurrentStationID` integer NOT NULL,"+
+			   "  `SupervisorID` integer NOT NULL,"+
+			   "  `Enabled` integer NOT NULL"+
+			   "  `PrivateSectorPartnerID` integer NOT NULL,"+
+			   "  `UserTypeID` integer NOT NULL,"+
+			   ");";
+	   */
 	    private final Context context;    
 
 	    private DatabaseHelper DBHelper;
@@ -147,11 +186,14 @@ public class DBAdapter implements InovagroConstants {
 	        		db.execSQL(DATABASE_CREATE13);
 	        		db.execSQL(createFarmTbl);
 	        		db.execSQL(createFarmerTbl);
+	        		db.execSQL(createFarmYearlyData);
+	        		db.execSQL(createFarmerSeasons);
+	        		
 	        		//add functions to create the survey data table etc. Call their respective functions
 	        		/*
 	        		 * 
 	        		 * wipeOfflineFarmerData();
-        	wipeOfflineFarmerDatabase();
+        	wipeOfflineFarmerFarmDatabase();
         	wipeOfflinePigeionPeaHarvestData();
         	wipeOfflineSurvey2013Data();
         	wipeOfflineVisitData();
@@ -186,7 +228,9 @@ public class DBAdapter implements InovagroConstants {
 	            
 	            db.execSQL("DROP TABLE IF EXISTS farmers");
 	            db.execSQL("DROP TABLE IF EXISTS farms");
-	         
+	            db.execSQL("DROP TABLE IF EXISTS farms_yearly_data");
+	            db.execSQL("DROP TABLE IF EXISTS farmer_seasons");
+		         
 			            onCreate(db);
 	        }
 	    }    
@@ -483,85 +527,16 @@ public class DBAdapter implements InovagroConstants {
     }//prepareToSync
         
         public void initOfflineFarmerFarmTables(){
-        	/* String createFarmerTbl="CREATE TABLE IF NOT EXISTS farmers ("+
-				// "_id integer primary key autoincrement,"+
-				 "  FarmerID integer NOT NULL primary key on conflict replace,"+
-				 "  Surname text NOT NULL,"+
-				 "  ForeNames text NOT NULL,"+
-				 "  FarmerReferenceNo text NOT NULL,"+
-				 "  Gender integer NOT NULL ,"+
-				 "  PhoneNo text NOT NULL ,"+
-				 "  textOfBirth text NOT NULL,"+
-				 "  ProvinceID integer NOT NULL,"+
-				 "  DistrictID integer NOT NULL,"+
-				 "  AdminPostID integer NOT NULL,"+
-				 "  LocalityID integer NOT NULL,"+
-				 "  ZoneID integer NOT NULL,"+
-				 "  FarmerGroupID integer NOT NULL,"+
-				 "  IDType integer NOT NULL,"+
-				 "  FarmerIDNo text NOT NULL,"+
-				 "  HeadOfHouseholdName text NOT NULL,"+
-				 "  HeadOfHouseholdGender integer NOT NULL,"+
-				 "  NumberOfDependents integer NOT NULL,"+
-				 "  IsGroupLeader tinyint(4) NOT NULL ,"+
-				 "  UserId integer NOT NULL,"+
-				 " BirthCertificate  text,"+
-				 " TemporaryID  text,"+
-				 " NationalID  text,"+
-				 " VoterRegistrationCard  text,"+
-				 " IncomeTaxNo  text,"+
-				 " Passport  text,"+
-				 " DUAT  text,"+
-				 " ID1Front  text,"+
-				 " ID1Back  text,"+
-				 " ID2Front  text,"+
-				 " ID2Back  text,"+
-				 " FarmerPicture  text,"+
-				 " GPSLong  real,"+
-				 " GPSLat  real,"+
-				 " MobileTimeStamp  text"+
-				 		" );";
-				 		*/
-				 /*
-        	 String createFarmTbl="CREATE TABLE IF NOT EXISTS farms ("+
-        		//"_id integer primary key autoincrement,"+
-				 "  FarmID integer NOT NULL primary key,"+
-				 "  FarmerID integer NOT NULL,"+
-				 "  FarmName text NOT NULL,"+
-				 "  ProvinceID integer NOT NULL,"+
-				 "  DistrictID integer NOT NULL,"+
-				 "  AdminPostID integer NOT NULL,"+
-				 "  LocalityID integer NOT NULL,"+
-				 "  ZoneID integer NOT NULL,"+
-				 "  GPSLong real NOT NULL,"+
-				 "  GPSLat real NOT NULL,"+
-				 "  UserID integer NOT NULL"+
-				 ");";  */
         	
-        	 String createFarmYearlyData="CREATE TABLE IF NOT EXISTS farms_yearly_data ("+
-					 "  FarmYearlyDataID integer NOT NULL primary key,"+
-					 "  FarmID integer NOT NULL,"+
-					 "  SeasonID integer NOT NULL,"+
-					 "  CropTypeID integer NOT NULL,"+
-					 "  SeedVarietyID integer NOT NULL,"+
-					 "  LandOwnershipID integer NOT NULL,"+
-					 "  Mechanized integer NOT NULL ,"+
-					 "  DemoPlot integer NOT NULL,"+
-					 "  TotalFarmSize real NOT NULL)";
-        	 
-        	 String createFarmerSeasons="CREATE TABLE IF NOT EXISTS farmer_seasons ("+
-					 "  FarmerYearID integer NOT NULL primary key,"+
-					 "  FarmerID integer NOT NULL,"+
-					 "  SeasonID integer NOT NULL)";	 
-        	 
+     	 
         	 db.execSQL(createFarmerTbl);
         	 db.execSQL(createFarmTbl);
         	 db.execSQL(createFarmYearlyData);
-        	 db.execSQL(createFarmerSeasons);
+//        	 db.execSQL(createFarmerSeasons);  //-->temporary removal
         	 
         }
         
-        public void saveFarmerFarmDataOffline(String result){
+        public String saveFarmerFarmDataOffline(String result){
         	
         	initOfflineFarmerFarmTables(); //only creates if not exist
         	 //------------
@@ -573,15 +548,29 @@ public class DBAdapter implements InovagroConstants {
 				//==================sqlite does not insert multiple rows!========
 
 				String sql="Replace into farmers  "+fixInsertQuery(tmp[0]);
+				System.out.println("sql--saveFarmarFarmTables="+sql);
 				db.execSQL(sql);
 				System.out.println(sql);
+				//now there is a possiblity that a farmer is saved offline who does not yet have farms so next could be b!ank
+				try{
 				sql="Replace into farms  "+fixInsertQuery(tmp[1]);
 				db.execSQL(sql);
-				sql="Replace into farmer_seasons  "+fixInsertQuery(tmp[2]);
-				db.execSQL(sql);				
-				sql="Replace into farms_yearly_data  "+fixInsertQuery(tmp[3]);
+				System.out.println("sql--saveFarmarFarmTables="+sql);
+				}catch(ArrayIndexOutOfBoundsException aob){
+					System.out.println("in saveFarmerFarmDataOffline -NO data for farms");
+				}
+//				//Temporary omission of farmer_seasons. NO real use currently found. Is also 
+//				//disabled in the phpbackend as well
+				//consequently changed index of farms_yearly_data to two
+//				sql="Replace into farmer_seasons  "+fixInsertQuery(tmp[2]);
+//				db.execSQL(sql);
+				try{
+				sql="Replace into farms_yearly_data  "+fixInsertQuery(tmp[2]);
 				db.execSQL(sql);
-				
+				}catch(ArrayIndexOutOfBoundsException aob){
+					System.out.println("in saveFarmerFarmDataOffline -NO data for farms_yearly_data");
+				}
+				return "successOK";
         	 //-----------
         } //saveFarmer...
 
@@ -595,8 +584,9 @@ public class DBAdapter implements InovagroConstants {
 				db.execSQL(sql);
 				sql="Delete from farms  where FarmerID in ("+IDList+")";
 				db.execSQL(sql);
-				sql="Delete from farmer_seasons  where FarmerID in ("+IDList+")";
-				db.execSQL(sql);				
+//				temporary ommission of farmer_seasons				
+//				sql="Delete from farmer_seasons  where FarmerID in ("+IDList+")";
+//				db.execSQL(sql);				
 				//sql="Delete from  farms_yearly_data  where FarmerID in ("+IDList+")";
 				sql="delete FROM farms_yearly_data WHERE farmid in (select farmid from farms where FarmerID in ("+IDList+"))";
 				db.execSQL(sql);
@@ -610,11 +600,11 @@ public class DBAdapter implements InovagroConstants {
         } //saveFarmer...
 
         
-        public void wipeOfflineFarmerDatabase(){
+        public void wipeOfflineFarmerFarmDatabase(){
         	 db.execSQL("DROP TABLE IF EXISTS farmers");
         	 db.execSQL("DROP TABLE IF EXISTS farms");
         	 db.execSQL("DROP TABLE IF EXISTS farms_yearly_data");
-        	 db.execSQL("DROP TABLE IF EXISTS farmer_seasons");
+//        	 db.execSQL("DROP TABLE IF EXISTS farmer_seasons");
         	 initOfflineFarmerFarmTables();
         }
         
@@ -671,6 +661,7 @@ public class DBAdapter implements InovagroConstants {
         
         public String fetchLocalFarmList(String searchString){
         	String sql="SELECT FarmName, FarmYearlyDataID  FROM farms inner join farms_yearly_data on farms.farmID=farms_yearly_data.farmID where farmerid='"+searchString+"' order by FarmName ASC";
+        	//System.out.println("in fetchLocalFarmList-sql= "+sql);
         	StringBuffer sb= new StringBuffer(); 
         	Cursor c=null;
            	try{
@@ -690,7 +681,7 @@ public class DBAdapter implements InovagroConstants {
 
 		        }
 	       	 c.close();
-		        return sb.toString();   	
+		        return sb.toString();//   	
         }
         
         public String fetchLocalAdvancedSearch(HashMap<String,String>values,  int action, int PurposeOfSearch){
@@ -721,6 +712,30 @@ public class DBAdapter implements InovagroConstants {
 			        }
 			        return sb.toString();        	
         	
+        }
+        
+        public String fetchLocalFarmerDetails(String searchString){
+            	String sql="SELECT FarmerID, Surname, ForeNames, FarmerReferenceNo, Gender, PhoneNo, DateOfBirth, ProvinceID, DistrictID, AdminPostID, LocalityID, ZoneID, FarmerGroupID, IDType, FarmerIDNo, HeadOfHouseholdName, HeadOfHouseholdGender, NumberOfDependents, IsGroupLeader, UserId, BirthCertificate, TemporaryID, NationalID, VoterRegistrationCard, IncomeTaxNo, Passport, DUAT, ID1Front, ID1Back, ID2Front, ID2Back, FarmerPicture, GPSLong, GPSLat, SystemTimeStamp, MobileTimeStamp from farmers where FarmerID like '%"+searchString+"%'  ";
+        		StringBuffer sb= new StringBuffer();
+            	Cursor c=null;
+               	try{
+               		c=   db.rawQuery(sql, null);
+               	}catch(Exception e){
+               		System.out.println("error in fetchLocalFarmerDetails: "+e.toString());
+               	}
+               	StringBuffer ValuesPart=new StringBuffer();
+            	if (c.moveToFirst())
+    	        {
+    	            do {  
+    	            	for (int i=0; i<c.getColumnCount(); i++){
+    	            		ValuesPart.append(c.getColumnName(i));//
+    	            			ValuesPart.append(":"+c.getString(i)+"</br>");  
+    	            		    	            			
+    	            		}
+    	            } while (c.moveToNext());
+    	        }
+
+            	return ValuesPart.toString()+"successOK";
         }
         
         public void initOfflineVisitTables(){
@@ -1343,11 +1358,11 @@ public class DBAdapter implements InovagroConstants {
         	//theEntryDate=fxn.dateToString(timeStamp);
         	theEntryDate=fxn.dateToStringTimeStamp(timeStamp); */
         	
-        	String uniqueID=UtilityFunctions.uniqueID("");
+        	//String uniqueID=UtilityFunctions.uniqueID("");
 
-        	String sql="INSERT INTO `farmers` ( `FarmerID`, `Surname`, `ForeNames`, `FarmerReferenceNo`, `Gender`, `PhoneNo`, `DateOfBirth`, `ProvinceID`, `DistrictID`, `AdminPostID`, `LocalityID`, `ZoneID`, `FarmerGroupID`, `IDType`, `FarmerIDNo`, `HeadOfHouseholdName`, `HeadOfHouseholdGender`, `NumberOfDependents`, `IsGroupLeader`, `UserId`, `BirthCertificate`, `TemporaryID`, `NationalID`, `VoterRegistrationCard`, `IncomeTaxNo`, `Passport`, `DUAT`, `ID1Front`, `ID1Back`, `ID2Front`, `ID2Back`, `FarmerPicture`, `GPSLong`, `GPSLat`, `MobileTimeStamp`) "+ 
+        	String sql="REPLACE INTO `farmers` ( `FarmerID`, `Surname`, `ForeNames`, `FarmerReferenceNo`, `Gender`, `PhoneNo`, `DateOfBirth`, `ProvinceID`, `DistrictID`, `AdminPostID`, `LocalityID`, `ZoneID`, `FarmerGroupID`, `IDType`, `FarmerIDNo`, `HeadOfHouseholdName`, `HeadOfHouseholdGender`, `NumberOfDependents`, `IsGroupLeader`, `UserId`, `BirthCertificate`, `TemporaryID`, `NationalID`, `VoterRegistrationCard`, `IncomeTaxNo`, `Passport`, `DUAT`, `ID1Front`, `ID1Back`, `ID2Front`, `ID2Back`, `FarmerPicture`, `GPSLong`, `GPSLat`, `MobileTimeStamp`) "+ 
         			"Values( "+ 
-        			"		'"+uniqueID+"', '"+values.get("Surname")+"', '"+values.get("ForeNames")+"', '"+values.get("FarmerReferenceNo")+"', '"+values.get("Gender")+"', '"+values.get("PhoneNo")+"', '"+values.get("DateOfBirth")+"', '"+values.get("ProvinceID")+"', '"+values.get("DistrictID")+"', '"+values.get("AdminPostID")+"', '"+values.get("LocalityID")+"', '"+values.get("ZoneID")+"', '"+values.get("FarmerGroupID")+"', '"+values.get("IDType")+"', '"+values.get("FarmerIDNo")+"', '"+values.get("HeadOfHouseholdName")+"', '"+values.get("HeadOfHouseholdGender")+"', '"+values.get("NumberOfDependents")+"', '"+values.get("IsGroupLeader")+"', '"+values.get("UserId")+"', '"+values.get("BirthCertificate")+"', '"+values.get("TemporaryID")+"', '"+values.get("NationalID")+"', '"+values.get("VoterRegistrationCard")+"', '"+values.get("IncomeTaxNo")+"', '"+values.get("Passport")+"', '"+values.get("DUAT")+"', '"+values.get("ID1Front")+"', '"+values.get("ID1Back")+"', '"+values.get("ID2Front")+"', '"+values.get("ID2Back")+"', '"+values.get("FarmerPicture")+"', '"+values.get("GPSLong")+"', '"+values.get("GPSLat")+"',  '"+values.get("MobileTimeStamp")+"'  "+ 
+        			"		'"+values.get("FarmerID")+"', '"+values.get("Surname")+"', '"+values.get("ForeNames")+"', '"+values.get("FarmerReferenceNo")+"', '"+values.get("Gender")+"', '"+values.get("PhoneNo")+"', '"+values.get("DateOfBirth")+"', '"+values.get("ProvinceID")+"', '"+values.get("DistrictID")+"', '"+values.get("AdminPostID")+"', '"+values.get("LocalityID")+"', '"+values.get("ZoneID")+"', '"+values.get("FarmerGroupID")+"', '"+values.get("IDType")+"', '"+values.get("FarmerIDNo")+"', '"+values.get("HeadOfHouseholdName")+"', '"+values.get("HeadOfHouseholdGender")+"', '"+values.get("NumberOfDependents")+"', '"+values.get("IsGroupLeader")+"', '"+values.get("UserId")+"', '"+values.get("BirthCertificate")+"', '"+values.get("TemporaryID")+"', '"+values.get("NationalID")+"', '"+values.get("VoterRegistrationCard")+"', '"+values.get("IncomeTaxNo")+"', '"+values.get("Passport")+"', '"+values.get("DUAT")+"', '"+values.get("ID1Front")+"', '"+values.get("ID1Back")+"', '"+values.get("ID2Front")+"', '"+values.get("ID2Back")+"', '"+values.get("FarmerPicture")+"', '"+values.get("GPSLong")+"', '"+values.get("GPSLat")+"',  '"+values.get("MobileTimeStamp")+"'  "+ 
         			"		)";
         	
         	
@@ -1427,11 +1442,11 @@ public class DBAdapter implements InovagroConstants {
        
        public void wipeOfflineFarmData_new(){
          	 db.execSQL("DROP TABLE IF EXISTS farms");
-         	initOfflineFarmerTables();
+         	initOfflineFarmTables();
          }
        
        public String saveFarmDataOffline(HashMap<String, String>values){      	
-       	initOfflineFarmerTables();//only create the table if it does not exist
+       	initOfflineFarmTables();//only create the table if it does not exist
        	String uniqueID=UtilityFunctions.uniqueID("");
 
        	String theEntryDate=UtilityFunctions.currentStringTimeStamp(); 
@@ -1448,8 +1463,8 @@ public class DBAdapter implements InovagroConstants {
        		System.out.println("Local Save Error-saveFarmDataOffline"+e.toString());
        		return e.toString()+"SaveLocalfailedOK";
        	}
-       	return "successOK";
-       	
+       	return uniqueID+":successOK";  //special case. The online mode returns both lastFarmID and success.
+
        }
 
        public String uploadSavedFarmData_getInsertValuesPart(){
@@ -1506,10 +1521,100 @@ public class DBAdapter implements InovagroConstants {
 	       	return null;
        }
 
-        public void masterDBReset(){
+       //======vv=============farm-yearly-data
+       public void initOfflineFarmYearlyDataTables(){  //+"//  only Farmer table updated.
+         	 
+		     
+          	db.execSQL(createFarmYearlyData);
+          }
+          
+          public void wipeOfflineFarmYearlyData(){
+            	 db.execSQL("DROP TABLE IF EXISTS farms_yearly_data");
+            	initOfflineFarmYearlyDataTables();
+            }
+          
+          public String saveFarmYearlyDataOffline(HashMap<String, String>values){      	
+          	initOfflineFarmYearlyDataTables();//only create the table if it does not exist
+          	String uniqueID=UtilityFunctions.uniqueID("");
 
+          	String theEntryDate=UtilityFunctions.currentStringTimeStamp(); 
+
+          	String sql="INSERT INTO `farms_yearly_data` (`FarmYearlyDataID`, `FarmID`, `SeasonID`, `CropTypeID`, `SeedVarietyID`, `LandOwnershipID`, `Mechanized`, `DemoPlot`, `TotalFarmSize`) "+
+          				" VALUES ("+
+          				"   	'"+uniqueID+"', '"+values.get("FarmID")+"', '"+values.get("SeasonID")+"', '"+values.get("CropTypeID")+"', '"+values.get("SeedVarietyID")+"', '"+values.get("LandOwnershipID")+"', '"+values.get("Mechanized")+"', '"+values.get("DemoPlot")+"', '"+values.get("TotalFarmSize")+"' "+
+          			" )";
+          	System.out.println("saveFarmYearlyData in dbadapter: sql="+sql);
+          	try{
+          	db.execSQL(sql);
+          	}catch (Exception e){  //SQLException
+          		System.out.println("Local Save Error-saveFarmDataOffline"+e.toString());
+          		return e.toString()+"SaveLocalfailedOK";
+          	}
+          	return "successOK";
+          	
+          }
+
+          public String uploadSavedFarmYearlyData_getInsertValuesPart(){
+          	//this function will read saved data and write it directly to the web server.
+          	/*
+          	 * it will sync with onilne db using insert or update, and make use of a unique
+          	 * key on the millisecs+userid code. shd be reasonably unique.
+          	 * will deal with the case where response from server is not received, and prevent duplicated data.
+          	 *
+          	 */
+          	//Log.v("in upload sved pigeionPea harvest data","---");
+          	String sql="SELECT `FarmYearlyDataID`, `FarmID`, `SeasonID`, `CropTypeID`, `SeedVarietyID`, `LandOwnershipID`, `Mechanized`, `DemoPlot`, `TotalFarmSize` FROM `farms_yearly_data` ";
+          	
+          	Cursor c=null;
+             	try{
+             		c=   db.rawQuery(sql, null);
+             	}catch(Exception e){
+             		
+             	}
+             	
+   	       	 if (c != null) {
+   		            c.moveToFirst();
+   		    
+   		        }
+   	      
+   	       	 //convert cursor into a long string to be uploaded/posted to php
+   		        // mCursor;
+   	       	StringBuffer ValuesPart=new StringBuffer();
+   	       	if (c != null) {  //placed in here in case no data exists locally.
+   	       	if (c.moveToFirst())
+   	        {
+   	            do {  
+   	            	ValuesPart.append("(");
+   	            	//prepare the values part of an insert or replace statement
+   	            	for (int i=0; i<c.getColumnCount(); i++){
+   	            		if (i==c.getColumnCount()-1){
+   	            			ValuesPart.append("'"+c.getString(i)+"')");  
+   	            		}else{
+   	            			ValuesPart.append("'"+c.getString(i)+"'");//
+   	            		}
+   	            		if (!(c.isLast() && i==c.getColumnCount()-1)) { //last column of last row has no  comma but bracket 
+   	            			
+   	            			ValuesPart.append(","); 
+   	            		
+   	            		}
+   	            	}
+   	                
+   	            } while (c.moveToNext());
+   	        }
+   	        c.close();
+          	 
+          	return ValuesPart.toString();
+   	       	}
+   	       	return null;
+          }
+
+       
+       //======^^============farm-yearly-data
+       
+        public void masterDBReset(){
+        	//use this to clear all dbs. Not called by any button yet.
         	wipeOfflineFarmerData_new();
-        	wipeOfflineFarmerDatabase();
+        	wipeOfflineFarmerFarmDatabase();
         	wipeOfflinePigeionPeaHarvestData();
         	wipeOfflineSurvey2013Data();
         	wipeOfflineVisitData();
@@ -1517,6 +1622,77 @@ public class DBAdapter implements InovagroConstants {
         	
         	
         }
-        
+     
+        //saving offline username & password of last login
+        public void initOfflineUsersTables(){ 
+          	 
+		     
+           	db.execSQL(createUserTbl);
+           }
+           
+           public void wipeOfflineUsersData_new(){
+             	 db.execSQL("DROP TABLE IF EXISTS users");
+             	initOfflineFarmerTables();
+             }
+           
+           public String saveUsersDataOffline(String userName, String password, String UserID){
+        	   wipeOfflineUsersData_new(); //always delete old user table in case password has changed.
+        	   initOfflineUsersTables();
+             	
+           	String sql="INSERT INTO `users` (`UserID`, `Username`, `Password`) "+
+           			"VALUES ("+
+           			"		'"+UserID+"', '"+userName+"', '"+password+"'   "+
+           			"		)";
+           	
+           	try{
+           	db.execSQL(sql);
+           	}catch (Exception e){  //SQLException
+           		System.out.println("Local Save Error-saveUserDataOffline"+e.toString());
+           		return e.toString()+"SaveLocalfailedOK";
+           	}
+           	return "successOK";
+           	
+           }//fxn saveUserDataOffline
+           
+           public String verifyUsersDataOffline(String userName, String password){
+        	   String sql="SELECT Username, UserID, Password FROM users where Username='"+userName+"' ";
+           	StringBuffer sb= new StringBuffer(); 
+           	Cursor c=null;
+              	try{
+              		c=   db.rawQuery(sql, null);
+              	}catch(Exception e){
+              		
+              	}
+   	       	 if (c != null) {
+   	       		c.moveToFirst();
+   	            if (c.moveToFirst())
+   	            {
+   	            //user exisits
+   	            	
+   	            
+   	            	String strEquiv=UtilityFunctions.md5(password);
+   	            	
+   	            	
+   	            	if ((strEquiv.equals(c.getString(c.getColumnIndex("Password"))))){
+   	            		sb.append(c.getString(c.getColumnIndex("UserID"))); //userID:success:ok, read userID as data[0]
+   	            		sb.append(":successOK");
+   	            		c.close();
+   	   			        return sb.toString();	
+   	            	}
+   	            	
+   	            }
+   	            return "shdNotOccurfailedOK";
+   	         
+   		        }
+   	       	 else{
+   	       		 //user does not exist
+   	       		 c.close();
+   	       		 return sb.append("failedOK").toString();
+   	       	 }
+   	       	 
+//   	       	 c.close();
+//   		        return sb.toString();
+           }//fxn verifyUserDataOffline
+
         
 }//main class

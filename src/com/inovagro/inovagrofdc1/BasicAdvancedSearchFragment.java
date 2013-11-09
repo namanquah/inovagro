@@ -18,7 +18,7 @@ import android.widget.Button;
  *
  */
 public class BasicAdvancedSearchFragment extends Fragment implements OnClickListener, InovagroConstants{
-	Button btnAdvanced, btnBasic;
+	Button btnAdvanced, btnBasic, btnBack;
 	SearchCallbacks mSearchCallbacks;
 	int PurposeOfSearch;
 	
@@ -32,8 +32,11 @@ public class BasicAdvancedSearchFragment extends Fragment implements OnClickList
         View rootView = inflater.inflate(R.layout.frag_basic_advanced_search_switch,container, false);
         btnBasic=(Button)rootView.findViewById(R.id.btnBasicSearch);
         btnAdvanced=(Button)rootView.findViewById(R.id.btnAdvancedSearch);
+        btnBack=(Button)rootView.findViewById(R.id.btnBack);
         btnBasic.setOnClickListener(this);
         btnAdvanced.setOnClickListener(this);
+        btnBack.setOnClickListener(this);
+        
         
         return rootView;
     }
@@ -44,6 +47,9 @@ public class BasicAdvancedSearchFragment extends Fragment implements OnClickList
 	   }
 	   if (v==btnAdvanced){
 		   mSearchCallbacks.doSearch(ADVANCED_SEARCH,PurposeOfSearch);
+	   }
+	   if (v==btnBack){
+		   getFragmentManager().popBackStack();
 	   }
    }//onClick
 

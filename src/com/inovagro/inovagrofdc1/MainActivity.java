@@ -5,8 +5,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Calendar;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.http.HttpResponse;
@@ -61,6 +61,7 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 	static String CurrentFarmerID;  //short cut- use for addFarm, (farmVist) etc to track current farmer //was an int
 	static String CurrentFarmerName;
 	private int glbActionType; //action type to be used in results ie after post
+	static int MenuType=-1;//is it normal online/offline menu or FarmerManagementMenu etc? perhaps combine w OfflineState
 	
 	static HashMap<String, String> gblPartIValues;
 	static HashMap<String, String> gblPartIIValues;
@@ -85,12 +86,21 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
     public static  String mnuViewPlan;
     public static  String mnuGoOnline ;
     public static  String mnuGoOffline;
-    public static  String mnuUploadSavedData;
+    public static  String mnuUploadSavedDataMenu;
+    public static  String mnuUploadSavedVisitData;
     public static String mnuUploadSavedSurvey2013Data;
     
     public static String mnuPigeonPeaHarvestSurvey;
-    public static String mnuUploadAllData;
+    public static String mnuUploadPigeionPeaHarvestSurveyData;
     public static String mnuUploadFarmerData;
+    public static String mnuUploadFarmData;
+    
+    public static String mnuFarmerManagementMenu;
+    public static String mnuViewFarmer;
+    public static String mnuBackToMainMenu;
+    
+    
+    //see onCreate fxn below where these menus are assigned.
     ////---^
 	   
 	@Override
@@ -121,34 +131,46 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
                 MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
                 new MyLocationListener(this)
         );
-        MainActivity.OfflineState=OnLineMode;  //for initial load, determine its effect
+       // MainActivity.OfflineState=OnLineMode;  //for initial load, determine its effect
         
         //obtain the menu items that correspond to the strings for use in this code
         Resources res = getResources();
 		String [] OnlineMenu = res.getStringArray(R.array.arryOnlineMenu);
 		//Resources res = getResources();
 		String [] OfflineMenu = res.getStringArray(R.array.arryOfflineMenu);
-		
+		String [] FarmerManagementMenu= res.getStringArray(R.array.arryFarmerManagementMenu);
+		String [] UploadsMenu= res.getStringArray(R.array.arryUploadsMenu);
 		//-----------------V
-		 mnuAddFarmer=OnlineMenu[0];
+		 
+		//farmer Management Menu
+		mnuAddFarmer=FarmerManagementMenu[0];
+		mnuViewFarmer=FarmerManagementMenu[1];
+		mnuBackToMainMenu=FarmerManagementMenu[2];
+		//mnuEditFarmer=FarmerManagementMenu[1];
+		
+		
+		//main menu
+		 mnuFarmerManagementMenu=OnlineMenu[0];
 		 mnuAddFarm=OnlineMenu[1];
 		 mnuFarmVisit=OnlineMenu[2];
 		 mnuPlanVisits=OnlineMenu[3];
-		 mnuViewPlan=OnlineMenu[4];
-		 
-		 mnuUploadSavedData=OnlineMenu[5];
+		 mnuViewPlan=OnlineMenu[4];		 
+		 mnuUploadSavedDataMenu=OnlineMenu[5]; 
 		 mnuSynchronize=OnlineMenu[6];
 		 mnuGoOffline=OnlineMenu[7];
 	     mnuChangePassword=OnlineMenu[8];
-	      
-	    
 	     mnuSurvey2013=OnlineMenu[9];
-	     mnuUploadSavedSurvey2013Data=OnlineMenu[10];
-	     mnuPigeonPeaHarvestSurvey=OnlineMenu[11];
-	     mnuUploadAllData=OnlineMenu[12];
-	     mnuUploadFarmerData=OnlineMenu[13];
-	    mnuExit=OnlineMenu[14];
+	     mnuPigeonPeaHarvestSurvey=OnlineMenu[10];
+	     mnuExit=OnlineMenu[11]; 
+	     
+	     //uploads menu
+	     mnuUploadSavedVisitData=UploadsMenu[0];
+	     mnuUploadSavedSurvey2013Data=UploadsMenu[1];
+	     mnuUploadPigeionPeaHarvestSurveyData=UploadsMenu[2];
+	     mnuUploadFarmerData=UploadsMenu[3];
+	     mnuUploadFarmData=UploadsMenu[4];
 	    
+	    //ofline menu
 	    mnuGoOnline=OfflineMenu[6] ;
 	    
 	    //create arrays to hold survey results:
@@ -193,13 +215,20 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 		    FragmentManager fragmentManager = getSupportFragmentManager();	
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             if(id.equals(mnuAddFarmer)){	            
-            	fragment=new AddFarmerDetailFragment();
+            	fragment=new AddFarmerDetailFragment(ADD_MODE, null);//just added.
             	   fragmentTransaction.replace(TargetPane, fragment); //as .add
             	   fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN); //new addition
                    fragmentTransaction.addToBackStack(null);
                    fragmentTransaction.commit(); 
             }
-		  
+		  //addition for viewing or editing Farmer data
+            if(id.equals(mnuViewFarmer)){         
+            	MainActivity.PurposeOfSearch=searchBA_FARMER_DETAIL; //a short circuit. Not passing to fragment and back
+            	fragment=new BasicAdvancedSearchFragment(searchBA_FARMER_DETAIL);
+            	   fragmentTransaction.replace(TargetPane, fragment); //as .add
+                   fragmentTransaction.addToBackStack(null);
+                   fragmentTransaction.commit(); 
+            }
             
             if(id.equals(mnuFarmVisit)){         
             	MainActivity.PurposeOfSearch=searchBA_FARM_VISIT; //a short circuit. Not passing to fragment and back
@@ -210,7 +239,7 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
             }
             if(id.equals(mnuAddFarm)){              
             	//short circuit, not passing to fragment and back:
-            	MainActivity.PurposeOfSearch=searchBA_ADD_FARM;
+            	MainActivity.PurposeOfSearch=searchBA_ADD_FARM;            	
             	fragment=new BasicAdvancedSearchFragment(searchBA_ADD_FARM);
             	   fragmentTransaction.replace(TargetPane, fragment); //as .add
                    fragmentTransaction.addToBackStack(null);
@@ -228,10 +257,30 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
             
             if (id.equals(mnuGoOffline)){
             	OfflineState=OffLineMode;
+            	//GOOD CODE.
+            	
             	MainMenuList mml=(MainMenuList)frag;
             	mml.changeMenu(mnuGoOnline, position);
             	//change the text in the menu to Offline
             	//change the background from Blue to Red
+            	
+            	
+            	/*  //bad code. wanted to see if i could initiallize new menu so i can use the back btn
+               fragment = new MainMenuList();  
+            	//MainMenuList mml=(MainMenuList)fragment;
+            	//mml.changeMenu(mnuGoOnline, position);
+            	
+                //fragmentTransaction.add(R.id.leftFrame, fragment);                
+                fragmentTransaction.replace(R.id.leftFrame, fragment); 
+                fragmentTransaction.addToBackStack(null);
+               
+                fragmentTransaction.commit();
+                ((MainMenuList)fragment).changeMenu(mnuGoOnline, position);
+                
+                */
+                return;
+                
+            	
             }
             if (id.equals(mnuGoOnline)){
             	OfflineState=OnLineMode;
@@ -241,8 +290,8 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
             	//change the text in the menu to Online
             	//change the background from Red to Blue
             }
-            //mnuUploadSavedData
-            if (id.equals(mnuUploadSavedData)){
+            //mnuUploadSavedVisitData
+            if (id.equals(mnuUploadSavedVisitData)){
             	HashMap<String,String> data= new HashMap<String, String>();
             	String strData;
             	DBAdapter db = new DBAdapter(getApplicationContext());
@@ -253,7 +302,7 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
             	postData( actionUPLOAD_SAVED_VISIT_DATA, data); //fetch the data in the postData or PostThread
             
             }
-            //mnuUploadSavedData
+            
             if (id.equals(mnuUploadSavedSurvey2013Data)){
             	HashMap<String,String> data= new HashMap<String, String>();
             	String strData;
@@ -320,8 +369,8 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
                    fragmentTransaction.commit(); 
             }
             
-            //mnuUploadAllData
-            if (id.equals(mnuUploadAllData)){
+            //mnuUploadPigeionPeaHarvestSurveyData
+            if (id.equals(mnuUploadPigeionPeaHarvestSurveyData)){
             	HashMap<String,String> data= new HashMap<String, String>();
             	String strData;
             	DBAdapter db = new DBAdapter(getApplicationContext());
@@ -342,6 +391,46 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
             	data.put("valuesPart", strData);
             	postData( actionUPLOAD_SAVED_FARMER_DATA, data); //fetch the data in the postData or PostThread
             
+            }
+            //uploadSavedFarmData_getInsertValuesPart
+            if (id.equals(mnuUploadFarmData)){
+            	HashMap<String,String> data= new HashMap<String, String>();
+            	String strData;
+            	DBAdapter db = new DBAdapter(getApplicationContext());
+ 				db.open();
+ 				strData =db.uploadSavedFarmData_getInsertValuesPart();				
+            	data.put("valuesPart1", strData);//farmData
+            	strData =db.uploadSavedFarmYearlyData_getInsertValuesPart();				
+            	data.put("valuesPart2", strData);//farmData
+            	
+            	db.close();
+            	postData( actionUPLOAD_SAVED_FARM_DATA, data); //fetch the data in the postData or PostThread
+            
+            }
+            if (id.equals(mnuFarmerManagementMenu)){
+            	MainActivity.MenuType=FarmerManagementMenuType;
+            	MainMenuList mml=(MainMenuList)frag;
+            	mml.changeMenu(mnuFarmerManagementMenu, position);
+            	//Toast.makeText(getApplicationContext(), "Position is "+position, Toast.LENGTH_LONG).show();
+            	//change the text in the menu to Online
+            	//change the background from Red to Blue
+            }
+            if (id.equals(mnuBackToMainMenu)){  
+            	MainActivity.MenuType=-1;  //this is a hack, to allow menu to return to either the previous online or offline state.
+            	MainMenuList mml=(MainMenuList)frag;
+            	mml.changeMenu(mnuBackToMainMenu, position);
+            	//Toast.makeText(getApplicationContext(), "Position is "+position, Toast.LENGTH_LONG).show();
+            	//change the text in the menu to Online
+            	//change the background from Red to Blue
+            }
+            //mnuUploadSavedDataMenu
+            if (id.equals(mnuUploadSavedDataMenu)){
+            	MainActivity.MenuType=UploadSavedDataMenuType;
+            	MainMenuList mml=(MainMenuList)frag;
+            	mml.changeMenu(mnuUploadSavedDataMenu, position);
+            	//Toast.makeText(getApplicationContext(), "Position is "+position, Toast.LENGTH_LONG).show();
+            	//change the text in the menu to Online
+            	//change the background from Red to Blue
             }
 	}//on item selected
 	
@@ -376,6 +465,9 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 	//**************---v----general call backs***************************/
 	//called by basic search form. Can do either farmer name or farmerRefNo
 	public void doBasicSearch(int searchType, String searchString){
+		//searchType is either actionSEARCH_FARMERNAME or actionSEARCH_FARMERREFERENCENO
+		//fxn does not receive PurposeOfSearch, even though calling fxn has that info. 
+		//make use of the global value of PurposeOfSearch
 		//connect to server, return data and show a list!
 		int TargetPane;
 	
@@ -406,6 +498,12 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 			doSearchOffline(searchType, searchString);
 			return;
 		}
+		/*   //perhaps not needed. Look at the returned data instead.
+		if (MainActivity.PurposeOfSearch==searchBA_FARMER_DETAIL){
+			addr=BaseURL+"?action=SEARCH_FARMERS_BY_REFNO&searchString="+searchString;
+			 action=searchType;//actionSEARCH_FARMERREFERENCENO;
+		}*/
+		
 		if (MainActivity.OfflineState ==OnLineMode){
 			new SyncTask(action,addr,MainActivity.this).execute();
 		
@@ -653,6 +751,7 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 			 action=actionType;
 			 glbActionType=action;
 			 break;
+			 
 		}
 		Log.v("postData msg","OfflineState="+OfflineState);
 		if (MainActivity.OfflineState ==OnLineMode){
@@ -731,16 +830,22 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 				 db = new DBAdapter(getApplicationContext());
 					db.open();
 					String res4=db.saveFarmerDataOffline(values);
+					db.close();
 					if (res4.endsWith("successOK")){
 						Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
 						//close the dialog box, or reset the values.
 						getSupportFragmentManager().popBackStack();
+						if (glbActionType==actionPOST_ADD_FARMER){
+							//pop 2nd time bc of confirm screen
+							getSupportFragmentManager().popBackStack();
+						}
 						//showSuveyAug2013Fragment();
 					}
 					else {//
 						Toast.makeText(getApplicationContext(), "Sorry, Local Save failed", Toast.LENGTH_LONG).show();
 					}
-					db.close();
+					
+				//	db.close();
 
 				 break;	
 				 
@@ -748,18 +853,51 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 				 db = new DBAdapter(getApplicationContext());
 					db.open();
 					String res3=db.saveFarmDataOffline(values);
+					db.close();
 					if (res3.endsWith("successOK")){
+						//load the second form.
+						System.out.println("in main-offline: actionPOST_ADD_FARM- result="+res3);
+						UtilityFunctions fxn= new UtilityFunctions ();
+						String results[]=fxn.msplit(res3, ":"); ///---------->the problem is here!
+						String farmID=results[0];
+						//int farmID=Integer.valueOf(results[0]);
+						showAddFarmSeasonDetailFragment(farmID);
+						
+					}
+					
+//					if (res3.endsWith("successOK")){
+//						Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
+//						//close the dialog box, or reset the values.
+//						getSupportFragmentManager().popBackStack();
+//						//showSuveyAug2013Fragment();
+//					}
+					else {
+						Toast.makeText(getApplicationContext(), "Sorry, Local Save failed", Toast.LENGTH_LONG).show();
+					}
+					//db.close();
+
+				 break;	
+			 case actionPOST_ADD_FARMS_YEARLY_DATA:
+				 //working on this!
+				 
+				 db = new DBAdapter(getApplicationContext());
+					db.open();
+					String res5=db.saveFarmYearlyDataOffline(values);
+					db.close();
+					if (res5.endsWith("successOK")){
 						Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
 						//close the dialog box, or reset the values.
 						getSupportFragmentManager().popBackStack();
-						//showSuveyAug2013Fragment();
+						getSupportFragmentManager().popBackStack();
+						
 					}
 					else {//
 						Toast.makeText(getApplicationContext(), "Sorry, Local Save failed", Toast.LENGTH_LONG).show();
 					}
-					db.close();
-
-				 break;	
+					//db.close();
+				 break;
+				 
+				 
 				 
 			default:
 				Toast.makeText(getApplicationContext(), "Sorry, You can do this online only", Toast.LENGTH_LONG).show();
@@ -781,6 +919,10 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 		Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
 		//close the dialog box, or reset the values.
 		getSupportFragmentManager().popBackStack();
+		if (glbActionType==actionPOST_ADD_FARMER){
+			//pop 2nd time bc of confirm screen
+			getSupportFragmentManager().popBackStack();
+		}
 		
 		}
 		
@@ -809,11 +951,13 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 				System.out.println("about to save...in do_after_post");
 				DBAdapter db = new DBAdapter(getApplicationContext());
 				db.open();
-				db.saveFarmerFarmDataOffline(result);
+				String localSave=db.saveFarmerFarmDataOffline(result);
 				
 				db.close();
-				
-				}//if ok
+				if (localSave.endsWith("successOK")){
+					Toast.makeText(getApplicationContext(), "Saved Locally", Toast.LENGTH_LONG).show();
+				}
+			}//if ok
 			
 		}
 		if (glbActionType==actionUPLOAD_SAVED_VISIT_DATA){ //clear local table bc was successful.
@@ -831,6 +975,7 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 		if (glbActionType==actionPOST_ADD_FARM){ //clear local table bc was successful.
 			if (result.endsWith("successOK")){
 				//load the second form.
+				System.out.println("in main: actionPOST_ADD_FARM- result="+result);
 				UtilityFunctions fxn= new UtilityFunctions ();
 				String results[]=fxn.msplit(result, ":");
 				String farmID=results[0];
@@ -891,8 +1036,8 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 			if (result.endsWith("successOK")){
 			 DBAdapter db = new DBAdapter(getApplicationContext());
 				db.open();
-				db.wipeOfflineFarmData_new();
-				db.initOfflineFarmTables();
+				//db.wipeOfflineFarmData_new();
+				//db.initOfflineFarmTables();
 				db.close();
 			}
 			if (result.endsWith("failedOK")){
@@ -904,8 +1049,8 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 			if (result.endsWith("successOK")){
 			 DBAdapter db = new DBAdapter(getApplicationContext());
 				db.open();
-				db.wipeOfflineFarmerData_new();
-				db.initOfflineFarmTables();
+				//db.wipeOfflineFarmerData_new();
+				//db.initOfflineFarmTables();
 				db.close();
 			}
 			if (result.endsWith("failedOK")){
@@ -1053,9 +1198,9 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 	public void resetLocalFarmersDB(){ //delete  and recreate local farms's db, in case it has been corrupted.
 		 DBAdapter db = new DBAdapter(getApplicationContext());
 			db.open();
-			db.wipeOfflineFarmerDatabase();
+			db.wipeOfflineFarmerFarmDatabase();
 			db.wipeOfflineVisitData();
-			db.initOfflineFarmerFarmTables();
+			//db.initOfflineFarmerFarmTables();  
 			db.close();
 			//if (res.endsWith("successOK")){
 				Toast.makeText(getApplicationContext(), "Local DB wiped clean", Toast.LENGTH_LONG).show();
@@ -1138,6 +1283,75 @@ int TargetPane;
 			fragmentTransaction.commit();
 				
 	}
+	
+	public void showFarmerDetail(String FarmerID){
+		int TargetPane;
+		
+		if (mTwoPane) {
+	          TargetPane=R.id.rightFrame;
+		}
+		else
+		{
+		      TargetPane=R.id.leftFrame;			
+		}
+		
+		String addr=null;
+		int action=-1;
+		//if (searchType==actionFETCH_FARMER_DETAILS){
+		 addr=BaseURL+"?action=FETCH_FARMER_DETAILS&searchString="+FarmerID;
+		 action=actionFETCH_FARMER_DETAILS; //actionSEARCH_CURRENT_FARMS
+		 CurrentFarmerID=FarmerID;  //shortCircuit. Using a static globl var
+		//}
+
+		
+		//new SyncTask(action,addr,MainActivity.this).execute();
+		if (OfflineState ==OnLineMode){
+			new SyncTask(action,addr,MainActivity.this).execute();
+		//do not use the ff: was for dummy testing
+		}
+		else{ //is offline, search locally
+			
+			doSearchOffline(actionFETCH_FARMER_DETAILS, String.valueOf(FarmerID));
+		}
+		
+		/*
+		 //double check that FarmYearlyDataID is being used!
+			//call a different constructor bc not all the array is needed
+			
+			//fetch list of visit types from resource
+			FragmentManager fragmentManager = getSupportFragmentManager();	
+			FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+			android.support.v4.app.Fragment fragment=null;
+			//show the new fragment -add visit data form
+			//todo: do pass both FarmYearlyDataID and vistType to the constructor 
+			//done----v
+			fragment = new SurveyPigeonPeaHarvestFragment(FarmerID, FarmerName);
+			fragmentTransaction.replace(TargetPane , fragment);
+			fragmentTransaction.addToBackStack(null);
+			fragmentTransaction.commit();
+			*/	
+	}
+	
+	public void showConfirmationForm(HashMap<String, String> Data, int postAction){
+int TargetPane;
+		
+		if (mTwoPane) {
+	          TargetPane=R.id.rightFrame;
+		}
+		else
+		{
+		      TargetPane=R.id.leftFrame;			
+		}
+		FragmentManager fragmentManager = getSupportFragmentManager();	
+		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+		android.support.v4.app.Fragment fragment=null;
+			fragment = new ConfirmationFragment(Data, postAction);
+		fragmentTransaction.replace(TargetPane , fragment);
+		fragmentTransaction.addToBackStack(null);
+		fragmentTransaction.commit();
+
+	}
+	
 	//**************---^---general call backs***************************/
 	
 	public void showAddFarmSeasonDetailFragment(String FarmID){
@@ -1521,10 +1735,15 @@ int TargetPane;
 			}
 
 			if ((actionType==actionSEARCH_FARMERNAME) || (actionType==actionSEARCH_ADVANCED)){
-				doSEARCH_FARMERNAME(result);
+				//doSEARCH_FARMERNAME(result);
+				doSEARCH_FARMERNAME( result, activity, actionType);
 			
 			}//if action=search Farmer
+			//actionFETCH_FARMER_DETAILS
+			if ((actionType==actionFETCH_FARMER_DETAILS) ){
+				doFETCH_FARMER_DETAILS(result, activity);
 			
+			}//actionFETCH_FARMER_DETAILS
 			
 			if (actionType==actionSEARCH_FARMERREFERENCENO){
 				//consider using doSearch_farmerName again. Give it a more generic name
@@ -1582,143 +1801,75 @@ int TargetPane;
 			}//if actionSEARCH_FARMERREFERENCENO
 			
 			if (actionType==actionSEARCH_CURRENT_FARMS){
-				if (result.endsWith("failedOK")){
-					Toast.makeText(getApplicationContext(), "NO matching records", Toast.LENGTH_LONG).show();
-					if (PurposeOfSearch== searchBA_ADD_FARM ){
-					//==================================================testing if i can load a blank list
-					 FragmentManager fragmentManager = getSupportFragmentManager();	
-				        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-				        String[] NameArry=null;
-				        String IDArry[]=null;
-				           
-				        int TargetPane;
-				    	
-				    		if (mTwoPane) {
-				    	          TargetPane=R.id.rightFrame;
-				    		}
-				    		else
-				    		{
-				    		      TargetPane=R.id.leftFrame;
-				    				
-				    		}
-				        	android.support.v4.app.Fragment fragment=null;
-				            fragment=new ListResultFragment(NameArry, IDArry, actionType, PurposeOfSearch);
-				            fragmentTransaction.replace(TargetPane , fragment);
-				            fragmentTransaction.addToBackStack(null);
-				            fragmentTransaction.commit();
-						
-					//===================================================
-					}
-					/* */
-					return;
-				}
-				//String listData[][]=null;
-				if (result.endsWith("successOK")){
-					Toast.makeText(activity, "Successful!", Toast.LENGTH_LONG) .show();
-					UtilityFunctions fxn= new UtilityFunctions();
-					result=result.replace("successOK","");
-					//listData=fxn.create2DArray(result, "</br>", ":");
-					
-				    FragmentManager fragmentManager = getSupportFragmentManager();	
-			        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-			        String[] NameArry=null;
-			        String IDArry[]=null;
-			        
-			        //seems the following call does not work---------------------------vvv
-			        Object A[]=fxn.create2_1DArrays(result, "</br>", ":");
-			        NameArry=(String[])A[0];
-			        IDArry=(String[])A[1];
-			        
-			           
-			        int TargetPane;
-			    	
-			    		if (mTwoPane) {
-			    	          TargetPane=R.id.rightFrame;
-			    		}
-			    		else
-			    		{
-			    		      TargetPane=R.id.leftFrame;
-			    				
-			    		}
-			        	android.support.v4.app.Fragment fragment=null;
-			            fragment=new ListResultFragment(NameArry, IDArry, actionType, PurposeOfSearch);
-			            fragmentTransaction.replace(TargetPane , fragment);
-			            fragmentTransaction.addToBackStack(null);
-			            fragmentTransaction.commit();
-					
-				}
-				else
-				{
-					if (result.endsWith("OK")){
-						Toast.makeText(getApplicationContext(), "Connected but other error occured", Toast.LENGTH_LONG).show();
-					}
-					else{
-						
-					Toast.makeText(activity, "Sorry, operation failed. Please report this", Toast.LENGTH_LONG) .show();
-					}		
-				}
+				doSEARCH_CURRENT_FARMS(result, activity, actionType);
+
 			}//if actionSEARCH_CURRENT_FARMS
 			
 		}//on post execute fxn
 	
 	
-		//a test -- a function to make the onpost execute look more readable
-		private void doSEARCH_FARMERNAME(String result){
-			if (result.endsWith("failedOK")){
-				Toast.makeText(getApplicationContext(), "NO matching records", Toast.LENGTH_LONG).show();
-				return;
-			}
-			//String listData[][]=null;
-			if (result.endsWith("successOK")){
-				Toast.makeText(activity, "Successful!", Toast.LENGTH_SHORT) .show();
-				UtilityFunctions fxn= new UtilityFunctions();
-				result=result.replace("successOK","");
-				//listData=fxn.create2DArray(result, "</br>", ":");
-				
-			    FragmentManager fragmentManager = getSupportFragmentManager();	
-		        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-		      //  String[] values = listData[1];
-		        String[] NameArry=null;
-		       // int IDArry[]=null; //changed int->str
-		        String IDArry[]=null;
-		        
-		        //seems the following call does not work---------------------------vvv
-		        Object A[]=fxn.create2_1DArrays(result, "</br>", ":");//, NameArry, IDArry, arry2);
-		        NameArry=(String[])A[0];
-		        //IDArry=(int[])A[1]; //changed int->str
-		        IDArry=(String[])A[1];
-		        
-		           //above may not work bc of applicaitoncontext
-		        int TargetPane;
-		    	//	android.support.v4.app.Fragment fragment=null;
-		    		if (mTwoPane) {
-		    	          TargetPane=R.id.rightFrame;
-		    		}
-		    		else
-		    		{
-		    		      TargetPane=R.id.leftFrame;
-		    				
-		    		}
-		        	android.support.v4.app.Fragment fragment=null;
-		            //fragment=new ListResultFragment(values);
-		            fragment=new ListResultFragment(NameArry, IDArry, actionType, PurposeOfSearch);
-		            fragmentTransaction.replace(TargetPane , fragment);
-		            fragmentTransaction.addToBackStack(null);
-		            fragmentTransaction.commit();
-				
-			}
-			else
-			{
-				if (result.endsWith("OK")){
-					Toast.makeText(getApplicationContext(), "Connected but other error occured", Toast.LENGTH_LONG).show();
-				}
-				else{
-					
-				Toast.makeText(activity, "Sorry, operation failed. Please report this", Toast.LENGTH_LONG) .show();
-				} //else --> ends with OK
-			}//else-> ends with successOK
-		}//doSearchFarmerName
+
 		
+//		private void doFETCH_FARMER_DETAILS(String result){
+//			if (result.endsWith("failedOK")){
+//				Toast.makeText(getApplicationContext(), "NO matching records", Toast.LENGTH_LONG).show();
+//				return;
+//			}
+//			//String listData[][]=null;
+//			if (result.endsWith("successOK")){
+//				Toast.makeText(activity, "Successful!", Toast.LENGTH_SHORT) .show();
+//				UtilityFunctions fxn= new UtilityFunctions();
+//				result=result.replace("successOK","");
+//
+//				//listData=fxn.create2DArray(result, "</br>", ":");
+//				
+//			    FragmentManager fragmentManager = getSupportFragmentManager();	
+//		        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//		      //  String[] values = listData[1];
+//		        String[] NameArry=null;	//value	       
+//		        String IDArry[]=null; //key
+//		        HashMap<String, String> FormData= new HashMap<String, String>();
+//		        //seems the following call does not work---------------------------vvv
+//		        Log.v("fmrDetails_result",result);
+//		        Object A[]=fxn.createKey_ValuePairs(result, "</br>", ":");//, NameArry, IDArry, arry2);
+//		        NameArry=(String[])A[1];		        
+//		        IDArry=(String[])A[0];
+//		        
+//		        for (int i=0; i<NameArry.length; i++){
+//		        	FormData.put(IDArry[i], NameArry[i]);
+//		        }
+//		        
+//		           //above may not work bc of applicaitoncontext
+//		        int TargetPane;
+//		    	//	android.support.v4.app.Fragment fragment=null;
+//		    		if (mTwoPane) {
+//		    	          TargetPane=R.id.rightFrame;
+//		    		}
+//		    		else
+//		    		{
+//		    		      TargetPane=R.id.leftFrame;
+//		    				
+//		    		}
+//		        	android.support.v4.app.Fragment fragment=null;
+//		            
+//		            //fragment=new ListResultFragment(NameArry, IDArry, actionType, PurposeOfSearch);
+//		        	fragment=new AddFarmerDetailFragment(VIEW_MODE,FormData);
+//		        	fragmentTransaction.replace(TargetPane , fragment);
+//		            fragmentTransaction.addToBackStack(null);
+//		            fragmentTransaction.commit();
+//				
+//			}
+//			else
+//			{
+//				if (result.endsWith("OK")){
+//					Toast.makeText(getApplicationContext(), "Connected but other error occured", Toast.LENGTH_LONG).show();
+//				}
+//				else{
+//					
+//				Toast.makeText(activity, "Sorry, operation failed. Please report this", Toast.LENGTH_LONG) .show();
+//				} //else --> ends with OK
+//			}//else-> ends with successOK
+//		}
 	
 		private void doSYNC(String result){
 			if (actionType==actionSYNC){
@@ -1850,60 +2001,137 @@ int TargetPane;
 		  	DBAdapter db= new DBAdapter(getApplication());
 		  	db.open();
 		  	String result=null;
+		  	//System.out.println("Expected farmerID="+searchString);
+		  	
 		  	switch (searchType){
 		  	case actionSEARCH_FARMERNAME:
-				result=db.fetchLocalFarmerList(searchString);
+System.out.println("doSearchOffline- search farmers");				
+		  		result=db.fetchLocalFarmerList(searchString);		  		
+		  		db.close();
+		  		//normalize so i can use exisiting online mode code:
+		        if(result==null || result.trim().equals("") ){
+		        	Toast.makeText(getApplicationContext(), "No Local Records", Toast.LENGTH_LONG).show();
+		        	result+="failedOK";
+		        }
+		        else{
+		        	result+="successOK";
+		        }
+		  		doSEARCH_FARMERNAME(result,MainActivity.this,actionSEARCH_FARMERNAME);
 		  		break;
 		  	case actionSEARCH_FARMERREFERENCENO:
 		  		result=db.fetchLocalFarmerListByID(searchString);
+		  		db.close();
+		  	//normalize so i can use exisiting online mode code:
+		        if(result==null || result.trim().equals("") ){
+		        	Toast.makeText(getApplicationContext(), "No Local Records", Toast.LENGTH_LONG).show();
+		        	result+="failedOK";
+		        }
+		        else{
+		        	result+="successOK";
+		        }
 		  		break;
 		  	case actionSEARCH_CURRENT_FARMS:
+System.out.println("doSearchOffline- search current farms");
 		  		result=db.fetchLocalFarmList(searchString);
+System.out.println("doSearchOffline -result= "+result);
+		  		db.close();
+		  	//normalize so i can use exisiting online mode code:
+		        if(result==null || result.trim().equals("") ){
+		        	Toast.makeText(getApplicationContext(), "No Local Records", Toast.LENGTH_LONG).show();
+		        	result+="failedOK";
+		        }
+		        else{
+		        	result+="successOK";
+		        }
+		  		//perhaps simply go ahead to show the form to add new farms. Whats the case in online mode?
+		  		doSEARCH_CURRENT_FARMS(result,MainActivity.this,actionSEARCH_CURRENT_FARMS);
 		  		break;
-		  	
+		  	case actionFETCH_FARMER_DETAILS:
+		  		result=db.fetchLocalFarmerDetails(searchString);
+		  		db.close();
+		  		System.out.println("result from offline read"+result);
+			  	doFETCH_FARMER_DETAILS(result, MainActivity.this);
+			break;
+
 		  	}
-	        
-	        db.close();
-	        
-	        if(result==null || result.trim().equals("") ){
-	        	Toast.makeText(getApplicationContext(), "No Local Records", Toast.LENGTH_LONG).show();
-	        	return;
-	        }
-	        
-	        
-		  UtilityFunctions fxn= new UtilityFunctions();
-			//result=result.replace("successOK","");  //comment out or use alternative mechanism
-			//listData=fxn.create2DArray(result, "</br>", ":");
-			
-		    FragmentManager fragmentManager = getSupportFragmentManager();	
-	        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-	      
-	        String[] NameArry=null;
-	        String IDArry[]=null;
-	        
-	        //seems the following call does not work---------------------------vvv
-	        Object A[]=fxn.create2_1DArrays(result, "</br>", ":");//, NameArry, IDArry, arry2);
-	        NameArry=(String[])A[0];
-	        IDArry=(String[])A[1];
-	        
-	           //above may not work bc of applicaitoncontext
-	        int TargetPane;
-	    	//	android.support.v4.app.Fragment fragment=null;
-	    		if (mTwoPane) {
-	    	          TargetPane=R.id.rightFrame;
-	    		}
-	    		else
-	    		{
-	    		      TargetPane=R.id.leftFrame;
-	    				
-	    		}
-	        	android.support.v4.app.Fragment fragment=null;
-	            //fragment=new ListResultFragment(values);
-	            fragment=new ListResultFragment(NameArry, IDArry, searchType, PurposeOfSearch); //searchTyep was actionType previously
-	            fragmentTransaction.replace(TargetPane , fragment);
-	            fragmentTransaction.addToBackStack(null);
-	            fragmentTransaction.commit();
-		
+		  			  	
+//	        //db.close();  //part of original code
+//		  	
+//		  	
+//		  	
+//	        
+//	        if(result==null || result.trim().equals("") ){
+//	        	Toast.makeText(getApplicationContext(), "No Local Records", Toast.LENGTH_LONG).show();
+//	        	System.out.println("doSearchOffline: returns here");
+//	        	
+//	        		
+//	        		return;  //do not return, but the other conditions should be false.
+//	        }
+//	        
+//	        /**==========================================if no records found but was to be add records       	 */
+//        	if (PurposeOfSearch== searchBA_ADD_FARM ){
+//				
+//				 FragmentManager fragmentManager = getSupportFragmentManager();	
+//			        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//			        String[] NameArry=null;
+//			        String IDArry[]=null;
+//			           
+//			        int TargetPane;
+//			    	
+//			    		if (mTwoPane) {
+//			    	          TargetPane=R.id.rightFrame;
+//			    		}
+//			    		else
+//			    		{
+//			    		      TargetPane=R.id.leftFrame;
+//			    				
+//			    		}
+//			        	android.support.v4.app.Fragment fragment=null;
+//			            fragment=new ListResultFragment(NameArry, IDArry, searchType, PurposeOfSearch);
+//			            fragmentTransaction.replace(TargetPane , fragment);
+//			            fragmentTransaction.addToBackStack(null);
+//			            fragmentTransaction.commit();
+//			            return;
+//				
+//				}
+//        	//===================================================
+//        
+//	        
+//	        
+//		  UtilityFunctions fxn= new UtilityFunctions();
+//			//result=result.replace("successOK","");  //comment out or use alternative mechanism
+//			//listData=fxn.create2DArray(result, "</br>", ":");
+//			
+//		    FragmentManager fragmentManager = getSupportFragmentManager();	
+//	        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//	      
+//	        String[] NameArry=null;
+//	        String IDArry[]=null;
+//	        
+//	        //seems the following call does not work---------------------------vvv
+//	        Object A[]=fxn.create2_1DArrays(result, "</br>", ":");//, NameArry, IDArry, arry2);
+//	        NameArry=(String[])A[0];
+//	        IDArry=(String[])A[1];
+//	        
+//	           //above may not work bc of applicaitoncontext
+//	        int TargetPane;
+//	    	//	android.support.v4.app.Fragment fragment=null;
+//	    		if (mTwoPane) {
+//	    	          TargetPane=R.id.rightFrame;
+//	    		}
+//	    		else
+//	    		{
+//	    		      TargetPane=R.id.leftFrame;
+//	    				
+//	    		}
+//	        	android.support.v4.app.Fragment fragment=null;
+//	            //fragment=new ListResultFragment(values);
+//	        	System.out.println("b4 call--in dosearch offine: searchType="+searchType+ " searchstr="+searchString);
+//	            fragment=new ListResultFragment(NameArry, IDArry, searchType, PurposeOfSearch); //searchTyep was actionType previously
+//	            fragmentTransaction.replace(TargetPane , fragment);
+//	            fragmentTransaction.addToBackStack(null);
+//	            fragmentTransaction.commit();
+//		
 	  }
 	  
 	  
@@ -1950,5 +2178,206 @@ int TargetPane;
 	            fragmentTransaction.addToBackStack(null);
 	            fragmentTransaction.commit();
 	}
-	
+
+	  //extracting common functions used by online and offline search for processing results
+		//a test -- a function to make the onpost execute look more readable
+		private void doSEARCH_FARMERNAME(String result, Activity activity, int actionType){
+			if (result.endsWith("failedOK")){
+				Toast.makeText(getApplicationContext(), "NO matching records", Toast.LENGTH_LONG).show();
+				return;
+			}
+			//String listData[][]=null;
+			if (result.endsWith("successOK")){
+				Toast.makeText(activity, "Successful!", Toast.LENGTH_SHORT) .show();
+				UtilityFunctions fxn= new UtilityFunctions();
+				result=result.replace("successOK","");
+				//listData=fxn.create2DArray(result, "</br>", ":");
+				
+			    FragmentManager fragmentManager = getSupportFragmentManager();	
+		        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+		      //  String[] values = listData[1];
+		        String[] NameArry=null;
+		       // int IDArry[]=null; //changed int->str
+		        String IDArry[]=null;
+		        
+		        //seems the following call does not work---------------------------vvv
+		        Object A[]=fxn.create2_1DArrays(result, "</br>", ":");//, NameArry, IDArry, arry2);
+		        NameArry=(String[])A[0];
+		        //IDArry=(int[])A[1]; //changed int->str
+		        IDArry=(String[])A[1];
+		        
+		           //above may not work bc of applicaitoncontext
+		        int TargetPane;
+		    	//	android.support.v4.app.Fragment fragment=null;
+		    		if (mTwoPane) {
+		    	          TargetPane=R.id.rightFrame;
+		    		}
+		    		else
+		    		{
+		    		      TargetPane=R.id.leftFrame;
+		    				
+		    		}
+		        	android.support.v4.app.Fragment fragment=null;
+		            //fragment=new ListResultFragment(values);
+		        	
+		            fragment=new ListResultFragment(NameArry, IDArry, actionType, PurposeOfSearch);
+		            fragmentTransaction.replace(TargetPane , fragment);
+		            fragmentTransaction.addToBackStack(null);
+		            fragmentTransaction.commit();
+				
+			}
+			else
+			{
+				if (result.endsWith("OK")){
+					Toast.makeText(getApplicationContext(), "Connected but other error occured", Toast.LENGTH_LONG).show();
+				}
+				else{
+					
+				Toast.makeText(activity, "Sorry, operation failed. Please report this", Toast.LENGTH_LONG) .show();
+				} //else --> ends with OK
+			}//else-> ends with successOK
+		}//doSearchFarmerName
+
+		private void doSEARCH_CURRENT_FARMS(String result, Activity activity, int actionType){
+			if (result.endsWith("failedOK")){
+				Toast.makeText(getApplicationContext(), "NO matching records", Toast.LENGTH_LONG).show();
+				if (PurposeOfSearch== searchBA_ADD_FARM ){
+				//==================================================testing if i can load a blank list
+				 FragmentManager fragmentManager = getSupportFragmentManager();	
+			        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+			        String[] NameArry=null;
+			        String IDArry[]=null;
+			           
+			        int TargetPane;
+			    	
+			    		if (mTwoPane) {
+			    	          TargetPane=R.id.rightFrame;
+			    		}
+			    		else
+			    		{
+			    		      TargetPane=R.id.leftFrame;
+			    				
+			    		}
+			        	android.support.v4.app.Fragment fragment=null;
+			            fragment=new ListResultFragment(NameArry, IDArry, actionType, PurposeOfSearch);
+			            fragmentTransaction.replace(TargetPane , fragment);
+			            fragmentTransaction.addToBackStack(null);
+			            fragmentTransaction.commit();
+					
+				//===================================================
+				}
+				/* */
+				return;
+			}
+			//String listData[][]=null;
+			if (result.endsWith("successOK")){
+				Toast.makeText(activity, "Successful!", Toast.LENGTH_LONG) .show();
+				UtilityFunctions fxn= new UtilityFunctions();
+				result=result.replace("successOK","");
+				//listData=fxn.create2DArray(result, "</br>", ":");
+				
+			    FragmentManager fragmentManager = getSupportFragmentManager();	
+		        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+		        String[] NameArry=null;
+		        String IDArry[]=null;
+		        
+		        //seems the following call does not work---------------------------vvv
+		        Object A[]=fxn.create2_1DArrays(result, "</br>", ":");
+		        NameArry=(String[])A[0];
+		        IDArry=(String[])A[1];
+		        
+		           
+		        int TargetPane;
+		    	
+		    		if (mTwoPane) {
+		    	          TargetPane=R.id.rightFrame;
+		    		}
+		    		else
+		    		{
+		    		      TargetPane=R.id.leftFrame;
+		    				
+		    		}
+		        	android.support.v4.app.Fragment fragment=null;
+		            fragment=new ListResultFragment(NameArry, IDArry, actionType, PurposeOfSearch);
+		            fragmentTransaction.replace(TargetPane , fragment);
+		            fragmentTransaction.addToBackStack(null);
+		            fragmentTransaction.commit();
+				
+			}
+			else
+			{
+				if (result.endsWith("OK")){
+					Toast.makeText(getApplicationContext(), "Connected but other error occured", Toast.LENGTH_LONG).show();
+				}
+				else{
+					
+				Toast.makeText(activity, "Sorry, operation failed. Please report this", Toast.LENGTH_LONG) .show();
+				}		
+			}
+		}
+
+		private void doFETCH_FARMER_DETAILS(String result, Activity activity){  //, int actionType
+			
+			if (result.endsWith("failedOK")){
+				Toast.makeText(getApplicationContext(), "NO matching records", Toast.LENGTH_LONG).show();
+				return;
+			}
+			
+			System.out.println("inside doFETCH_FARMER_DETAILS----0");
+			//String listData[][]=null;
+			if (result.endsWith("successOK")){
+				Toast.makeText(activity, "Successful!", Toast.LENGTH_SHORT) .show();
+				UtilityFunctions fxn= new UtilityFunctions();
+				result=result.replace("successOK","");
+				System.out.println("inside doFETCH_FARMER_DETAILS----1");
+				//listData=fxn.create2DArray(result, "</br>", ":");
+				
+			    FragmentManager fragmentManager = getSupportFragmentManager();	
+		        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+		      //  String[] values = listData[1];
+		        String[] NameArry=null;	//value	       
+		        String IDArry[]=null; //key
+		        HashMap<String, String> FormData= new HashMap<String, String>();
+		        //seems the following call does not work---------------------------vvv
+		        Log.v("fmrDetails_result",result);
+		        Object A[]=fxn.createKey_ValuePairs(result, "</br>", ":"); //-----
+		        NameArry=(String[])A[1];		        
+		        IDArry=(String[])A[0];
+		        
+		        for (int i=0; i<NameArry.length; i++){
+		        	FormData.put(IDArry[i], NameArry[i]);
+		        }
+		        System.out.println("inside doFETCH_FARMER_DETAILS----2");
+		           //above may not work bc of applicaitoncontext
+		        int TargetPane;
+		    	//	android.support.v4.app.Fragment fragment=null;
+		    		if (mTwoPane) {
+		    	          TargetPane=R.id.rightFrame;
+		    		}
+		    		else
+		    		{
+		    		      TargetPane=R.id.leftFrame;
+		    				
+		    		}
+		        	android.support.v4.app.Fragment fragment=null;
+		            
+		            //fragment=new ListResultFragment(NameArry, IDArry, actionType, PurposeOfSearch);
+		        	fragment=new AddFarmerDetailFragment(VIEW_MODE,FormData);
+		        	fragmentTransaction.replace(TargetPane , fragment);
+		            fragmentTransaction.addToBackStack(null);
+		            fragmentTransaction.commit();
+				
+			}
+			else
+			{
+				if (result.endsWith("OK")){
+					Toast.makeText(getApplicationContext(), "Connected but other error occured", Toast.LENGTH_LONG).show();
+				}
+				else{
+					
+				Toast.makeText(activity, "Sorry, operation failed. Please report this", Toast.LENGTH_LONG) .show();
+				} //else --> ends with OK
+			}//else-> ends with successOK
+		}
+
 }//main activity

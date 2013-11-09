@@ -46,6 +46,7 @@ public class ListResultFragment extends ListFragment implements InovagroConstant
 		IDArry=numericIDs;
 		this.actionType=actionType;
 		this.PurposeOfSearch=PurposeOfSearch;
+		System.out.println("in constructor of ListResultFrag -purposeOfSearch="+this.PurposeOfSearch);
 	}
 
 	//used only by actionSHOW_VISIT_TYPES, called from MainActivity
@@ -94,10 +95,11 @@ public class ListResultFragment extends ListFragment implements InovagroConstant
         //otherwise use a context menu on the farmer's name.
         //if (actionType==searchBA_ADD_FARM){
         if (MainActivity.PurposeOfSearch==searchBA_ADD_FARM && actionType==actionSEARCH_CURRENT_FARMS){	
-        	btnAddFarm.setVisibility(View.VISIBLE);
+        	btnAddFarm.setVisibility(View.VISIBLE);        	
         }
         else{
-        	btnAddFarm.setVisibility(View.GONE);
+        	btnAddFarm.setVisibility(View.GONE);        
+	    	
         }
         
 
@@ -163,6 +165,7 @@ public class ListResultFragment extends ListFragment implements InovagroConstant
 	    	setListAdapter(adapter);
 	    	//ListView l= getListView();
 	    	lv.setTextFilterEnabled(true);	
+	    	
 		}
 
   @Override
@@ -178,8 +181,10 @@ public class ListResultFragment extends ListFragment implements InovagroConstant
   
 	//  if (actionType==actionSEARCH_CURRENT_FARMS){ //works!
 	  //if (PurposeOfSearch==searchBA_FARM_VISIT){
+	  
 			if ((actionType==actionSEARCH_FARMERNAME) || (actionType==actionSEARCH_FARMERREFERENCENO) || (actionType==actionSEARCH_ADVANCED)){  
-								//add a new callback to list farms.  
+								//add a new callback to list farms.
+				
 				  //int FarmerID= IDArry[position];
 				  String FarmerID= IDArry[position];
 				  //using a shortcircuit:_____vvv___
@@ -193,7 +198,12 @@ public class ListResultFragment extends ListFragment implements InovagroConstant
 					  callBack.showPigeonPeaHarvestForm(FarmerID, values[position]);
 					  return;
 				  }
+				  if (MainActivity.PurposeOfSearch==searchBA_FARMER_DETAIL){
+					  callBack.showFarmerDetail(FarmerID);
+					  return;
+				  }
 				  //wont get here if its pigeionPea
+				  
 				  callBack.fetchListOfFarms(actionSEARCH_CURRENT_FARMS, FarmerID);
 				  return;
 				  
@@ -248,7 +258,7 @@ public class ListResultFragment extends ListFragment implements InovagroConstant
 			   for(int i=0; i< chkedItems.size(); i++){
 			   if(chkedItems.valueAt(i)){
 				   //String item= lv.getAdapter().getItem(chkedItems.keyAt(i)).toString();
-				   ids+=String.valueOf(IDArry[chkedItems.keyAt(i)])+",";
+				   ids+="'"+String.valueOf(IDArry[chkedItems.keyAt(i)])+"',";
 				   //callBack.fetchDataForSelectedFarmers(ids);
 				   
 				   //save this array of stringized ids
@@ -276,7 +286,8 @@ public class ListResultFragment extends ListFragment implements InovagroConstant
 				   }
 				   for(int i=0; i< chkedItems.size(); i++){
 				   if(chkedItems.valueAt(i)){
-					   ids+=String.valueOf(IDArry[chkedItems.keyAt(i)])+",";
+					   //ids+=String.valueOf(IDArry[chkedItems.keyAt(i)])+",";
+					   ids+="'"+String.valueOf(IDArry[chkedItems.keyAt(i)])+"',";
 					   //callBack.fetchDataForSelectedFarmers(ids);
 					    
 				   }
@@ -292,6 +303,7 @@ public class ListResultFragment extends ListFragment implements InovagroConstant
 		   }//delete
 	   
 	   if (v==btnResetLocalDB){
+		   //TODO: provide a dialog box to confirm the deletion action.
 		   callBack.resetLocalFarmersDB();
 		   return;
 	   }

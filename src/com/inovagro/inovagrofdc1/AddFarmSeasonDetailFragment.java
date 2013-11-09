@@ -39,7 +39,7 @@ public class AddFarmSeasonDetailFragment extends Fragment implements OnClickList
 	ArrayAdapter<ComboRowData> aaLandOwnership=null;
 	
 	//local variables
-	String FarmID="0";
+	String FarmID="-1";
 	String FarmName=null;
 	public AddFarmSeasonDetailFragment(String FarmID, String FarmName){
 		this.FarmID=FarmID;
@@ -131,7 +131,7 @@ public class AddFarmSeasonDetailFragment extends Fragment implements OnClickList
 		  HashMap<String, String> values = new HashMap<String, String>();
 		   
 		   values.put("FarmID",String.valueOf(FarmID));
-		 	   
+		 	   System.out.println("AddFarmSeasonDetail: value of FarmID="+FarmID);
 		   ComboRowData c;
 		   int index;
 		   c=(ComboRowData)alCropType.get(spnCropType.getSelectedItemPosition());		   

@@ -3,10 +3,12 @@ package com.inovagro.inovagrofdc1;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -80,6 +83,20 @@ public class AddFarmerDetailFragment extends Fragment implements OnClickListener
 	ArrayAdapter<ComboRowData> aaFarmerGroup=null;
 	ArrayAdapter<ComboRowData> aaIDTypes=null;
 
+	int EditMode =0;
+	HashMap<String, String> FormData;
+	//String [] DataOrder; //order in which data appears on the form
+	AddFarmerDetailFragment(int EditMode, HashMap<String, String> FormData){
+		this.EditMode=EditMode;
+		this.FormData=FormData;
+		
+	}
+	
+	AddFarmerDetailFragment(){
+		//this really does nothing. Just so previous code does not break.
+		super();
+	}
+	
 	@Override
 	    public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	            Bundle savedInstanceState) {
@@ -167,9 +184,99 @@ public class AddFarmerDetailFragment extends Fragment implements OnClickListener
 	        spnIDTypes.setAdapter(aaIDTypes);
 	   */     
 	        edtDateofBirth.setOnClickListener(this);
+	        //set GPS values automatically
+	        System.out.println("be4update gps in add farmer");
+	        Log.v("addFarmerDetail", "abut to update gps");
+	        if(EditMode==ADD_MODE ){
+	        	showCurrentLocation();
+	        	System.out.println("shd update gps");
+	        	
+	        }
+	        
+	        if(EditMode==EDIT_MODE || EditMode==VIEW_MODE){
+	        	
+	        	edtSurname.setText(FormData.get("Surname"));
+	        	edtForenames.setText(FormData.get("ForeNames")); //test
+	        	edtFarmerReferenceNo.setText(FormData.get("FarmerReferenceNo"));
+	        	edtPhoneNo.setText(FormData.get("PhoneNo"));
+	        	edtDateofBirth.setText(UtilityFunctions.SQLdateToAndroidStringDate(FormData.get("DateOfBirth")));
+	        	System.out.println("dob="+FormData.get("DateOfBirth"));
+	        	edtHeadofHousehold.setText(FormData.get("HeadOfHouseholdName"));
+	        	edtNumberOfDependents.setText(FormData.get("NumberOfDependents"));
+	        	edtBirthCertificate.setText(FormData.get("BirthCertificate"));
+	        	edtTemporaryID.setText(FormData.get("TemporaryID"));
+	        	edtNationalID.setText(FormData.get("NationalID"));
+	        	edtVoterRegistrationCard.setText(FormData.get("VoterRegistrationCard"));
+	        	edtIncomeTaxNo.setText(FormData.get("IncomeTaxNo"));
+	        	edtPassport.setText(FormData.get("Passport"));
+	        	edtDUAT.setText(FormData.get("DUAT"));
+	        	edtGPSLong.setText(FormData.get("GPSLong"));
+	        	edtGPSLat.setText(FormData.get("GPSLat"));
+	        	
+	        	txtFarmerPicture.setText(FormData.get("FarmerPicture"));
+	        	txtID1Front.setText(FormData.get("ID1Front"));
+	        	txtID1Back.setText(FormData.get("ID1Back"));
+	        	txtID2Front.setText(FormData.get("ID2Front"));
+	        	txtID2Back.setText(FormData.get("ID2Back"));
+	        	
+	        	edtDateofBirth.setText(FormData.get("DateofBirth"));
+	        	System.out.println("FormData.get(Gender)__"+FormData.get("Gender") +"bool "+FormData.get("Gender").equals("1"));
+	        		        	
+	        	if (FormData.get("Gender").equals("1"))	
+	        		rdMale.setChecked(true);
+	        	else
+	        		rdFemale.setChecked(true);
+	        		
+	        	if (FormData.get("IsGroupLeader").equals("1"))
+	        		rdGroupLeaderYes.setChecked(true);
+	        	else
+	        		rdGroupLeaderNo.setChecked(true);
+	        	if (FormData.get("HeadOfHouseholdGender").equals("1"))
+	        		rdHoHMale.setChecked(true);
+	        	else
+	        		rdHoHFemale.setChecked(true);
+	        	
+	        	int position=UtilityFunctions.getSpinnerPosition(spnProvince, FormData.get("ProvinceID") );
+	        	spnProvince.setSelection(position);
+	        	//the other spinners are set in the OnItemSelected() function in an editMode block for each of them
+			    
+	        	
+		        }
+	        if(EditMode==VIEW_MODE){
+//				//enable this for true view mode. For now, allow editing.	        	
+//	        	edtSurname.setEnabled(false);
+//	        	edtForenames.setEnabled(false);
+//	        	edtFarmerReferenceNo.setEnabled(false);
+//	        	edtPhoneNo.setEnabled(false);
+//	        	edtDateofBirth.setEnabled(false);
+//	        	edtHeadofHousehold.setEnabled(false);
+//	        	edtNumberOfDependents.setEnabled(false);
+//	        	edtBirthCertificate.setEnabled(false);
+//	        	edtTemporaryID.setEnabled(false);
+//	        	edtNationalID.setEnabled(false);
+//	        	edtVoterRegistrationCard.setEnabled(false);
+//	        	edtIncomeTaxNo.setEnabled(false);
+//	        	edtPassport.setEnabled(false);
+//	        	edtDUAT.setEnabled(false);
+//	        	edtGPSLong.setEnabled(false);
+//	        	edtGPSLat.setEnabled(false);
+//	        	
+//	        	
+//	        	btnFarmerPicture.setEnabled(false);
+//	        	btnID1Front.setEnabled(false);
+//	        	btnID1Back.setEnabled(false);
+//	        	btnID2Front.setEnabled(false);
+//	        	btnID2Back .setEnabled(false);
+	        	
+	        	
+	        	 
+	        	
+	        }
+	        
 	        return rootView;
 	    }
-	   
+	
+  
 	   public void onClick(View v){
 		   if (v==btnCancel){
 			   getFragmentManager().popBackStack();
@@ -211,7 +318,7 @@ public class AddFarmerDetailFragment extends Fragment implements OnClickListener
 	   public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
 			   //selection.setText(items[position]);
 		   SpinnerData s= new SpinnerData(getActivity());
-		   
+		   System.out.println("in onItemSelected_for_spinner");
 		   if (parent==spnProvince){
 			   
 			   ComboRowData c=(ComboRowData)alProvince.get(position);
@@ -219,6 +326,11 @@ public class AddFarmerDetailFragment extends Fragment implements OnClickListener
 		       aaDistrict=new ArrayAdapter<ComboRowData>(getActivity(),android.R.layout.simple_spinner_item,alDistrict);
 		       aaDistrict.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
 		       spnDistrict.setAdapter(aaDistrict);
+		       if(EditMode==VIEW_MODE){
+		    	   int pos=UtilityFunctions.getSpinnerPosition(spnDistrict, FormData.get("DistrictID") );		        	
+		    	   spnDistrict.setSelection(pos, true);  //seems not to care what the value of position is!//===============		 			  
+		      
+		       }
 			   
 		       
 		   }//spnProvince
@@ -227,14 +339,22 @@ public class AddFarmerDetailFragment extends Fragment implements OnClickListener
 			   alAdminPost=s.adminPostData(c.ID);  		        
 		       aaAdminPost=new ArrayAdapter<ComboRowData>(getActivity(),android.R.layout.simple_spinner_item,alAdminPost);
 		       aaAdminPost.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
-		       spnAdminPost.setAdapter(aaAdminPost);			   
+		       spnAdminPost.setAdapter(aaAdminPost);	
+		       if(EditMode==VIEW_MODE){
+		    	   int pos=UtilityFunctions.getSpinnerPosition(spnAdminPost, FormData.get("AdminPostID") );
+			       spnAdminPost.setSelection( pos);
+			       }
 		   }
 		   if (parent==spnAdminPost){
 			   ComboRowData c=(ComboRowData)alAdminPost.get(position);
 			   alLocality=s.LocalityData(c.ID);  		        
 		       aaLocality=new ArrayAdapter<ComboRowData>(getActivity(),android.R.layout.simple_spinner_item,alLocality);
 		       aaLocality.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
-		       spnLocality.setAdapter(aaLocality);			   
+		       spnLocality.setAdapter(aaLocality);
+		       if(EditMode==VIEW_MODE){
+		    	   int pos=UtilityFunctions.getSpinnerPosition(spnLocality, FormData.get("LocalityID") );
+			       spnLocality.setSelection( pos);
+		       }
 		   }
 		   if (parent==spnLocality){
 			   ComboRowData c=(ComboRowData)alLocality.get(position);
@@ -242,6 +362,12 @@ public class AddFarmerDetailFragment extends Fragment implements OnClickListener
 		       aaZone=new ArrayAdapter<ComboRowData>(getActivity(),android.R.layout.simple_spinner_item,alZone);
 		       aaZone.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
 		       spnZone.setAdapter(aaZone);
+		       if(EditMode==VIEW_MODE){
+		    	   int pos=UtilityFunctions.getSpinnerPosition(spnZone, FormData.get("ZoneID") );
+			       spnZone.setSelection( pos);
+			       
+
+		       }
 		   }
 		   if (parent==spnZone){
 			   ComboRowData c=(ComboRowData)alZone.get(position);
@@ -249,6 +375,10 @@ public class AddFarmerDetailFragment extends Fragment implements OnClickListener
 		       aaFarmerGroup=new ArrayAdapter<ComboRowData>(getActivity(),android.R.layout.simple_spinner_item,alFarmerGroup);
 		       aaFarmerGroup.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
 		       spnFarmerGroup.setAdapter(aaFarmerGroup);
+		       if(EditMode==VIEW_MODE){
+		    	   int pos=UtilityFunctions.getSpinnerPosition(spnFarmerGroup, FormData.get("FarmerGroupID") );
+			       spnFarmerGroup.setSelection( pos);
+		       }
 		   }
 	   }
 	   public void onNothingSelected(AdapterView<?> parent) { 
@@ -257,11 +387,19 @@ public class AddFarmerDetailFragment extends Fragment implements OnClickListener
 			   
 	   
 	   private void fetchDataAndPost(){
-		   
+		   System.out.println("Edit mode="+EditMode);
 		   //alternative to ahve a single var to pass to post method
-		   HashMap<String, String> values = new HashMap<String, String>();
-		   
-		   values.put("FarmerID",UtilityFunctions.uniqueID(""));
+		   LinkedHashMap<String, String> values = new LinkedHashMap<String, String>();
+		   //verify if the order is preserved:
+		   if(EditMode==ADD_MODE){
+			   System.out.println("in addfarmer-ADD mode currentFarmerID"+MainActivity.CurrentFarmerID);
+			   values.put("FarmerID",UtilityFunctions.uniqueID(""));
+		   }
+		   else
+		   {
+			   System.out.println("in addfarmer-NOT add mode--currentFarmerID"+MainActivity.CurrentFarmerID);
+			   values.put("FarmerID",MainActivity.CurrentFarmerID);
+		   }
 		   values.put("Surname",edtSurname.getText().toString());
 		   values.put("ForeNames",edtForenames.getText().toString());
 		   values.put("FarmerReferenceNo",edtFarmerReferenceNo.getText().toString());
@@ -317,8 +455,14 @@ public class AddFarmerDetailFragment extends Fragment implements OnClickListener
 		  // values.put("IDType",String.valueOf(c.ID));
 	
 
+		   LinkedHashMap<String, String> rawFormData=new LinkedHashMap<String, String> ();
+		   //add teh data here, call the confirmation form to show it
+		   
+		   
+		   
+		   callBack.showConfirmationForm(values,actionPOST_ADD_FARMER );  //eventually, this will be the rawFormData as well as values
 		   //now use call back to send the post
-		   callBack.postData(actionPOST_ADD_FARMER, values);
+		   ///callBack.postData(actionPOST_ADD_FARMER, values);   //original that works 
 	   }
 	   
 	   protected void showCurrentLocation() {
@@ -395,5 +539,19 @@ public class AddFarmerDetailFragment extends Fragment implements OnClickListener
 		      super.onDetach();
 		      callBack = null;
 		  }
+	/*	  
+		  public LinkedHashMap<String, String> getValuesEntered(){
+			  //View rootView = inflater.inflate(R.layout.frag_add_farmer,container, false);
+		       
+		        
+			  LayoutInflater inflater = getLayoutInflater(null);
+			  LinearLayout l = (LinearLayout) inflater.inflate(R.layout.frag_add_farmer, null);
 
+			  ViewGroup Current_Widget = (ViewGroup)l.getRootView();
+
+			  for (int i = 0; i < Current_Widget.getChildCount(); i++)
+			      Current_Widget.getChildAt(i);
+		  return null;
+		  }
+*/
 }

@@ -52,11 +52,12 @@ public class Login extends Activity implements InovagroConstants {
 		if (v==btnLogin){
 		//begin login process
 			//next 3 lines for testing purposes only. comment during actual use and use next 4 code lines
-		/*
-			Intent i= new Intent(this,MainActivity.class);
-			startActivity(i);
-			UserID=2;  //for testing purposes only
-		*/
+			
+			 MainActivity.OfflineState=OnLineMode;  //for initial load, determine its effect		
+//			Intent i= new Intent(this,MainActivity.class);
+//			startActivity(i);
+//			UserID=2;  //for testing purposes only
+		
 			
 	//uncomment below for actual
 			
@@ -64,47 +65,48 @@ public class Login extends Activity implements InovagroConstants {
 			String usr=edtUserName.getText().toString();
 			String pass=edtPassword.getText().toString();
 			//backdoor to reset the localDB
-			/*
-			if (usr.equalsIgnoreCase("m")) {
-				if (pass.equals("12")){ //12bms34std
-		        	DBAdapter db= new DBAdapter(getApplicationContext());
-		        	db.open();
-		        	db.masterDBReset();
-		        	db.close();
-		        	return;
-								
-					/*
-					 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-						    @Override
-						    public void onClick(DialogInterface dialog, int which) {
-						        switch (which){
-						        case DialogInterface.BUTTON_POSITIVE:
-						            //Yes button clicked
-						        	DBAdapter db= new DBAdapter(getApplicationContext());
-									db.masterDBReset();
-									Toast.makeText(getApplicationContext(), "Add Data Deleted!", Toast.LENGTH_LONG).show();
-									//getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-						            break;
-
-						        case DialogInterface.BUTTON_NEGATIVE:
-						            //No button clicked
-						            break;
-						        }
-						    }
-						};
-
-						AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-						builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
-						    .setNegativeButton("No", dialogClickListener).show();
-				 */
-				/*
-				}
-			}  */
-			
+										/*
+										if (usr.equalsIgnoreCase("m")) {
+											if (pass.equals("12")){ //12bms34std
+									        	DBAdapter db= new DBAdapter(getApplicationContext());
+									        	db.open();
+									        	db.masterDBReset();
+									        	db.close();
+									        	return;
+															
+												/*
+												 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+													    @Override
+													    public void onClick(DialogInterface dialog, int which) {
+													        switch (which){
+													        case DialogInterface.BUTTON_POSITIVE:
+													            //Yes button clicked
+													        	DBAdapter db= new DBAdapter(getApplicationContext());
+																db.masterDBReset();
+																Toast.makeText(getApplicationContext(), "Add Data Deleted!", Toast.LENGTH_LONG).show();
+																//getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+													            break;
+							
+													        case DialogInterface.BUTTON_NEGATIVE:
+													            //No button clicked
+													            break;
+													        }
+													    }
+													};
+							
+													AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+													builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
+													    .setNegativeButton("No", dialogClickListener).show();
+											 */
+											/*
+											}
+										}  */
+	
+   //login code - enable this so that acutal login occurs, not a bypass			
 			String addr=BaseURL+"?action=LOGIN&username="+usr+"&password="+pass;
 			new LoginTask(addr,Login.this).execute();
-			//new LoginTask(null,Login.this).execute(new String[] { InovagroConstants.BaseURL+"?action=LOGIN&username="+usr+"&password="+pass });
-		
+
+			
 		}
 	}//public void
 	
@@ -144,31 +146,7 @@ public class Login extends Activity implements InovagroConstants {
 				e.printStackTrace();
 			}
 		
-			//=======
-		/*	
-			for (String url : urls) {
-				DefaultHttpClient client = new DefaultHttpClient();
-				HttpGet httpGet = new HttpGet(url);
-				try {
-					HttpResponse execute = client.execute(httpGet);
-					InputStream content = execute.getEntity().getContent();
-					
-					//not part of http;
-					publishProgress("Connected...");
-					
-					BufferedReader buffer = new BufferedReader(
-							new InputStreamReader(content));
-					String s = "";
-					while ((s = buffer.readLine()) != null) {
-						response += s;
-					}
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			//=======
-		*/	
+	
 			pd.dismiss();
 			return response;	
 		//	publishProgress(item); SystemClock.sleep(200);
@@ -199,6 +177,10 @@ public class Login extends Activity implements InovagroConstants {
 				UserID=Integer.valueOf(data[0]);
 				Toast.makeText(Login.this, "Logged in", Toast.LENGTH_SHORT) .show();
 			
+				//get data from server and save locally.
+				cacheLoginInfo(edtUserName.getText().toString(), data[1], data[0]);
+				
+				 MainActivity.OfflineState=OnLineMode;  //for initial load, determine its effect
 				Intent i= new Intent(getApplicationContext(),MainActivity.class);
 				startActivity(i);
 			}
@@ -209,8 +191,63 @@ public class Login extends Activity implements InovagroConstants {
 				}
 				else{
 					Toast.makeText(Login.this, "Sorry, There is a communication error", Toast.LENGTH_LONG) .show();
+					//attempt local log in. Ask First?
+					attemptLocalLogin();
 				}
 			}
+			
+			
+		}
+		void cacheLoginInfo(String userName, String password, String UserID){
+		
+			DBAdapter db;
+			db=new DBAdapter(getApplicationContext());
+			db.open();
+			String res=db.saveUsersDataOffline(userName, password, UserID);
+			if (res.endsWith("successOK")){
+				Toast.makeText(getApplicationContext(), "You may also log in offline", Toast.LENGTH_LONG).show();
+				//close the dialog box, or reset the values.
+				//getSupportFragmentManager().popBackStack();
+				
+				
+			}
+			else {//
+				Toast.makeText(getApplicationContext(), "Sorry, Local Save failed", Toast.LENGTH_LONG).show();
+			}
+			db.close();
+			
+		}//fxn
+		
+		
+		void attemptLocalLogin(){
+			String usr=edtUserName.getText().toString();
+			String pass=edtPassword.getText().toString();
+			DBAdapter db;
+			db=new DBAdapter(getApplicationContext());
+			db.open();
+			String res=db.verifyUsersDataOffline(usr, pass );
+			
+			if (res.endsWith("successOK")){
+				Toast.makeText(getApplicationContext(), "Your are logged in Offline Mode", Toast.LENGTH_LONG).show();
+				
+				UtilityFunctions uf=new UtilityFunctions();
+				res=res.replace("successOK","");				
+				String[] data= uf.msplit(res, ":");
+				
+				UserID=Integer.valueOf(data[0]);
+				
+				
+				
+				MainActivity.OfflineState=MainActivity.OffLineMode;
+				Intent i= new Intent(getApplicationContext(),MainActivity.class);
+				startActivity(i);
+				
+			}
+			else {//
+				Toast.makeText(getApplicationContext(), "Sorry, Cannot login in Offline mode", Toast.LENGTH_LONG).show();
+			}
+			db.close();
+			
 			
 			
 		}

@@ -1,8 +1,8 @@
 package com.inovagro.inovagrofdc1;
 
 public interface InovagroConstants {
-	public static String BaseURL="http://10.0.2.2/mywebs/inovagro_android/utilities4android.php";
-    //public static String BaseURL="http://www.ghmeforum.org/inovagro/inovagro_android/utilities4android.php";
+//	public static String BaseURL="http://10.0.2.2/mywebs/inovagro_android/utilities4android.php";
+    public static String BaseURL="http://www.ghmeforum.org/inovagro/inovagro_android/utilities4android.php";
     public static final String DATABASE_TABLE1 = "provinces";
     public static final String DATABASE_TABLE2 = "districts";
     public static final String DATABASE_TABLE3 = "admin_posts";
@@ -81,6 +81,8 @@ public interface InovagroConstants {
     public static final int actionUPLOAD_SAVED_FARMER_DATA=117;
     public static final int actionUPLOAD_SAVED_FARM_DATA=118;
     
+    public static final int actionFETCH_FARMER_DETAILS=119;
+    
     
    // public static final int actionSAVE_ADD_FARMER=9;
     
@@ -109,11 +111,14 @@ public interface InovagroConstants {
     public static  final int searchBA_PLAN_VISIT=1003;
     public static  final int view_PLANNED_VISITS=1004;
     public static  final int searchPIGEONPEA_HARVEST_SURVEY=1005;
+    public static  final int searchBA_FARMER_DETAIL = 1006;
     
     
     //used for online-offlien status
     public static final int OffLineMode=2000;
     public static final int OnLineMode=2001;
+    public static final int FarmerManagementMenuType=2002;
+    public static final int UploadSavedDataMenuType=2003;
     
     
     //if a form should be viewed, edited or is in add mode
