@@ -226,7 +226,7 @@ public class Login extends Activity implements InovagroConstants {
 			db=new DBAdapter(getApplicationContext());
 			db.open();
 			String res=db.verifyUsersDataOffline(usr, pass );
-			
+			db.close();
 			if (res.endsWith("successOK")){
 				Toast.makeText(getApplicationContext(), "Your are logged in Offline Mode", Toast.LENGTH_LONG).show();
 				
@@ -246,7 +246,7 @@ public class Login extends Activity implements InovagroConstants {
 			else {//
 				Toast.makeText(getApplicationContext(), "Sorry, Cannot login in Offline mode", Toast.LENGTH_LONG).show();
 			}
-			db.close();
+			//db.close();
 			
 			
 			

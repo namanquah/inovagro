@@ -91,9 +91,11 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
     public static String mnuUploadSavedSurvey2013Data;
     
     public static String mnuPigeonPeaHarvestSurvey;
+    public static String mnuPovertyScoreCard;
     public static String mnuUploadPigeionPeaHarvestSurveyData;
     public static String mnuUploadFarmerData;
     public static String mnuUploadFarmData;
+    public static String mnuUploadPovertyScoreCardData;
     
     public static String mnuFarmerManagementMenu;
     public static String mnuViewFarmer;
@@ -161,7 +163,8 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 	     mnuChangePassword=OnlineMenu[8];
 	     mnuSurvey2013=OnlineMenu[9];
 	     mnuPigeonPeaHarvestSurvey=OnlineMenu[10];
-	     mnuExit=OnlineMenu[11]; 
+	     mnuPovertyScoreCard=OnlineMenu[11];
+	     mnuExit=OnlineMenu[12]; 
 	     
 	     //uploads menu
 	     mnuUploadSavedVisitData=UploadsMenu[0];
@@ -169,9 +172,10 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 	     mnuUploadPigeionPeaHarvestSurveyData=UploadsMenu[2];
 	     mnuUploadFarmerData=UploadsMenu[3];
 	     mnuUploadFarmData=UploadsMenu[4];
+	     mnuUploadPovertyScoreCardData=UploadsMenu[5];
 	    
 	    //ofline menu
-	    mnuGoOnline=OfflineMenu[6] ;
+	    mnuGoOnline=OfflineMenu[7] ;
 	    
 	    //create arrays to hold survey results:
 	     gblPartIValues= new HashMap<String, String>();
@@ -432,6 +436,30 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
             	//change the text in the menu to Online
             	//change the background from Red to Blue
             }
+            
+            //PovertyScoreCard   
+            if (id.equals(mnuPovertyScoreCard)){
+            	//short circuit, not passing to fragment and back:
+            	MainActivity.PurposeOfSearch=searchPOVERTY_SCORE_CARD;
+            	fragment=new BasicAdvancedSearchFragment(searchPOVERTY_SCORE_CARD);
+            	   fragmentTransaction.replace(TargetPane, fragment); //as .add
+                   fragmentTransaction.addToBackStack(null);
+                   fragmentTransaction.commit();
+            }
+            
+            //mnuUploadPovertyScoreCardData
+            if (id.equals(mnuUploadPovertyScoreCardData)){
+            	HashMap<String,String> data= new HashMap<String, String>();
+            	String strData;
+            	DBAdapter db = new DBAdapter(getApplicationContext());
+ 				db.open();
+ 				strData =db.uploadSavedPovertyScoreCardData_getInsertValuesPart();				
+            	data.put("valuesPart", strData);//farmData
+            	
+            	db.close();
+            	postData( actionUPLOAD_SAVED_POVERTY_SCORE_CARD_DATA, data); //fetch the data in the postData or PostThread
+            
+            }
 	}//on item selected
 	
 	//call back function from basic+adv serach
@@ -487,11 +515,11 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 		//the encoding has not been done for the advanced case. Do encode the tmp variable.
 		
 		if (searchType==actionSEARCH_FARMERNAME){
-		 addr=BaseURL+"?action=SEARCH_FARMERS_BY_NAME&searchString="+searchString;
+		 addr=BaseURL+"?action=SEARCH_FARMERS_BY_NAME&searchString="+searchString+"&CurrentUserID="+Login.UserID;
 		 action=searchType;//actionSEARCH_FARMERNAME;
 		}
 		if (searchType==actionSEARCH_FARMERREFERENCENO){
-			 addr=BaseURL+"?action=SEARCH_FARMERS_BY_REFNO&searchString="+searchString;
+			 addr=BaseURL+"?action=SEARCH_FARMERS_BY_REFNO&searchString="+searchString+"&CurrentUserID="+Login.UserID;
 			 action=searchType;//actionSEARCH_FARMERREFERENCENO;
 			}
 		if (MainActivity.PurposeOfSearch ==view_PLANNED_VISITS){   
@@ -537,7 +565,7 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 			tmp+="&"+key+"="+value;
 		}
 		if (OfflineState==OnLineMode){
-			String addr=BaseURL+"?action=SEARCH_ADVANCED"+tmp;
+			String addr=BaseURL+"?action=SEARCH_ADVANCED"+tmp+"&currentUserID="+Login.UserID;
 			new SyncTask(action,addr,MainActivity.this).execute();
 		}
 		else{
@@ -709,7 +737,7 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 			 action=actionType;
 			 break;
 		 case actionFETCH_FARMER_FARM_DATA4_OFFLINE:
-			 addr=BaseURL+"?action=FETCH_FARMER_FARM_DATA4_OFFLINE";
+			 addr=BaseURL+"?action=FETCH_FARMER_FARM_DATA4_OFFLINE&CurrentUserID="+Login.UserID;
 			 action=actionType;
 			 break;
 		 case actionUPLOAD_SAVED_VISIT_DATA:
@@ -751,7 +779,16 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 			 action=actionType;
 			 glbActionType=action;
 			 break;
-			 
+		 case actionSAVE_POVERTY_SCORE_CARD:
+			 addr=BaseURL+"?action=SAVE_POVERTY_SCORE_CARD";
+			 action=actionType;
+			 glbActionType=action;
+			 break;
+		 case actionUPLOAD_SAVED_POVERTY_SCORE_CARD_DATA:
+			 addr=BaseURL+"?action=UPLOAD_SAVED_POVERTY_SCORE_CARD_DATA";
+			 action=actionType;
+			 glbActionType=action;
+			 break;
 		}
 		Log.v("postData msg","OfflineState="+OfflineState);
 		if (MainActivity.OfflineState ==OnLineMode){
@@ -896,7 +933,25 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 					}
 					//db.close();
 				 break;
+				
+			 case actionSAVE_POVERTY_SCORE_CARD:
+				 db = new DBAdapter(getApplicationContext());
+					db.open();
+					String res6=db.savePovertyScoreCardDataOffline(values);
+					db.close();
+					if (res6.endsWith("successOK")){
+						Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
+						//close the dialog box, or reset the values.
+						getSupportFragmentManager().popBackStack();
+						getSupportFragmentManager().popBackStack();
+						
+					}
+					else {//
+						Toast.makeText(getApplicationContext(), "Sorry, Local Save failed", Toast.LENGTH_LONG).show();
+					}
+					db.close();
 				 
+				 break;
 				 
 				 
 			default:
@@ -1071,6 +1126,19 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 			}
 		}
 		
+		//UPLOAD_SAVED_POVERTY_SCORE_CARD_DATA
+		if (glbActionType==actionUPLOAD_SAVED_POVERTY_SCORE_CARD_DATA){ //clear local table bc was successful.
+			if (result.endsWith("successOK")){
+			 DBAdapter db = new DBAdapter(getApplicationContext());
+				db.open();
+				db.wipeOfflinePovertyScoreCardData();
+				db.initOfflinePovertyScoreCardDataTables();
+				db.close();
+			}
+			if (result.endsWith("failedOK")){
+				Toast.makeText(getApplicationContext(), "No data or bad data to upload", Toast.LENGTH_LONG).show();
+			}
+		}
 		/*
 		 *  //will need to pass actionTypes to doAfterPostData to specialize the result handling.
 
@@ -1352,6 +1420,29 @@ int TargetPane;
 
 	}
 	
+	public void showPovertyScoreCard(String FarmerID){
+int TargetPane;
+		
+		if (mTwoPane) {
+	          TargetPane=R.id.rightFrame;
+		}
+		else
+		{
+		      TargetPane=R.id.leftFrame;			
+		}
+		FragmentManager fragmentManager = getSupportFragmentManager();	
+		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+		android.support.v4.app.Fragment fragment=null;
+		//show the new fragment -add visit data form
+		//todo: do pass both FarmYearlyDataID and vistType to the constructor 
+		//done----v
+		intializeSurveyData();
+		fragment = new PovertyScoreCard(FarmerID);
+		fragmentTransaction.replace(TargetPane , fragment);
+		fragmentTransaction.addToBackStack(null);
+		fragmentTransaction.commit();	
+	}
+	
 	//**************---^---general call backs***************************/
 	
 	public void showAddFarmSeasonDetailFragment(String FarmID){
@@ -1424,125 +1515,7 @@ int TargetPane;
     	gblPartIIIaValues.clear();
     	gblPartIIIbValues.clear();
     	gblPartIVValues.clear();
-    	/*
-    	gblAllSurveyValues.put("UserID","");
-    	gblAllSurveyValues.put("SurveyDataID","");
-    	gblAllSurveyValues.put("Q1a1","");
-    	gblAllSurveyValues.put("Q1a2","");
-    	gblAllSurveyValues.put("Q1b","");
-    	gblAllSurveyValues.put("Q1c","");
-    	gblAllSurveyValues.put("Q1d","");
-    	gblAllSurveyValues.put("Q1d1","");
-    	gblAllSurveyValues.put("Q1f0","");
-    	gblAllSurveyValues.put("Q1f1","");
-    	gblAllSurveyValues.put("Q1f2","");
-    	gblAllSurveyValues.put("Q1f3","");
-    	gblAllSurveyValues.put("Q1f4","");
-    	gblAllSurveyValues.put("Q1f5","");
-    	gblAllSurveyValues.put("Q1g","");
-    	gblAllSurveyValues.put("Q1h","");
-    	gblAllSurveyValues.put("Q1i1","");
-    	gblAllSurveyValues.put("Q1i2","");
-    	gblAllSurveyValues.put("Q1i3","");
-    	gblAllSurveyValues.put("Q1i4","");
-    	gblAllSurveyValues.put("Q1i5","");
-    	gblAllSurveyValues.put("Q1j","");
-    	gblAllSurveyValues.put("Q1k","");
-    	gblAllSurveyValues.put("Q2a","");
-    	gblAllSurveyValues.put("Q2b","");
-    	gblAllSurveyValues.put("Q2c","");
-    	gblAllSurveyValues.put("Q2dMFIQ1","");
-    	gblAllSurveyValues.put("Q2dMFIQ2","");
-    	gblAllSurveyValues.put("Q2dMFIQ3","");
-    	gblAllSurveyValues.put("Q2dMFIQ4","");
-    	gblAllSurveyValues.put("Q2dMFIQ5","");
-    	gblAllSurveyValues.put("Q2dMFIQ6","");
-    	gblAllSurveyValues.put("Q2dMFIQ7","");
-    	gblAllSurveyValues.put("Q2dMFIQ8","");
-    	gblAllSurveyValues.put("Q2dMFIQ9","");
-    	gblAllSurveyValues.put("Q2dMFIQ10","");
-    	gblAllSurveyValues.put("Q3a","");
-    	gblAllSurveyValues.put("Q3b","");
-    	gblAllSurveyValues.put("Q3c1","");
-    	gblAllSurveyValues.put("Q3c2","");
-    	gblAllSurveyValues.put("Q3c3","");
-    	gblAllSurveyValues.put("Q3d","");
-    	gblAllSurveyValues.put("Q3e1","");
-    	gblAllSurveyValues.put("Q3e2","");
-    	gblAllSurveyValues.put("Q3e3","");
-    	gblAllSurveyValues.put("Q3f1","");
-    	gblAllSurveyValues.put("Q3f2","");
-    	gblAllSurveyValues.put("Q3f3","");
-    	gblAllSurveyValues.put("Q3f4","");
-    	gblAllSurveyValues.put("Q3f5","");
-    	gblAllSurveyValues.put("Q3f6","");
-    	gblAllSurveyValues.put("Q3g1","");
-    	gblAllSurveyValues.put("Q3g2","");
-    	gblAllSurveyValues.put("Q3h","");
-    	gblAllSurveyValues.put("Q3i","");
-    	gblAllSurveyValues.put("Q3k1","");
-    	gblAllSurveyValues.put("Q3k2","");
-    	gblAllSurveyValues.put("Q3k3","");
-    	gblAllSurveyValues.put("Q3k4","");
-    	gblAllSurveyValues.put("Q3k5","");
-    	gblAllSurveyValues.put("Q3kb","");
-    	gblAllSurveyValues.put("Q3l","");
-    	gblAllSurveyValues.put("Q3m","");
-    	gblAllSurveyValues.put("Q3n1a","");
-    	gblAllSurveyValues.put("Q3n1b","");
-    	gblAllSurveyValues.put("Q3n1c","");
-    	gblAllSurveyValues.put("Q3n2a","");
-    	gblAllSurveyValues.put("Q3n2b","");
-    	gblAllSurveyValues.put("Q3n2c","");
-    	gblAllSurveyValues.put("Q3n3a","");
-    	gblAllSurveyValues.put("Q3n3b","");
-    	gblAllSurveyValues.put("Q3n3c","");
-    	gblAllSurveyValues.put("Q3n4a","");
-    	gblAllSurveyValues.put("Q3n4b","");
-    	gblAllSurveyValues.put("Q3n4c","");
-    	gblAllSurveyValues.put("Q3n5a","");
-    	gblAllSurveyValues.put("Q3n5b","");
-    	gblAllSurveyValues.put("Q3n5c","");
-    	gblAllSurveyValues.put("Q3o","");
-    	gblAllSurveyValues.put("Q3p","");
-    	gblAllSurveyValues.put("Q3q1","");
-    	gblAllSurveyValues.put("Q3q2","");
-    	gblAllSurveyValues.put("Q3q3","");
-    	gblAllSurveyValues.put("Q3qi","");
-    	gblAllSurveyValues.put("Q3qii","");
-    	gblAllSurveyValues.put("Q3r","");
-    	gblAllSurveyValues.put("Q3ri","");
-    	gblAllSurveyValues.put("Q3rii","");
-    	gblAllSurveyValues.put("Q3riii","");
-    	gblAllSurveyValues.put("Q3riv","");
-    	gblAllSurveyValues.put("Q3rv","");
-    	gblAllSurveyValues.put("Q3s","");
-    	gblAllSurveyValues.put("Q3sii","");
-    	gblAllSurveyValues.put("Q4a","");
-    	gblAllSurveyValues.put("Q4ai","");
-    	gblAllSurveyValues.put("Q4b","");
-    	gblAllSurveyValues.put("Q4bi","");
-    	gblAllSurveyValues.put("Q4bii","");
-    	gblAllSurveyValues.put("Q4biii","");
-    	gblAllSurveyValues.put("Q4biv","");
-    	gblAllSurveyValues.put("Q4c","");
-    	gblAllSurveyValues.put("Q4d","");
-    	gblAllSurveyValues.put("Q4e","");
-    	gblAllSurveyValues.put("Q4f1a","");
-    	gblAllSurveyValues.put("Q4f1b","");
-    	gblAllSurveyValues.put("Q4f1c","");
-    	gblAllSurveyValues.put("Q4f1d","");
-    	gblAllSurveyValues.put("Q4f2a","");
-    	gblAllSurveyValues.put("Q4f2b","");
-    	gblAllSurveyValues.put("Q4f2c","");
-    	gblAllSurveyValues.put("Q4f2d","");
-    	gblAllSurveyValues.put("Q4f3a","");
-    	gblAllSurveyValues.put("Q4f3b","");
-    	gblAllSurveyValues.put("Q4f3c","");
-    	gblAllSurveyValues.put("Q4f3d","");
-    	gblAllSurveyValues.put("Q4g","");
-    	gblAllSurveyValues.put("Q4g2","");    	
-*/
+    	
     	//gblAllSurveyValues.put("UserID","");
     	gblAllSurveyValues.put("SurveyDataID","");
     	gblAllSurveyValues.put("Q1a1","");

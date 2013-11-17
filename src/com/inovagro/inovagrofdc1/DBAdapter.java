@@ -27,7 +27,7 @@ public class DBAdapter implements InovagroConstants {
 	    
 	    private static final String DATABASE_NAME = "MyDB";    
 	    
-	    private static final int DATABASE_VERSION = 7;
+	    private static final int DATABASE_VERSION = 8;
 
 	    /*private static final String DATABASE_CREATE =
 	        "create table contacts (_id integer primary key autoincrement, "
@@ -110,7 +110,8 @@ public class DBAdapter implements InovagroConstants {
 				 "GPSLong  real,"+
 				 "GPSLat  real,"+
 				 "MobileTimeStamp  text,"+				 
-				 "SystemTimeStamp  text"+
+				 "SystemTimeStamp  text,"+
+				 "Hectares  real"+
 				 		" );";
 	 
 	   private static final String createUserTbl="CREATE TABLE IF NOT EXISTS `users` ("+
@@ -148,7 +149,25 @@ public class DBAdapter implements InovagroConstants {
 			   "  `UserTypeID` integer NOT NULL,"+
 			   ");";
 	   */
-	    private final Context context;    
+	    
+	   private static final String createPovertyScoreCardTbl="CREATE TABLE IF NOT EXISTS `poverty_score_card` ( "+
+			"  `PovertyScoreCardID` NOT NULL primary key on conflict replace," + 
+			"  `UserID` integer NOT NULL," + 
+			"  `FarmerID` text NOT NULL," + 
+			"  `Q2dMFIQ1` integer NOT NULL DEFAULT '-1'," + 
+			"  `Q2dMFIQ2` integer NOT NULL DEFAULT '-1'," + 
+			"  `Q2dMFIQ3` integer NOT NULL DEFAULT '-1'," + 
+			"  `Q2dMFIQ4` integer NOT NULL DEFAULT '-1'," + 
+			"  `Q2dMFIQ5` integer NOT NULL DEFAULT '-1'," + 
+			"  `Q2dMFIQ6` integer NOT NULL DEFAULT '-1'," + 
+			"  `Q2dMFIQ7` integer NOT NULL DEFAULT '-1'," + 
+			"  `Q2dMFIQ8` integer NOT NULL DEFAULT '-1'," + 
+			"  `Q2dMFIQ9` integer NOT NULL DEFAULT '-1'," + 
+			"  `Q2dMFIQ10` integer NOT NULL DEFAULT '-1'," + 
+			"  `MobileTimeStamp` text NOT NULL," + 
+			"  `SystemTimeStamp` text " + 
+			") ";
+	   private final Context context;    
 
 	    private DatabaseHelper DBHelper;
 	    private SQLiteDatabase db;
@@ -209,29 +228,35 @@ public class DBAdapter implements InovagroConstants {
 	        @Override
 	        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) 
 	        {
-	            Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
-	                    + newVersion + ", which will destroy all old data");
-	          //  db.execSQL("DROP TABLE IF EXISTS contacts");
-	            db.execSQL("DROP TABLE IF EXISTS provinces");
-	            db.execSQL("DROP TABLE IF EXISTS districts");
-	            db.execSQL("DROP TABLE IF EXISTS admin_posts");
-	            db.execSQL("DROP TABLE IF EXISTS locality");
-	            db.execSQL("DROP TABLE IF EXISTS zones");
-	            db.execSQL("DROP TABLE IF EXISTS farmer_groups");
-	            db.execSQL("DROP TABLE IF EXISTS id_types");
-	            db.execSQL("DROP TABLE IF EXISTS crop_types");
-	            db.execSQL("DROP TABLE IF EXISTS seed_variety");
-	            db.execSQL("DROP TABLE IF EXISTS service_provider_types");
-	            db.execSQL("DROP TABLE IF EXISTS service_providers");
-	            db.execSQL("DROP TABLE IF EXISTS seasons");
-	            db.execSQL("DROP TABLE IF EXISTS land_ownership_types");
-	            
-	            db.execSQL("DROP TABLE IF EXISTS farmers");
-	            db.execSQL("DROP TABLE IF EXISTS farms");
-	            db.execSQL("DROP TABLE IF EXISTS farms_yearly_data");
-	            db.execSQL("DROP TABLE IF EXISTS farmer_seasons");
-		         
+	        	if(oldVersion<7){
+			            Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
+			                    + newVersion + ", which will destroy all old data");
+			          //  db.execSQL("DROP TABLE IF EXISTS contacts");
+			            db.execSQL("DROP TABLE IF EXISTS provinces");
+			            db.execSQL("DROP TABLE IF EXISTS districts");
+			            db.execSQL("DROP TABLE IF EXISTS admin_posts");
+			            db.execSQL("DROP TABLE IF EXISTS locality");
+			            db.execSQL("DROP TABLE IF EXISTS zones");
+			            db.execSQL("DROP TABLE IF EXISTS farmer_groups");
+			            db.execSQL("DROP TABLE IF EXISTS id_types");
+			            db.execSQL("DROP TABLE IF EXISTS crop_types");
+			            db.execSQL("DROP TABLE IF EXISTS seed_variety");
+			            db.execSQL("DROP TABLE IF EXISTS service_provider_types");
+			            db.execSQL("DROP TABLE IF EXISTS service_providers");
+			            db.execSQL("DROP TABLE IF EXISTS seasons");
+			            db.execSQL("DROP TABLE IF EXISTS land_ownership_types");
+			            
+			            db.execSQL("DROP TABLE IF EXISTS farmers");
+			            db.execSQL("DROP TABLE IF EXISTS farms");
+			            db.execSQL("DROP TABLE IF EXISTS farms_yearly_data");
+			            db.execSQL("DROP TABLE IF EXISTS farmer_seasons");
+				     
 			            onCreate(db);
+			     }
+	        	if (oldVersion==7){
+	        		db.execSQL("Alter table farmers add column Hectares real NULL");
+	        		
+	        	}
 	        }
 	    }    
 
@@ -715,7 +740,7 @@ public class DBAdapter implements InovagroConstants {
         }
         
         public String fetchLocalFarmerDetails(String searchString){
-            	String sql="SELECT FarmerID, Surname, ForeNames, FarmerReferenceNo, Gender, PhoneNo, DateOfBirth, ProvinceID, DistrictID, AdminPostID, LocalityID, ZoneID, FarmerGroupID, IDType, FarmerIDNo, HeadOfHouseholdName, HeadOfHouseholdGender, NumberOfDependents, IsGroupLeader, UserId, BirthCertificate, TemporaryID, NationalID, VoterRegistrationCard, IncomeTaxNo, Passport, DUAT, ID1Front, ID1Back, ID2Front, ID2Back, FarmerPicture, GPSLong, GPSLat, SystemTimeStamp, MobileTimeStamp from farmers where FarmerID like '%"+searchString+"%'  ";
+            	String sql="SELECT FarmerID, Surname, ForeNames, FarmerReferenceNo, Gender, PhoneNo, DateOfBirth, ProvinceID, DistrictID, AdminPostID, LocalityID, ZoneID, FarmerGroupID, IDType, FarmerIDNo, HeadOfHouseholdName, HeadOfHouseholdGender, NumberOfDependents, IsGroupLeader, UserId, BirthCertificate, TemporaryID, NationalID, VoterRegistrationCard, IncomeTaxNo, Passport, DUAT, ID1Front, ID1Back, ID2Front, ID2Back, FarmerPicture, GPSLong, GPSLat, SystemTimeStamp, MobileTimeStamp, Hectares from farmers where FarmerID like '%"+searchString+"%'  ";
         		StringBuffer sb= new StringBuffer();
             	Cursor c=null;
                	try{
@@ -1290,47 +1315,6 @@ public class DBAdapter implements InovagroConstants {
 
         //offline saving code for farmer data //new sept 2013!
         public void initOfflineFarmerTables(){  //+"//  only Farmer table updated.
-        /*	 String createFarmerTbl="CREATE TABLE IF NOT EXISTS farmers ("+
-     				// "_id integer primary key autoincrement,"+
-     				 "  FarmerID integer NOT NULL primary key on conflict replace,"+
-     				 "  Surname text NOT NULL,"+
-     				 "  ForeNames text NOT NULL,"+
-     				 "  FarmerReferenceNo text NOT NULL,"+
-     				 "  Gender integer NOT NULL ,"+
-     				 "  PhoneNo text NOT NULL ,"+
-     				 "  textOfBirth text NOT NULL,"+
-     				 "  ProvinceID integer NOT NULL,"+
-     				 "  DistrictID integer NOT NULL,"+
-     				 "  AdminPostID integer NOT NULL,"+
-     				 "  LocalityID integer NOT NULL,"+
-     				 "  ZoneID integer NOT NULL,"+
-     				 "  FarmerGroupID integer NOT NULL,"+
-     				 "  IDType integer NOT NULL,"+
-     				 "  FarmerIDNo text NOT NULL,"+
-     				 "  HeadOfHouseholdName text NOT NULL,"+
-     				 "  HeadOfHouseholdGender integer NOT NULL,"+
-     				 "  NumberOfDependents integer NOT NULL,"+
-     				 "  IsGroupLeader tinyint(4) NOT NULL ,"+
-     				 "  UserId integer NOT NULL,"+
-     				 " BirthCertificate  text,"+
-     				 " TemporaryID  text,"+
-     				 " NationalID  text,"+
-     				 " VoterRegistrationCard  text,"+
-     				 " IncomeTaxNo  text,"+
-     				 " Passport  text,"+
-     				 " DUAT  text,"+
-     				 " ID1Front  text,"+
-     				 " ID1Back  text,"+
-     				 " ID2Front  text,"+
-     				 " ID2Back  text,"+
-     				 " FarmerPicture  text,"+
-     				 " GPSLong  real,"+
-     				 " GPSLat  real,"+
-     				 " MobileTimeStamp  text"+
-     				 		" );";
-        	 */
-//" `SystemTime`
-        		
 				     
         	db.execSQL(createFarmerTbl);
         }
@@ -1360,9 +1344,9 @@ public class DBAdapter implements InovagroConstants {
         	
         	//String uniqueID=UtilityFunctions.uniqueID("");
 
-        	String sql="REPLACE INTO `farmers` ( `FarmerID`, `Surname`, `ForeNames`, `FarmerReferenceNo`, `Gender`, `PhoneNo`, `DateOfBirth`, `ProvinceID`, `DistrictID`, `AdminPostID`, `LocalityID`, `ZoneID`, `FarmerGroupID`, `IDType`, `FarmerIDNo`, `HeadOfHouseholdName`, `HeadOfHouseholdGender`, `NumberOfDependents`, `IsGroupLeader`, `UserId`, `BirthCertificate`, `TemporaryID`, `NationalID`, `VoterRegistrationCard`, `IncomeTaxNo`, `Passport`, `DUAT`, `ID1Front`, `ID1Back`, `ID2Front`, `ID2Back`, `FarmerPicture`, `GPSLong`, `GPSLat`, `MobileTimeStamp`) "+ 
+        	String sql="REPLACE INTO `farmers` ( `FarmerID`, `Surname`, `ForeNames`, `FarmerReferenceNo`, `Gender`, `PhoneNo`, `DateOfBirth`, `ProvinceID`, `DistrictID`, `AdminPostID`, `LocalityID`, `ZoneID`, `FarmerGroupID`, `IDType`, `FarmerIDNo`, `HeadOfHouseholdName`, `HeadOfHouseholdGender`, `NumberOfDependents`, `IsGroupLeader`, `UserId`, `BirthCertificate`, `TemporaryID`, `NationalID`, `VoterRegistrationCard`, `IncomeTaxNo`, `Passport`, `DUAT`, `ID1Front`, `ID1Back`, `ID2Front`, `ID2Back`, `FarmerPicture`, `GPSLong`, `GPSLat`, `MobileTimeStamp`, `Hectares`) "+ 
         			"Values( "+ 
-        			"		'"+values.get("FarmerID")+"', '"+values.get("Surname")+"', '"+values.get("ForeNames")+"', '"+values.get("FarmerReferenceNo")+"', '"+values.get("Gender")+"', '"+values.get("PhoneNo")+"', '"+values.get("DateOfBirth")+"', '"+values.get("ProvinceID")+"', '"+values.get("DistrictID")+"', '"+values.get("AdminPostID")+"', '"+values.get("LocalityID")+"', '"+values.get("ZoneID")+"', '"+values.get("FarmerGroupID")+"', '"+values.get("IDType")+"', '"+values.get("FarmerIDNo")+"', '"+values.get("HeadOfHouseholdName")+"', '"+values.get("HeadOfHouseholdGender")+"', '"+values.get("NumberOfDependents")+"', '"+values.get("IsGroupLeader")+"', '"+values.get("UserId")+"', '"+values.get("BirthCertificate")+"', '"+values.get("TemporaryID")+"', '"+values.get("NationalID")+"', '"+values.get("VoterRegistrationCard")+"', '"+values.get("IncomeTaxNo")+"', '"+values.get("Passport")+"', '"+values.get("DUAT")+"', '"+values.get("ID1Front")+"', '"+values.get("ID1Back")+"', '"+values.get("ID2Front")+"', '"+values.get("ID2Back")+"', '"+values.get("FarmerPicture")+"', '"+values.get("GPSLong")+"', '"+values.get("GPSLat")+"',  '"+values.get("MobileTimeStamp")+"'  "+ 
+        			"		'"+values.get("FarmerID")+"', '"+values.get("Surname")+"', '"+values.get("ForeNames")+"', '"+values.get("FarmerReferenceNo")+"', '"+values.get("Gender")+"', '"+values.get("PhoneNo")+"', '"+values.get("DateOfBirth")+"', '"+values.get("ProvinceID")+"', '"+values.get("DistrictID")+"', '"+values.get("AdminPostID")+"', '"+values.get("LocalityID")+"', '"+values.get("ZoneID")+"', '"+values.get("FarmerGroupID")+"', '"+values.get("IDType")+"', '"+values.get("FarmerIDNo")+"', '"+values.get("HeadOfHouseholdName")+"', '"+values.get("HeadOfHouseholdGender")+"', '"+values.get("NumberOfDependents")+"', '"+values.get("IsGroupLeader")+"', '"+values.get("UserId")+"', '"+values.get("BirthCertificate")+"', '"+values.get("TemporaryID")+"', '"+values.get("NationalID")+"', '"+values.get("VoterRegistrationCard")+"', '"+values.get("IncomeTaxNo")+"', '"+values.get("Passport")+"', '"+values.get("DUAT")+"', '"+values.get("ID1Front")+"', '"+values.get("ID1Back")+"', '"+values.get("ID2Front")+"', '"+values.get("ID2Back")+"', '"+values.get("FarmerPicture")+"', '"+values.get("GPSLong")+"', '"+values.get("GPSLat")+"',  '"+values.get("MobileTimeStamp")+"' ,  '"+values.get("Hectares")+"'  "+ 
         			"		)";
         	
         	
@@ -1387,7 +1371,10 @@ public class DBAdapter implements InovagroConstants {
         	 *
         	 */
         	//Log.v("in upload sved pigeionPea harvest data","---");
-        	String sql="select `FarmerID`, `Surname`, `ForeNames`, `FarmerReferenceNo`, `Gender`, `PhoneNo`, `DateOfBirth`, `ProvinceID`, `DistrictID`, `AdminPostID`, `LocalityID`, `ZoneID`, `FarmerGroupID`, `IDType`, `FarmerIDNo`, `HeadOfHouseholdName`, `HeadOfHouseholdGender`, `NumberOfDependents`, `IsGroupLeader`, `UserId`, `BirthCertificate`, `TemporaryID`, `NationalID`, `VoterRegistrationCard`, `IncomeTaxNo`, `Passport`, `DUAT`, `ID1Front`, `ID1Back`, `ID2Front`, `ID2Back`, `FarmerPicture`, `GPSLong`, `GPSLat`,  `MobileTimeStamp` from farmers ";
+        	//NOTE: the following assumes taht the systemTime is the last field taged on in teh back end
+        	String sql="select `FarmerID`, `Surname`, `ForeNames`, `FarmerReferenceNo`, `Gender`, `PhoneNo`, `DateOfBirth`, `ProvinceID`, `DistrictID`, `AdminPostID`, `LocalityID`, `ZoneID`, `FarmerGroupID`, `IDType`, `FarmerIDNo`, `HeadOfHouseholdName`, `HeadOfHouseholdGender`, `NumberOfDependents`, `IsGroupLeader`, `UserId`, `BirthCertificate`, `TemporaryID`, `NationalID`, `VoterRegistrationCard`, `IncomeTaxNo`, `Passport`, `DUAT`, `ID1Front`, `ID1Back`, `ID2Front`, `ID2Back`, `FarmerPicture`, `GPSLong`, `GPSLat`,  `MobileTimeStamp`, `Hectares` from farmers ";
+        	
+        	
         	
         	Cursor c=null;
            	try{
@@ -1694,5 +1681,105 @@ public class DBAdapter implements InovagroConstants {
 //   		        return sb.toString();
            }//fxn verifyUserDataOffline
 
+     //====================vv=============poverty score card==========
+//work on the offline version.   PovertyScoreCard
+           
+           public void initOfflinePovertyScoreCardDataTables(){ 
+            	 
+  		     
+              	db.execSQL(createPovertyScoreCardTbl);
+              }
+              
+           public void wipeOfflinePovertyScoreCardData(){
+          	 db.execSQL("DROP TABLE IF EXISTS poverty_score_card");
+          	initOfflinePovertyScoreCardDataTables();
+          }
         
+        public String savePovertyScoreCardDataOffline(HashMap<String, String>values){      	
+        	initOfflinePovertyScoreCardDataTables();//only create the table if it does not exist
+        	//String uniqueID=UtilityFunctions.uniqueID("");
+//do nnot use this unique value
+//do not use theEntryData        	
+        	//String theEntryDate=UtilityFunctions.currentStringTimeStamp(); 
+//ignore system timestamp (values will be preserved.
+        	String sql="REPLACE INTO `poverty_score_card` (`PovertyScoreCardID`, `UserID`, `FarmerID`, `Q2dMFIQ1`, `Q2dMFIQ2`, `Q2dMFIQ3`, `Q2dMFIQ4`, `Q2dMFIQ5`, `Q2dMFIQ6`, `Q2dMFIQ7`, `Q2dMFIQ8`, `Q2dMFIQ9`, `Q2dMFIQ10`, `MobileTimeStamp`) "+
+        				" VALUES ("+
+        				
+        				"   	'"+values.get("PovertyScoreCardID")+"', '"+values.get("UserID")+"', '"+values.get("FarmerID")+"', '"+values.get("Q2dMFIQ1")+"', '"+values.get("Q2dMFIQ2")+"', '"+values.get("Q2dMFIQ3")+"', '"+values.get("Q2dMFIQ4")+"', '"+values.get("Q2dMFIQ5")+"', '"+values.get("Q2dMFIQ6")+"', '"+values.get("Q2dMFIQ7")+"', '"+values.get("Q2dMFIQ8")+"', '"+values.get("Q2dMFIQ9")+"', '"+values.get("Q2dMFIQ10")+"', '"+values.get("MobileTimeStamp")+"'   "+
+        			" )";
+        	System.out.println("savePovertyScoreCardData in dbadapter: sql="+sql);
+        	try{
+        	db.execSQL(sql);
+        	}catch (Exception e){  //SQLException
+        		System.out.println("Local Save Error-savePovertyScoreCardOffline"+e.toString());
+        		return e.toString()+"SaveLocalfailedOK";
+        	}
+        	return "successOK";
+        	
+        }
+
+        public String uploadSavedPovertyScoreCardData_getInsertValuesPart(){
+        	//this function will read saved data and write it directly to the web server.
+        	/*
+        	 * it will sync with onilne db using insert or update, and make use of a unique
+        	 * key on the millisecs+userid code. shd be reasonably unique.
+        	 * will deal with the case where response from server is not received, and prevent duplicated data.
+        	 *
+        	 */
+        	//Log.v("in upload sved pigeionPea harvest data","---");
+        	//assumes system time will be tagged on at the end in backend
+        	String sql="SELECT `PovertyScoreCardID`, `UserID`, `FarmerID`, `Q2dMFIQ1`, `Q2dMFIQ2`, `Q2dMFIQ3`, `Q2dMFIQ4`, `Q2dMFIQ5`, `Q2dMFIQ6`, `Q2dMFIQ7`, `Q2dMFIQ8`, `Q2dMFIQ9`, `Q2dMFIQ10`, `MobileTimeStamp` FROM `poverty_score_card` ";
+        	
+        	Cursor c=null;
+           	try{
+           		c=   db.rawQuery(sql, null);
+           	}catch(Exception e){
+           		
+           	}
+           	
+ 	       	 if (c != null) {
+ 		            c.moveToFirst();
+ 		    
+ 		        }
+ 	      
+ 	       	 //convert cursor into a long string to be uploaded/posted to php
+ 		        // mCursor;
+ 	       	StringBuffer ValuesPart=new StringBuffer();
+ 	       	if (c != null) {  //placed in here in case no data exists locally.
+ 	       	if (c.moveToFirst())
+ 	        {
+ 	            do {  
+ 	            	ValuesPart.append("(");
+ 	            	//prepare the values part of an insert or replace statement
+ 	            	for (int i=0; i<c.getColumnCount(); i++){
+ 	            	/*	if (i==c.getColumnCount()-1){
+ 	            			ValuesPart.append("'"+c.getString(i)+"')");  
+ 	            		}else{
+ 	            			ValuesPart.append("'"+c.getString(i)+"'");//
+ 	            		}
+ 	            		if (!(c.isLast() && i==c.getColumnCount()-1)) { //last column of last row has no  comma but bracket 
+ 	            			
+ 	            			ValuesPart.append(","); */
+ 	            		if (i==c.getColumnCount()-1){
+	            			ValuesPart.append("'"+c.getString(i)+"', NOW() )");  //closing paranthesis, but added timestamp
+	            		}else{
+	            			ValuesPart.append("'"+c.getString(i)+"'");//
+	            		}
+	            		if (!(c.isLast() && i==c.getColumnCount()-1)) { //last column of last row has no  comma but bracket 
+	            			
+	            			ValuesPart.append(","); 
+	            		
+ 	            		}
+ 	            	}
+ 	                
+ 	            } while (c.moveToNext());
+ 	        }
+ 	        c.close();
+        	 
+        	return ValuesPart.toString();
+ 	       	}
+ 	       	return null;
+        }
+
+     //====================^^=============poverty score card==========
 }//main class

@@ -23,7 +23,9 @@ public class UtilityFunctions {
 				case ' ': urlOK.append("%20"); break;
 				case ':': urlOK.append("%3A"); break;
 				case '-': urlOK.append("%2D"); break;
+				case '%': urlOK.append("%25"); break;
 	                        //case '&': urlOK.append("%26"); break;
+				//see   http://www.degraeve.com/reference/urlencoding.php
 				default: urlOK.append(ch); break;
 			}
 		}

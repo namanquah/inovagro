@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="my_app_version">InovagroFDC v2.61 bug fixes, fixed offline farmer update</string>  
+    <string name="my_app_version">InovagroFDC v2.8 poverty scorecard,(on or offline), hectares added to farmers, search only your records</string>  
     <string name="app_name">InovagroFDC1</string>
     <string name="lbl_Cancel">Cancel</string>
     <string name="hello_world">Hello world!</string>
@@ -37,6 +37,8 @@
     <string name="lblFemale">Female</string>
     <string name="lblYes">Yes</string>
     <string name="lblNo">No</string>
+    <string name="lblHectares">Hectares</string>
+    
     
     <!-- modification on Add Farmer -->
     <string name="lblBirthCertificate">Birth Certificate</string>
@@ -142,6 +144,7 @@
 		<item >Change Password</item>
 		<item >August 2013 Survey</item>			
 		<item >Pigeon Pea Harvest Survey</item>
+		<item >Poverty Score Card</item>
 		<item >Exit</item>		
     </string-array>
     
@@ -177,6 +180,7 @@
 		<item >August 2013 Survey</item>
 		<item >Mange Stored Farmer Data</item>
 		<item >Pigeon Pea Harvest Survey</item>
+		<item >Poverty Score Card</item>
 		<item >Go Online</item>
 		<item >Exit</item>
     </string-array>
@@ -194,7 +198,8 @@
 		<item >Upload Saved Survey Data</item>
 		<item >Upload Offline Pigeon Pea Data</item>
 		<item >Upload Offline Farmer Data</item>
-		<item >Upload Offline Farm Data</item>		
+		<item >Upload Offline Farm Data</item>	
+		<item >Upload Offline Poverty ScoreCard</item>		
 		<item >Back To Main Menu</item>
     </string-array>
    

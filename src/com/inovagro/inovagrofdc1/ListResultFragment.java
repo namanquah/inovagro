@@ -202,6 +202,10 @@ public class ListResultFragment extends ListFragment implements InovagroConstant
 					  callBack.showFarmerDetail(FarmerID);
 					  return;
 				  }
+				  if (MainActivity.PurposeOfSearch==searchPOVERTY_SCORE_CARD){
+					  callBack.showPovertyScoreCard(FarmerID);
+					  return;
+				  }
 				  //wont get here if its pigeionPea
 				  
 				  callBack.fetchListOfFarms(actionSEARCH_CURRENT_FARMS, FarmerID);

@@ -57,6 +57,7 @@ public class AddFarmerDetailFragment extends Fragment implements OnClickListener
 	//EditText edtFarmerIDNO;  //removed
 	EditText edtGPSLong;
 	EditText edtGPSLat;
+	EditText edtHectares;
 	
 	TextView txtFarmerPicture;
 	TextView txtID1Front;
@@ -145,6 +146,7 @@ public class AddFarmerDetailFragment extends Fragment implements OnClickListener
 			edtDUAT=(EditText)rootView.findViewById(R.id.edtDUAT);
 			edtGPSLong=(EditText)rootView.findViewById(R.id.edtGPSLong);
 	        edtGPSLat=(EditText)rootView.findViewById(R.id.edtGPSLat);
+	        edtHectares=(EditText)rootView.findViewById(R.id.edtHectares);
 	        
 	
 			rdMale=(RadioButton)rootView.findViewById(R.id.rdMale);
@@ -212,6 +214,7 @@ public class AddFarmerDetailFragment extends Fragment implements OnClickListener
 	        	edtDUAT.setText(FormData.get("DUAT"));
 	        	edtGPSLong.setText(FormData.get("GPSLong"));
 	        	edtGPSLat.setText(FormData.get("GPSLat"));
+	        	edtHectares.setText(FormData.get("Hectares"));
 	        	
 	        	txtFarmerPicture.setText(FormData.get("FarmerPicture"));
 	        	txtID1Front.setText(FormData.get("ID1Front"));
@@ -428,6 +431,8 @@ public class AddFarmerDetailFragment extends Fragment implements OnClickListener
 		   values.put("ID2Back",txtID2Back.getText().toString());
 		   values.put("GPSLong",edtGPSLong.getText().toString());
 		   values.put("GPSLat",edtGPSLat.getText().toString());
+		   values.put("Hectares",edtHectares.getText().toString());
+		   
 		   
 		   Calendar cal= Calendar.getInstance();
       	   	long timeStamp=cal.getTimeInMillis();

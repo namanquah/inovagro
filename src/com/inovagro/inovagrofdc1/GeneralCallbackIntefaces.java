@@ -27,4 +27,5 @@ public interface GeneralCallbackIntefaces {
 	public void showPigeonPeaHarvestForm(String FarmerID, String FarmerName);//show the PigeonPeaHarvest Form
 	public void showFarmerDetail(String FarmerID);
 	public void showConfirmationForm(HashMap<String, String> Data, int postAction);
+	public void showPovertyScoreCard(String FarmerID);
 }

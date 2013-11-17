@@ -37,6 +37,7 @@
   <string name="lblFemale">Feminino</string> 
   <string name="lblYes">Sim</string> 
   <string name="lblNo">Nao</string> 
+  <string name="lblHectares">Hectares</string>
   
       <!-- modification on Add Farmer added on Monday 22-sept-13 -->
     <string name="lblBirthCertificate">Cedula</string>
@@ -143,6 +144,7 @@
 		<item >Inquerito Agosto 2013</item>
 		
 		<item >Colheita De Feijao Boer</item> 
+		<item >Poverty Score Card</item>
 		<item >Sair</item>
     </string-array>
     
@@ -173,6 +175,7 @@
 		<item >Inquerito Agosto 2013</item>
 		<item >Gerir informacao armazenada</item>
 		<item >Colheita De Feijao Boer</item>
+		<item >Poverty Score Card</item>
 		<item >Trabalhar Online</item>
 		<item >Sair</item>
     </string-array>
@@ -192,6 +195,7 @@
 		<item >Carregar informacao armazenada Colheita de Feijao Boer</item>
 		<item >Carregar informacao armazenada productore</item>
 		<item >Carregar informacao armazenada machamba</item>
+		<item >Carregar informacao armazenada Poverty ScoreCard</item>
 		<item >Voltar a menu principal</item>
     </string-array>
 </resources>
