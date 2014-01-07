@@ -129,7 +129,8 @@ public class AddFarmSeasonDetailFragment extends Fragment implements OnClickList
 	 
 	 public void fetchDataAndPost(){
 		  HashMap<String, String> values = new HashMap<String, String>();
-		   
+		  
+		  values.put("FarmYearlyDataID",UtilityFunctions.uniqueID(""));
 		   values.put("FarmID",String.valueOf(FarmID));
 		 	   System.out.println("AddFarmSeasonDetail: value of FarmID="+FarmID);
 		   ComboRowData c;

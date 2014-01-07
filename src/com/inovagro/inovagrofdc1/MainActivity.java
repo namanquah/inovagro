@@ -601,7 +601,7 @@ public class MainActivity extends FragmentActivity implements MainMenuList.Callb
 		String addr=null;
 		int action=-1;
 		if (searchType==actionSEARCH_CURRENT_FARMS){
-		 addr=BaseURL+"?action=SEARCH_CURRENT_FARMS&searchString="+FarmerID;
+		 addr=BaseURL+"?action=SEARCH_CURRENT_FARMS&searchString="+FarmerID+ "&CurrentUserID="+Login.UserID;
 		 action=searchType; //actionSEARCH_CURRENT_FARMS
 		 CurrentFarmerID=FarmerID;  //shortCircuit. Using a static globl var
 		}
@@ -1945,10 +1945,10 @@ int TargetPane;
                 		  
           		    File file = new File(Environment.getExternalStorageDirectory(), "IFDC"+File.separator+captured_image);           		              		  
           		    captured_image = file.getAbsolutePath();   //note: this will also change the global var
-          		      Bitmap bitmap = Bitmap.createScaledBitmap((Bitmap)data.getExtras().get("data"), 800, 600, true);//w,h
+          		      Bitmap bitmap = Bitmap.createScaledBitmap((Bitmap)data.getExtras().get("data"), 1600, 1200, true);//w,h //chnaged from 800x600
                       //try{
                           FileOutputStream out = new FileOutputStream(captured_image);//destinationFile, captured_image is global var
-                          bitmap.compress(Bitmap.CompressFormat.JPEG, 50, out);
+                          bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out); //change from 50 to 100. 0 = min size, 100 =max quality
                           out.flush();
                           out.close();
                       } 
