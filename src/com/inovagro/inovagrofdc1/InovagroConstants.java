@@ -2,7 +2,8 @@ package com.inovagro.inovagrofdc1;
 
 public interface InovagroConstants {
 //	public static String BaseURL="http://10.0.2.2/mywebs/inovagro_android/utilities4android.php";
-    public static String BaseURL="http://www.ghmeforum.org/inovagro/inovagro_android/utilities4android_v8.php";
+//    public static String BaseURL="http://www.ghmeforum.org/inovagro/inovagro_android/utilities4android_v8.php";
+    public static String BaseURL="http://www.inovagroproject.com/inovagro_android/utilities4android_v8.php";
     //v8 corresponds to the version of the local db in use. 
     public static final String DATABASE_TABLE1 = "provinces";
     public static final String DATABASE_TABLE2 = "districts";
